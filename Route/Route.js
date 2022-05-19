@@ -4,11 +4,11 @@ const user = require('../Api/user/ApiPasien')
 const auth = require('../Api/auth/ApiAuth')
 
 
-app.get('/user', user.getusers ) 
-app.get('/user/:Id', user.findUsers ) 
+app.get('/pasien', user.getusers ) 
+app.get('/pasien/:Id', user.findUsers ) 
 app.post('/adduser', user.addUser )
-app.put('/user/:Id', user.updateUser )
-app.delete('/user/:Id', user.deleteUser )
+app.put('/edit/:Id', user.updateUser )
+app.delete('/pasien/:Id', user.deleteUser )
 
 app.post('/login', auth.login )
 app.post('/register', auth.register )

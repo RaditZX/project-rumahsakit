@@ -51,7 +51,7 @@ class ApiUser {
         }
         //delete user
         this.deleteUser = (req, res) => {
-            Pasien.model.remove({ _id: req.params.Id }, (err, users) => {
+            Pasien.model.deleteOne({ _id: req.params.Id }, (err, users) => {
                 if (err)
                     res.send(err);
                 res.json({ message: 'Successfully deleted' });

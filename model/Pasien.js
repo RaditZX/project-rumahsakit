@@ -8,9 +8,10 @@ class Pasien {
         this.schema = mongoose.Schema({
             nama: String,
             alamat: String,
-            no_telp: String,
+            no_telp: Number,
             jenis_kelamin: String,
-            tanggal_lahir: String,
+            tanggal_lahir: Date,
+            Golongan_darah: String,
         }, this.options);
         this.model = mongoose.model('pasien', this.schema);
 
