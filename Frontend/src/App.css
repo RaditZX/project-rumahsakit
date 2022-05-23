@@ -1,0 +1,120 @@
+.card-header{
+  background-color: #87CEFA		;
+  height: 4rem;
+  text-align: start;
+  font-family: serif ;
+  font-weight: bold;
+  font-size: large;
+  color: white;
+  font-size: 25px;
+}
+
+.card{
+  background-color: #4b81a2;
+  height: 3rem;
+  width: 108%;
+}
+
+.form-group{
+  justify-content: start;
+  text-align: start;
+}
+
+.login{
+  justify-content: center;
+  height: 100vh;
+  border-radius: 30px;
+  background-color: wheat;
+}
+
+.navbar {
+  background-color: #9dc1d8;
+  height: 50px;
+}
+
+.menu-bars{
+  margin-left: 2rem;
+  font-size: 2rem;
+  background: none;
+}
+
+.nav-menu{
+  background-color: #9dc1d8;
+  width: 150px;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  left: -50px;
+  transition: 850ms;
+}
+
+.nav-menu-active{
+  left: 10;
+  transition: 350ms;
+}
+
+.nav-text{
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  padding: 8px 0px 8px 16px;
+  list-style: none;
+  height: 50px;
+}
+
+.nav-text a{
+  text-decoration: none;
+  color: #fff5f5;
+  font-size: 15px;
+  width: 95%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  border-radius: 4px;
+}
+
+.nav-text a:hover{
+  background-color: #4b81a2;
+}
+
+.nav-menu-items{
+  width: 100%;
+}
+
+
+.logo{
+  width: 50px;
+  height: 50px;
+  margin-left: 2rem;
+}
+
+.container{
+  margin-left: 7rem;
+  margin-top: 1.5rem;
+}
+
+.pasien{
+  background-color: rgb(239, 234, 234);
+  height: auto;
+  width:108%;
+}
+
+.card-login{
+  background-color: white;
+}
+
+.register{
+  background-color: violet;
+  height: 100vh;
+}
+
+.tabel-pasien{
+  width: 98%;
+}
+
+.header-tabel{
+  background-color: #4b81a2;
+}
