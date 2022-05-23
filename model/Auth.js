@@ -5,7 +5,7 @@ class UserAuth{
             timestamps: true
         };
         this.schema = mongoose.Schema({
-            username: String,
+            nama: String,
             password: String,
             role: String,
             email: String,

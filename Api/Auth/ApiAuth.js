@@ -52,9 +52,9 @@ class Authentication {
                         message: "Login successfull",
                         accessToken: token,
                         });
-                     }
-
-                 });
+                }
+            });
+            
          };
          //register
         this.register = async (req, res) => {
@@ -86,6 +86,31 @@ class Authentication {
                 });
               }
             };
+
+            //get user
+            this.getUser = (req, res) => {
+                Auth.model.find({}, (err, user) => {
+                    if (err)
+                        res.send(err);
+                    res.json(user);
+                });
+            }
+
+            this.getUserById = (req, res) => {
+                Auth.model.findById(req.params.Id, (err, user) => {
+                    if (err)
+                        res.send(err);
+                    res.json(user);
+                });
+            }
+
+            this.updateUser = (req, res) => {
+                Auth.model.findOneAndUpdate({ _id: req.params.Id }, req.body, { new: true }, (err, user) => {
+                    if (err)
+                        res.send(err);
+                    res.json(user);
+                });
+            }
 
     }
 }
