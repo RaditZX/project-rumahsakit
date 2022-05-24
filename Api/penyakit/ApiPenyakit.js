@@ -18,7 +18,7 @@ class ApiPenyakit{
             });
         }
         this.addpenyakit = (req, res) => {
-            if (!req.body.nama_penyakit, !req.body.deskripsi, !req.body.solusi) {
+            if (!req.body.nama_penyakit) {
                 res.json({
                     status: false,
                     message: 'Name is required'

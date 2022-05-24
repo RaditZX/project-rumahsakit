@@ -1,0 +1,117 @@
+.card-header{
+  background-color: #414141		;
+  height: 4rem;
+  text-align: start;
+  font-family: serif ;
+  font-weight: bold;
+  font-size: large;
+  color: white;
+  font-size: 25px;
+}
+
+
+
+.form-group{
+  justify-content: start;
+  text-align: start;
+}
+
+.login{
+  justify-content: center;
+  height: 100vh;
+  border-radius: 30px;
+
+}
+
+
+
+
+.menu-bars{
+  margin-left: 2rem;
+  font-size: 2rem;
+  background: none;
+}
+
+.nav-menu{
+  background: #2c2c2c;
+  width: 15rem;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0rem;
+  transition: 850ms;
+}
+
+.nav-menu-active{
+  left: 10;
+  transition: 350ms;
+}
+
+.nav-text{
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  padding: 8px 0px 8px 16px;
+  list-style: none;
+  height: 50px;
+}
+
+.nav-text a{
+  text-decoration: none;
+  color: #fff5f5;
+  font-size: 15px;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  border-radius: 4px;
+  font-weight: bold;
+}
+
+.nav-text a:hover{
+  background-color: hsla(0,0%,100%,.23)
+}
+
+.nav-menu-items{
+  width: 100%;
+}
+
+
+.logo{
+  width: 10rem;
+  height:6rem;
+
+}
+
+.container{
+  margin-left: 20rem;
+  margin-top: 1.5rem;
+}
+
+.pasien{
+
+}
+
+.card-login{
+  background-color: white;
+}
+
+
+
+
+
+
+@media  (min-width: 1366px){
+  .container{
+   width: 70%;
+  }
+  }
+  @media  (min-width: 1920px){
+    .container{
+     width: 100%;
+    }
+    
+    }

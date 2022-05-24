@@ -10,7 +10,7 @@ const biaya = require('../Api/Biayaperawatan/ApiBiaya')
 // Route pasien
 app.get('/pasien', user.getusers ) 
 app.get('/pasien/:Id', user.findUsers ) 
-app.post('/adduser', user.addUser )
+app.post('/addpasien', user.addUser )
 app.put('/edit/:Id', user.updateUser )
 app.delete('/pasien/:Id', user.deleteUser )
 
