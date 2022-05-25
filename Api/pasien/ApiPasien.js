@@ -93,7 +93,7 @@ class ApiUser {
         };
         //update user
         this.updateUser = (req, res) => {
-            if (!req.body.nama, !req.body.alamat, !req.body.no_telp, !req.body.jenis_kelamin, !req.body.tanggal_lahir) {
+            if (!req.body.nama) {
                 res.json({
                     status: false,
                     message: 'Name is required'

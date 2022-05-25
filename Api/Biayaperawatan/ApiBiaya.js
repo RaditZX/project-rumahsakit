@@ -18,7 +18,7 @@ class Biaya {
             });
         }
         this.addbiaya = (req, res) => {
-            if ( !req.body.nama_biaya ) {
+            if (!req.body.nama_biaya) {
                 res.json({
                     status: false,
                     message: 'Name is required'

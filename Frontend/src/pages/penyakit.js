@@ -1,6 +1,6 @@
 import React,{useState,useEffect} from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { useHistory,useParams, Link } from 'react-router-dom';
+import { useHistory,useParams, Link,Redirect } from 'react-router-dom';
 import Navbar from "../compenents/navbar";
 import axios from 'axios';
 import ReactPaginate from 'react-paginate';
@@ -46,8 +46,10 @@ function Penyakit(){
             console.log(err);
         })
     }
-
-
+    if (localStorage.getItem('token') === null) {
+        return <Redirect to="/" />
+    }
+    else {
     return(
         <div>
             <Navbar />
@@ -117,7 +119,7 @@ function Penyakit(){
                                             <td>{list.deskripsi}</td>
                                             <td>{list.solusi}</td>
                                             <td>
-                                                <Link to={'/edit'} className="btn btn-outline-info"><MdIcons.MdEdit /></Link>
+                                                <Link to={`penyakit/edit/${list._id}`} className="btn btn-outline-info"><MdIcons.MdEdit /></Link>
                                                 <button type="submit" className="btn btn-outline-danger" onClick={() => deletePenyakit(list._id)}><MdIcons.MdDelete /></button>
                                             </td>
                                         </tr>
@@ -157,6 +159,7 @@ function Penyakit(){
             </div>
         </div>
     )
+    }
 }
 
 export default Penyakit;

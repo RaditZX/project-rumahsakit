@@ -1,6 +1,6 @@
 import React,{useState,useEffect} from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { useHistory,useParams, Link } from 'react-router-dom';
+import { useHistory,useParams, Link,Redirect } from 'react-router-dom';
 import Navbar from "../compenents/navbar";
 import axios from "axios";
 import ReactPaginate from 'react-paginate';
@@ -37,6 +37,19 @@ function Kamar(){
         })
     }
 
+    const deleteKamar = (id) => {
+        axios.delete(`http://localhost:3000/kamar/${id}`)
+        .then(res => {
+            getKamar();
+        })
+        .catch(err => {
+            console.log(err);
+        })
+    }
+    if (localStorage.getItem('token') === null) {
+        return <Redirect to="/" />
+    }
+    else {
     return(
         <div>
             <Navbar />
@@ -108,8 +121,8 @@ function Kamar(){
                                             <td>{kamar.harga}</td>
                                             <td>{kamar.status}</td>
                                             <td>
-                                                <Link to={`/e_kamar/${kamar.id}`} className="btn btn-primary" size="sm">Edit</Link>{' '}
-                                                <Link to={`/d_kamar/${kamar.id}`} className="btn btn-danger" size="sm">Delete</Link>{' '}
+                                            <Link to={`kamar/edit/${kamar._id}`} className="btn btn-outline-info"><MdIcons.MdEdit /></Link>
+                                                <button type="submit" className="btn btn-outline-danger" onClick={() => deleteKamar(kamar._id)}><MdIcons.MdDelete /></button>
                                             </td>
                                         </tr>
                                     )
@@ -147,6 +160,7 @@ function Kamar(){
             </div>
         </div>
     )
+}
 }
 
 export default Kamar;

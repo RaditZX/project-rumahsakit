@@ -1,8 +1,8 @@
 import React,{useState,useEffect} from 'react';
-import {useHistory} from 'react-router-dom';
+import {useHistory,useParams,Redirect} from 'react-router-dom';
 import {Link} from 'react-router-dom';
 import axios from 'axios';
-import "../../App.css";
+import "../../../App.css";
 //boostrap react
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -13,7 +13,7 @@ import {Card} from "react-bootstrap";
 import {ListGroup} from "react-bootstrap"; 
 import {Form} from "react-bootstrap"
 
-function T_pasien() {
+function U_pasien() {
     const [nama,setNama] = useState('');
     const [alamat,setAlamat] = useState('');
     const [no_telp,setNo_telp] = useState();
@@ -27,11 +27,12 @@ function T_pasien() {
     const [kamar,setKamar] = useState([]);
     const [biaya,setBiaya] = useState([]);
     const navigate = useHistory();
+    const {Id} = useParams();
     
     const handleSubmit = (e) => {
         e.preventDefault();
       
-        axios.post('http://localhost:3000/addpasien',{
+        axios.put(`http://localhost:3000/edit/${Id}`,{
             nama,
             alamat,
             no_telp,
@@ -89,7 +90,32 @@ function T_pasien() {
         getpenyakit();
         getkamar();
         getbiaya();
+        getPasien();
     },[])
+
+    const getPasien = () => {
+        axios.get(`http://localhost:3000/pasien/${Id}`)
+        .then(res => {
+            setNama(res.data.nama);
+            setAlamat(res.data.alamat);
+            setNo_telp(res.data.no_telp);
+            setJenis_kelamin(res.data.jenis_kelamin);
+            setTanggal_daftar(res.data.tanggal_daftar);
+            setGolongan_darah(res.data.Golongan_darah);
+            setKode_penyakit(res.data.kode_penyakit);
+            setKode_kamar(res.data.kode_kamar);
+            setKode_biaya(res.data.kode_biaya);
+
+        })
+        .catch(err => {
+            console.log(err);
+        })
+    }
+    if(localStorage.getItem('token')=== null){
+        return <Redirect to='/'/>
+        
+    }
+    else{
     return(
         //form login
         <div className="login">
@@ -172,7 +198,8 @@ function T_pasien() {
                                             </div>
                                         </div>
                                     </div>
-                                    <label>Alamat:</label>         
+                                    <label>Alamat:</label> 
+                                    <Form.Control type="text" value={alamat} onChange={(e)=> setAlamat(e.target.value)} placeholder="alamat" /><br/>
                                     <div className="p-2 col-example text-left">
                                         <div className="d-flex flex-row-reverse">
                                             <button type="submit" className="btn btn-primary" size="sm">Tambah</button>
@@ -189,4 +216,5 @@ function T_pasien() {
     </div>
     );
 }
-export default T_pasien;
+}
+export default U_pasien;

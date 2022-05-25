@@ -1,6 +1,6 @@
 import React,{useState,useEffect} from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { useHistory,useParams, Link} from 'react-router-dom';
+import { useHistory,useParams, Link,Redirect} from 'react-router-dom';
 import Navbar from "../compenents/navbar";
 import axios from 'axios';
 import ReactPaginate from 'react-paginate';
@@ -37,6 +37,19 @@ function Biaya(){
         })
     }
 
+    const deleteBiaya = (id) => {
+        axios.delete(`http://localhost:3000/biaya/${id}`)
+        .then(res => {
+            getBiaya();
+        })
+        .catch(err => {
+            console.log(err);
+        })
+    }
+    if (localStorage.getItem('token') === null) {
+        return <Redirect to="/" />
+    }
+    else {
     return(
         <div>
             <Navbar />
@@ -108,8 +121,8 @@ function Biaya(){
                                             <td>{item.harga}</td>
                                             <td>{item.status}</td>
                                             <td>
-                                                <Link to={`/e_biaya/${item.id}`} className="btn btn-primary" size="sm">Edit</Link>{' '}
-                                                <Link to={`/d_biaya/${item.id}`} className="btn btn-danger" size="sm">Delete</Link>{' '}
+                                                <Link to={`biaya/edit/${item._id}`} className="btn btn-outline-info"><MdIcons.MdEdit /></Link>
+                                                <button type="submit" className="btn btn-outline-danger" onClick={() => deleteBiaya(item._id)}><MdIcons.MdDelete /></button>
                                             </td>
                                         </tr>
                                     )
@@ -147,6 +160,7 @@ function Biaya(){
             </div>
         </div>
     )
+}
 }
 
 export default Biaya;

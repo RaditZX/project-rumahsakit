@@ -22,7 +22,8 @@ function Pasien(){
     const [search,setSearch] = useState('');
     const [currentPage,setCurrentPage] = useState(1);
     const [postsPerPage] = useState(5);
-
+   
+    
     useEffect(()=>{
         getPasien();
     },[])
@@ -38,7 +39,20 @@ function Pasien(){
         })
     }
 
-    
+    const deletePasien = (id) => {
+        axios.delete(`http://localhost:3000/pasien/${id}`)
+        .then(res => {
+            getPasien();
+        })
+        .catch(err => {
+            console.log(err);
+        })
+    }
+
+    if (localStorage.getItem('token') === null) {
+        return <Redirect to="/" />
+    }
+    else {
     return(
         <div>
             <Navbar />
@@ -111,7 +125,7 @@ function Pasien(){
                                 {pasien.slice(currentPage * postsPerPage - postsPerPage, currentPage * postsPerPage).map((pasien,index) => {
                                     return(
                                         <tr key={index}>
-                                            <td>{pasien.id}</td>
+                                            <td>{index+1}</td>
                                             <td>{pasien.nama}</td>
                                             <td>{pasien.alamat}</td>
                                             <td>{pasien.no_telp}</td>
@@ -135,10 +149,10 @@ function Pasien(){
                                             })}
                                             
                                     <td>
-                                        <Link to={'/edit'} className="btn btn-outline-info"><MdIcons.MdEdit /></Link>
-                                        <button type="submit" className="btn btn-outline-danger"><MdIcons.MdDelete /></button>
+                                        <Link to={`pasien/edit/${pasien._id}`} className="btn btn-outline-info"><MdIcons.MdEdit /></Link>
+                                        <button type="submit" className="btn btn-outline-danger" onClick={() => deletePasien(pasien._id)}><MdIcons.MdDelete /></button>
                                     </td>
-                                </tr>
+                                </tr>   
                             )})}
                             </tbody>
                         </Table>
@@ -173,6 +187,7 @@ function Pasien(){
             </div>
         </div>
     )
+}
 }
 
 export default Pasien;

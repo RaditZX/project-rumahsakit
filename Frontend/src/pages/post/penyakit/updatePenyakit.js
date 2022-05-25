@@ -1,5 +1,5 @@
 import React,{useState,useEffect} from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory,useParams,Redirect } from 'react-router-dom';
 import {Link} from 'react-router-dom';
 import axios from 'axios';
 
@@ -11,15 +11,16 @@ import {Card} from "react-bootstrap";
 import {ListGroup} from "react-bootstrap"; 
 import {Form} from "react-bootstrap"
 
-function T_penyakit() {
+function U_penyakit() {
     const [nama_penyakit, setNama_penyakit] = useState('');
     const [deskripsi, setDeskripsi] = useState('');
     const [solusi, setSolusi] = useState('');
     const history = useHistory();
+    const {Id} = useParams();
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        axios.post('http://localhost:3000/addpenyakit',{
+        axios.put(`http://localhost:3000/editpenyakit/${Id}`, {
             nama_penyakit,
             deskripsi,
             solusi
@@ -34,6 +35,27 @@ function T_penyakit() {
             console.log(err.response.data.message);
         })
     }
+    const getPenyakit = () => {
+        axios.get(`http://localhost:3000/penyakit/${Id}`)
+        .then(res => {
+            setNama_penyakit(res.data.nama_penyakit);
+            setDeskripsi(res.data.deskripsi);
+            setSolusi(res.data.solusi);
+
+        })
+        .catch(err => {
+            console.log(err);
+        })
+    }
+    useEffect(() => {
+        getPenyakit();
+    },[]);
+
+    if(localStorage.getItem('token')=== null){
+        return <Redirect to='/'/>
+        
+    }
+    else{
     return(
         //form reset
         <div className="register">
@@ -53,7 +75,7 @@ function T_penyakit() {
                                         <div className="d-flex flex-row">
                                             <label>Nama Penyakit:</label>
                                         </div>
-                                        <Form.Control type="text" value={nama_penyakit} onChange={(e) => setNama_penyakit(e.target.value)} placeholder="nama penyakit" />
+                                        <Form.Control type="text" value={nama_penyakit} onChange={(e) => setNama_penyakit(e.target.value)}  />
                                     </div>
 
                                     {/* username */}
@@ -61,13 +83,13 @@ function T_penyakit() {
                                         <div className="d-flex flex-row">
                                             <label>Deskripsi:</label>
                                         </div>
-                                        <Form.Control as="textarea" rows={3} value={deskripsi} onChange={(e) => setDeskripsi(e.target.value)}  />
+                                        <Form.Control type="text" value={deskripsi} onChange={(e) => setDeskripsi(e.target.value)}  />
                                     </div>
 
                                     {/* password */}
                                     <div className="p-2 col-example text-left">
                                         <div className="d-flex flex-row"><label>Solusi:</label></div>
-                                        <Form.Control as="textarea" rows={3} value={solusi} onChange={(e) => setSolusi(e.target.value)}  />
+                                        <Form.Control type="text"  value={solusi} onChange={(e) => setSolusi(e.target.value)}  />
                                     </div>
 
                                     <div className="d-flex flex-row-reverse">
@@ -87,5 +109,6 @@ function T_penyakit() {
             </div>
         </div>
     );
+ }
 }
-export default T_penyakit;
+export default U_penyakit;

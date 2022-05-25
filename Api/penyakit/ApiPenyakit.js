@@ -33,7 +33,7 @@ class ApiPenyakit{
           }
         }
         this.updatepenyakit = (req, res) => {
-            if (!req.body.kode_penyakit, !req.body.nama_penyakit, !req.body.deskripsi, !req.body.solusi) {
+            if (!req.body.kode_penyakit) {
                 res.json({
                     status: false,
                     message: 'Name is required'
