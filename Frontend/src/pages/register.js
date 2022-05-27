@@ -1,5 +1,5 @@
 //import react
-import {useState} from "react";
+import {useState,useEffect} from "react";
 import {Link,useHistory,Redirect} from 'react-router-dom';
 
 //import boostrap
@@ -18,7 +18,30 @@ function Register() {
     const [nama,setNama] = useState('');
     const [email,setEmail] = useState('');
     const [password,setPassword] = useState('');
-    const navigate = useHistory();
+    const [auth,setAuth] = useState([]);
+    const history = useHistory();
+    const  Id = localStorage.getItem('id')
+
+    const autorization = () => {
+        axios.get(`http://localhost:3000/authenticated`,{
+            headers: {
+                "x-access-token": localStorage.getItem('token')
+            }})
+        .then(res => {
+            console.log(res.data.auth);
+            if(res.data.auth === true){
+                history.push('/home');
+            }
+        })
+        .catch(err => {
+            console.log(err.response.message);
+        })
+    }
+
+    useEffect(() => {
+        autorization();
+    },[]);
+
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -30,16 +53,12 @@ function Register() {
         })
         .then(res => {
             console.log(res.data);
-            navigate.push('/');
+            history.push('/');
         })
         .catch(err => {
             console.log(err);
         })
     }
-    if (localStorage.getItem('token')) {
-        return <Redirect to='/home'/>
-    }
-    else {
     return(
         //form reset
         <div className="register">
@@ -95,6 +114,6 @@ function Register() {
             </div>
         </div>
     );
-    }
+    
 }
 export default Register;

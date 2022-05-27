@@ -17,7 +17,29 @@ function T_kamar() {
     const [lantai,setLantai] = useState('');
     const [harga,setHarga] = useState('');
     const [status,setStatus] = useState('');
-    const navigate = useHistory();
+    const [auth,setAuth] = useState([]);
+    const history = useHistory();
+    const Id = localStorage.getItem('id')
+
+    const autorization = () => {
+        axios.get(`http://localhost:3000/authenticated`,{
+            headers: {
+                "x-access-token": localStorage.getItem('token')
+            }})
+        .then(res => {
+            console.log(res.data.auth);
+            if(res.data.auth === false){
+                history.push('/');
+            }
+        })
+        .catch(err => {
+            console.log(err.response.message);
+        })
+    }
+
+    useEffect(() => {
+        autorization();
+    },[]);
 
     const handelSubmit = (e) => {
         e.preventDefault();
@@ -29,13 +51,13 @@ function T_kamar() {
         })
         .then(res => {
             console.log(res.data);
-            navigate.push('/kamar');
+            history.push('/kamar');
         })
         .catch(err => {
             console.log(err);
         })
     }
-    if(localStorage.getItem('token')=== null){
+    if(auth.length === 0){
         return <Redirect to='/'/>
         
     }

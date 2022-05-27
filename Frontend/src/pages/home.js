@@ -6,6 +6,25 @@ import axios from 'axios';
 
 function Home(){
     const [name,setName] = useState('');
+    const history = useHistory();  
+
+    const autorization = () => {
+        axios.get(`http://localhost:3000/authenticated`,{
+            headers: {
+                "x-access-token": localStorage.getItem('token')
+            }})
+        .then(res => {
+            console.log(res.data.auth);
+            if(res.data.auth === false){
+                history.push('/');
+            }
+        })
+        .catch(err => {
+            console.log(err.response.message);
+        })
+    }
+
+
     const getName = () => {
         const Id = localStorage.getItem('id');
         console.log(Id);
@@ -24,6 +43,7 @@ function Home(){
 
     useEffect(() => {
         getName();
+        autorization();
     },[]);
     return(
         <div className="home">

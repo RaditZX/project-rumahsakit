@@ -7,6 +7,7 @@ const penyakit = require('../Api/penyakit/ApiPenyakit')
 const biaya = require('../Api/Biayaperawatan/ApiBiaya')
 
 
+
 // Route pasien
 app.get('/pasien', user.getusers ) 
 app.get('/pasien/:Id', user.findUsers ) 
@@ -20,6 +21,7 @@ app.post('/register', auth.register )
 app.get('/user', auth.getUser )
 app.get('/user/:Id', auth.getUserById )
 app.put('/user/:Id', auth.updateUser )
+app.get('/authenticated', auth.authenticated )
 
 // Route penyakit
 app.get('/penyakit', penyakit.getpenyakit )

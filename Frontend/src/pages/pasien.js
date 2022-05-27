@@ -22,17 +22,39 @@ function Pasien(){
     const [search,setSearch] = useState('');
     const [currentPage,setCurrentPage] = useState(1);
     const [postsPerPage] = useState(5);
-   
-    
+    const Id = localStorage.getItem('id')
+    const history = useHistory();
+
+    const autorization = () => {
+        axios.get(`http://localhost:3000/authenticated`,{
+            headers: {
+                "x-access-token": localStorage.getItem('token')
+            }})
+        .then(res => {
+            console.log(res.data.auth);
+            if(res.data.auth === false){
+                history.push('/');
+            }
+        })
+        .catch(err => {
+            console.log(err.response.message);
+        })
+    }
+
+
+ 
     useEffect(()=>{
         getPasien();
+        autorization();
     },[])
 
     const getPasien = () => {
-        axios.get('http://localhost:3000/pasien')
+        axios.get('http://localhost:3000/pasien',{
+            headers: {
+                "x-access-token": localStorage.getItem('token')
+            }})
         .then(res => {
             setPasien(res.data);
-            console.log(res.data);
         })
         .catch(err => {
             console.log(err);
@@ -48,11 +70,6 @@ function Pasien(){
             console.log(err);
         })
     }
-
-    if (localStorage.getItem('token') === null) {
-        return <Redirect to="/" />
-    }
-    else {
     return(
         <div>
             <Navbar />
@@ -187,7 +204,7 @@ function Pasien(){
             </div>
         </div>
     )
-}
+
 }
 
 export default Pasien;

@@ -17,8 +17,24 @@ function U_kamar() {
     const [lantai,setLantai] = useState('');
     const [harga,setHarga] = useState('');
     const [status,setStatus] = useState('');
-    const navigate = useHistory();
+    const history = useHistory();
     const {Id} = useParams();
+
+    const autorization = () => {
+        axios.get(`http://localhost:3000/authenticated`,{
+            headers: {
+                "x-access-token": localStorage.getItem('token')
+            }})
+        .then(res => {
+            console.log(res.data.auth);
+            if(res.data.auth === false){
+                history.push('/');
+            }
+        })
+        .catch(err => {
+            console.log(err.response.message);
+        })
+    }
 
     const handelSubmit = (e) => {
         e.preventDefault();
@@ -30,7 +46,7 @@ function U_kamar() {
         })
         .then(res => {
             console.log(res.data);
-            navigate.push('/kamar');
+            history.push('/kamar');
         })
         .catch(err => {
             console.log(err);
@@ -53,12 +69,9 @@ function U_kamar() {
 
     useEffect(() => {
         getKamar();
+        autorization();
     },[]);
 
-    if(localStorage.getItem('token')=== null){
-        return <Redirect to='/'/>
-    }
-    else{
     return(
         //form reset
         <div className="register">
@@ -116,6 +129,6 @@ function U_kamar() {
             </div>
         </div>
     );
-}
+
 }
 export default U_kamar;

@@ -21,13 +21,18 @@ function Penyakit(){
     const [search,setSearch] = useState('');
     const [currentPage,setCurrentPage] = useState(1);
     const [postsPerPage] = useState(5);
+    const history = useHistory();
 
     useEffect(()=>{
         getPenyakit();
+        autorization();
     },[])
 
     const getPenyakit = () => {
-        axios.get('http://localhost:3000/penyakit')
+        axios.get('http://localhost:3000/penyakit',{
+            headers: {
+                "x-access-token": localStorage.getItem('token')
+            }})
         .then(res => {
             setPenyakit(res.data);
             console.log(res.data);
@@ -46,10 +51,22 @@ function Penyakit(){
             console.log(err);
         })
     }
-    if (localStorage.getItem('token') === null) {
-        return <Redirect to="/" />
+    const autorization = () => {
+        axios.get(`http://localhost:3000/authenticated`,{
+            headers: {
+                "x-access-token": localStorage.getItem('token')
+            }})
+        .then(res => {
+            console.log(res.data.auth);
+            if(res.data.auth === false){
+                history.push('/');
+            }
+        })
+        .catch(err => {
+            console.log(err);
+        })
     }
-    else {
+    
     return(
         <div>
             <Navbar />
@@ -159,7 +176,7 @@ function Penyakit(){
             </div>
         </div>
     )
-    }
+    
 }
 
 export default Penyakit;

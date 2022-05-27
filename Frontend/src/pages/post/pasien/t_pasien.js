@@ -26,11 +26,27 @@ function T_pasien() {
     const [penyakit,setPenyakit] = useState([]);
     const [kamar,setKamar] = useState([]);
     const [biaya,setBiaya] = useState([]);
-    const navigate = useHistory();
+    const history = useHistory();
+    const Id = localStorage.getItem('id')
+
+    const autorization = () => {
+        axios.get(`http://localhost:3000/authenticated`,{
+            headers: {
+                "x-access-token": localStorage.getItem('token')
+            }})
+        .then(res => {
+            console.log(res.data.auth);
+            if(res.data.auth === false){
+                history.push('/');
+            }
+        })
+        .catch(err => {
+            console.log(err.response.message);
+        })
+    }
     
     const handleSubmit = (e) => {
         e.preventDefault();
-      
         axios.post('http://localhost:3000/addpasien',{
             nama,
             alamat,
@@ -44,7 +60,7 @@ function T_pasien() {
         })
         .then(res => {
             console.log(res.data);
-            navigate.push('/pasien');
+           history.push('/pasien');
         })
         .catch(err => {
             console.log(err);
@@ -52,7 +68,10 @@ function T_pasien() {
     }
 
     const getpenyakit = () => {
-        axios.get('http://localhost:3000/penyakit')
+        axios.get('http://localhost:3000/penyakit',{
+            headers: {
+                "x-access-token": localStorage.getItem('token')
+            }})
         .then(res => {
             console.log(res);
             setPenyakit(res.data);
@@ -63,7 +82,10 @@ function T_pasien() {
     }
 
     const getkamar = () => {
-        axios.get('http://localhost:3000/kamar')
+        axios.get('http://localhost:3000/kamar',{
+            headers: {
+                "x-access-token": localStorage.getItem('token')
+            }})
         .then(res => {
             console.log(res);
             setKamar(res.data);
@@ -75,7 +97,10 @@ function T_pasien() {
     
 
     const getbiaya = () => {
-        axios.get('http://localhost:3000/biaya')
+        axios.get('http://localhost:3000/biaya',{
+            headers: {
+                "x-access-token": localStorage.getItem('token')
+            }})
         .then(res => {
             console.log(res);
             setBiaya(res.data);
@@ -89,13 +114,9 @@ function T_pasien() {
         getpenyakit();
         getkamar();
         getbiaya();
+        autorization();
     },[])
     
-    if(localStorage.getItem('token')=== null){
-        return <Redirect to='/'/>
-        
-    }
-    else{
     return(
         //form login
         <div className="login">
@@ -195,6 +216,6 @@ function T_pasien() {
             </div>
     </div>
     );
-}
+
 }
 export default T_pasien;

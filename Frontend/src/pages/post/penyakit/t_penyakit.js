@@ -17,6 +17,27 @@ function T_penyakit() {
     const [solusi, setSolusi] = useState('');
     const history = useHistory();
 
+    const autorization = () => {
+        axios.get(`http://localhost:3000/authenticated`,{
+            headers: {
+                "x-access-token": localStorage.getItem('token')
+            }})
+        .then(res => {
+            console.log(res.data.auth);
+            if(res.data.auth === false){
+                history.push('/');
+            }
+        })
+        .catch(err => {
+            console.log(err.response.message);
+        })
+    }
+
+    useEffect(() => {
+        autorization();
+
+    }, [])
+
     const handleSubmit = (e) => {
         e.preventDefault();
         axios.post('http://localhost:3000/addpenyakit',{
@@ -34,10 +55,6 @@ function T_penyakit() {
             console.log(err.response.data.message);
         })
     }
-    if(localStorage.getItem('token') == null){
-        return <Redirect to='/'/>
-    }
-    else{
     return(
         //form reset
         <div className="register">
@@ -91,6 +108,6 @@ function T_penyakit() {
             </div>
         </div>
     );
-}
+
 }
 export default T_penyakit;

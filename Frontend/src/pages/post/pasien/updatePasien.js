@@ -26,8 +26,24 @@ function U_pasien() {
     const [penyakit,setPenyakit] = useState([]);
     const [kamar,setKamar] = useState([]);
     const [biaya,setBiaya] = useState([]);
-    const navigate = useHistory();
+    const history = useHistory();
     const {Id} = useParams();
+
+    const autorization = () => {
+        axios.get(`http://localhost:3000/authenticated`,{
+            headers: {
+                "x-access-token": localStorage.getItem('token')
+            }})
+        .then(res => {
+            console.log(res.data.auth);
+            if(res.data.auth === false){
+                history.push('/');
+            }
+        })
+        .catch(err => {
+            console.log(err.response.message);
+        })
+    }
     
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -45,7 +61,7 @@ function U_pasien() {
         })
         .then(res => {
             console.log(res.data);
-            navigate.push('/pasien');
+            history.push('/pasien');
         })
         .catch(err => {
             console.log(err);
@@ -91,6 +107,7 @@ function U_pasien() {
         getkamar();
         getbiaya();
         getPasien();
+        autorization();
     },[])
 
     const getPasien = () => {
@@ -111,11 +128,7 @@ function U_pasien() {
             console.log(err);
         })
     }
-    if(localStorage.getItem('token')=== null){
-        return <Redirect to='/'/>
-        
-    }
-    else{
+
     return(
         //form login
         <div className="login">
@@ -215,6 +228,6 @@ function U_pasien() {
             </div>
     </div>
     );
-}
+
 }
 export default U_pasien;

@@ -71,6 +71,8 @@ class Authentication {
                 //hash password
                 const salt = bcrypt.genSaltSync(10);
                 const hash = bcrypt.hashSync(req.body.password, salt);
+
+                
                 //create new user
                 const newUser = new Auth.model({
                     email: req.body.email,
@@ -109,6 +111,19 @@ class Authentication {
                     if (err)
                         res.send(err);
                     res.json(user);
+                });
+            }
+
+            this.authenticated = (req, res, next) => {
+                const token = req.headers['x-access-token'];
+                if (!token)
+                    return res.status(401).send({ auth: false, message: 'No token provided.' });
+                jwt.verify(token, 'jwtsecret', (err, decoded) => {
+                    if (err)
+                        return res.send({ auth: false, message: 'Failed to authenticate token.' });
+                    else{
+                        res.send({ auth: true, message: 'Token authenticated.' });
+                    }
                 });
             }
 

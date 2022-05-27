@@ -19,15 +19,38 @@ import * as MdIcons from 'react-icons/md';
 function Biaya(){
     const [biaya,setBiaya] = useState([]);
     const [search,setSearch] = useState('');
+    const [auth,setAuth] = useState([]);
     const [currentPage,setCurrentPage] = useState(1);
     const [postsPerPage] = useState(5);
+    const history = useHistory();
+    const Id = localStorage.getItem('id')
+
+    const autorization = () => {
+        axios.get(`http://localhost:3000/authenticated`,{
+            headers: {
+                "x-access-token": localStorage.getItem('token')
+            }})
+        .then(res => {
+            console.log(res.data.auth);
+            if(res.data.auth === false){
+                history.push('/');
+            }
+        })
+        .catch(err => {
+            console.log(err.response.message);
+        })
+    }
 
     useEffect(()=>{
         getBiaya();
+        autorization();
     },[])
 
     const getBiaya = () => {
-        axios.get('http://localhost:3000/biaya')
+        axios.get('http://localhost:3000/biaya',{
+            headers: {
+                "x-access-token": localStorage.getItem('token')
+            }})
         .then(res => {
             setBiaya(res.data);
             console.log(res.data);
@@ -46,10 +69,6 @@ function Biaya(){
             console.log(err);
         })
     }
-    if (localStorage.getItem('token') === null) {
-        return <Redirect to="/" />
-    }
-    else {
     return(
         <div>
             <Navbar />
@@ -160,7 +179,7 @@ function Biaya(){
             </div>
         </div>
     )
-}
+
 }
 
 export default Biaya;

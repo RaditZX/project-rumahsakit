@@ -14,7 +14,23 @@ import {Form} from "react-bootstrap"
 function T_biaya() {
     const [nama_biaya,setNama_biaya] = useState('');
     const [harga,setHarga] = useState('');
-    const navigate = useHistory();
+    const history = useHistory();
+
+    const autorization = () => {
+        axios.get(`http://localhost:3000/authenticated`,{
+            headers: {
+                "x-access-token": localStorage.getItem('token')
+            }})
+        .then(res => {
+            console.log(res.data.auth);
+            if(res.data.auth === false){
+                history.push('/');
+            }
+        })
+        .catch(err => {
+            console.log(err.response.message);
+        })
+    }
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -24,18 +40,13 @@ function T_biaya() {
         })
         .then(res => {
             console.log(res.data);
-            navigate.push('/biaya');
+            history.push('/biaya');
         })
         .catch(err => {
             console.log(err);
         })
     }
 
-    if(localStorage.getItem('token')=== null){
-        return <Redirect to='/'/>
-        
-    }
-    else{
     return(
         //form reset
         <div className="register">
@@ -86,6 +97,6 @@ function T_biaya() {
             </div>
         </div>
     );
-    }
+    
 }
 export default T_biaya;
