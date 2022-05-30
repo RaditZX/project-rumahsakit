@@ -20,6 +20,7 @@ import * as MdIcons from 'react-icons/md';
 function Pasien(){
     const [pasien,setPasien] = useState([]);
     const [search,setSearch] = useState('');
+    const [role,setRole] = useState('');
     const [currentPage,setCurrentPage] = useState(1);
     const [postsPerPage] = useState(5);
     const Id = localStorage.getItem('id')
@@ -41,11 +42,20 @@ function Pasien(){
         })
     }
 
+    const getRoles = () => {
+        axios.get(`http://localhost:3000/user/${Id}`)
+        .then(res => {
+            setRole(res.data.role);
+        })
+        .catch(err => {
+            console.log(err);
+        })
+    }
 
- 
     useEffect(()=>{
-        getPasien();
         autorization();
+        getPasien();
+        getRoles();
     },[])
 
     const getPasien = () => {
@@ -84,9 +94,12 @@ function Pasien(){
                         </div>
 
                         {/* fitur tambah data */}
+                        {role === 'admin' || role === 'perawat' ? 
                         <div className="p-2 col-example text-left">
                             <Link to={`/t_pasien`} className="btn btn-primary" size="sm">Tambah Data</Link>{' '}
                         </div>
+                        : null}
+
                     </div>
                     <br />
                     
@@ -110,7 +123,7 @@ function Pasien(){
                                     <Button variant="outline-primary" size="sm"><BsIcons.BsSearch /></Button>{' '}
                                 </div>
                                 <div className="p-2">
-                                    <Form.Control size="sm" type="text" placeholder="Cari" />
+                                    <Form.Control size="sm" value={search} onChange={(e)=> setSearch(e.target.value)} type="text" placeholder="Cari" />
                                 </div>
                             </div>
                         </div>
@@ -135,7 +148,11 @@ function Pasien(){
                                 </tr>
                             </thead>
                             <tbody>
-                                {pasien.slice(currentPage * postsPerPage - postsPerPage, currentPage * postsPerPage).map((pasien,index) => {
+                                {pasien.slice(currentPage * postsPerPage - postsPerPage, currentPage * postsPerPage)
+                                .filter(pasien => {
+                                    return pasien.nama.toLowerCase().includes(search.toLowerCase())
+                                })
+                                .map((pasien,index) => {
                                     return(
                                         <tr key={index}>
                                             <td>{index+1}</td>
@@ -160,10 +177,12 @@ function Pasien(){
                                                     <td>{biaya.nama_biaya}</td>
                                                 )
                                             })}
+                                            {role === 'admin' &&
                                             <td>
                                                 <Link to={`pasien/edit/${pasien._id}`} className="btn btn-outline-primary"><MdIcons.MdEdit /></Link>
                                                 <button type="submit" className="btn btn-outline-danger" onClick={() => deletePasien(pasien._id)}><MdIcons.MdDelete /></button>
                                             </td>
+                                    }
                                         </tr>
                                     )})
                                 }

@@ -15,8 +15,10 @@ function U_penyakit() {
     const [nama_penyakit, setNama_penyakit] = useState('');
     const [deskripsi, setDeskripsi] = useState('');
     const [solusi, setSolusi] = useState('');
+    const [role,setRole] = useState('');
     const history = useHistory();
     const {Id} = useParams();
+    const id = localStorage.getItem('id');
 
     const autorization = () => {
         axios.get(`http://localhost:3000/authenticated`,{
@@ -31,6 +33,16 @@ function U_penyakit() {
         })
         .catch(err => {
             console.log(err.response.message);
+        })
+    }
+
+    const getRoles = () => {
+        axios.get(`http://localhost:3000/user/${Id}`)
+        .then(res => {
+            setRole(res.data.role);
+        })
+        .catch(err => {
+            console.log(err);
         })
     }
 
@@ -66,61 +78,67 @@ function U_penyakit() {
     useEffect(() => {
         getPenyakit();
         autorization();
+        getRoles();
     },[]);
+    
+    if (role === 'pasien') {
+        return <Redirect to='/pasien'/>
+    }
+    else {
+        return(
+            //form update penyakit
+            <div className="register">
+                <div className="d-flex justify-content-center">
+                    <div className="reset" style={{marginTop: "130px"}}>
 
-    return(
-        //form update penyakit
-        <div className="register">
-            <div className="d-flex justify-content-center">
-                <div className="reset" style={{marginTop: "130px"}}>
-
-                    {/* card form update kamar  */}
-                    <Card style={{ width: '25rem' }}>
-                        <Card.Header className="card-header">Form tambah data penyakit</Card.Header>
-                        <ListGroup variant="flush">
-                            <ListGroup.Item>
-                                <Form onSubmit={handleSubmit}>
-                                
-                                {/* nama */}
-                                <div className="d-flex flex-column"> 
-                                    <div className="p-2 col-example text-left">
-                                        <div className="d-flex flex-row">
-                                            <label>Nama Penyakit:</label>
+                        {/* card form update kamar  */}
+                        <Card style={{ width: '25rem' }}>
+                            <Card.Header className="card-header">Form tambah data penyakit</Card.Header>
+                            <ListGroup variant="flush">
+                                <ListGroup.Item>
+                                    <Form onSubmit={handleSubmit}>
+                                    
+                                    {/* nama */}
+                                    <div className="d-flex flex-column"> 
+                                        <div className="p-2 col-example text-left">
+                                            <div className="d-flex flex-row">
+                                                <label>Nama Penyakit:</label>
+                                            </div>
+                                            <Form.Control type="text" value={nama_penyakit} onChange={(e) => setNama_penyakit(e.target.value)}  />
                                         </div>
-                                        <Form.Control type="text" value={nama_penyakit} onChange={(e) => setNama_penyakit(e.target.value)}  />
-                                    </div>
 
-                                    {/* deskripsi */}
-                                    <div className="p-2 col-example text-left">
-                                        <div className="d-flex flex-row">
-                                            <label>Deskripsi:</label>
+                                        {/* deskripsi */}
+                                        <div className="p-2 col-example text-left">
+                                            <div className="d-flex flex-row">
+                                                <label>Deskripsi:</label>
+                                            </div>
+                                            <Form.Control type="text" value={deskripsi} onChange={(e) => setDeskripsi(e.target.value)}  />
                                         </div>
-                                        <Form.Control type="text" value={deskripsi} onChange={(e) => setDeskripsi(e.target.value)}  />
-                                    </div>
 
-                                    {/* solusi */}
-                                    <div className="p-2 col-example text-left">
-                                        <div className="d-flex flex-row"><label>Solusi:</label></div>
-                                        <Form.Control type="text"  value={solusi} onChange={(e) => setSolusi(e.target.value)}  />
-                                    </div>
+                                        {/* solusi */}
+                                        <div className="p-2 col-example text-left">
+                                            <div className="d-flex flex-row"><label>Solusi:</label></div>
+                                            <Form.Control type="text"  value={solusi} onChange={(e) => setSolusi(e.target.value)}  />
+                                        </div>
 
-                                    <div className="d-flex flex-row-reverse">
-                                        <div className="p-2">
-                                            <Link to={`/penyakit`} className="btn btn-primary" size="sm">Batal</Link>{' '}
-                                        </div>
-                                        <div className="p-2">
-                                            <button className="btn btn-primary" size="sm" type="submit">Tambah</button>
+                                        <div className="d-flex flex-row-reverse">
+                                            <div className="p-2">
+                                                <Link to={`/penyakit`} className="btn btn-primary" size="sm">Batal</Link>{' '}
+                                            </div>
+                                            <div className="p-2">
+                                                <button className="btn btn-primary" size="sm" type="submit">Tambah</button>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                </Form>
-                            </ListGroup.Item>
-                        </ListGroup>
-                    </Card>
+                                    </Form>
+                                </ListGroup.Item>
+                            </ListGroup>
+                        </Card>
+                    </div>
                 </div>
             </div>
-        </div>
-    );
+        );
+    }
  
 }
 export default U_penyakit;

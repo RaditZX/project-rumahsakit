@@ -31,7 +31,7 @@ function Home(){
         axios.get(`http://localhost:3000/user/${Id}`)
         .then(res => {
             console.log(res.data);
-            setName(res.data.nama);
+            setName(res.data.nama_awal);
         })
         .catch(err => {
             console.log(err);

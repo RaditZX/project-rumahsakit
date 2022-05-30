@@ -10,7 +10,7 @@ import {Form} from 'react-bootstrap';
 
 //import react router dom
 
-function profile(){
+function Profile(){
     return(
         <div className="home">
             <Navbar />
@@ -62,31 +62,31 @@ function profile(){
                                         <div className="row mt-2">
                                             <div className="col-md-6">
                                                 <label className="labels">Nama Awal: </label> 
-                                                <Form.Control type="text"  placeholder="nama awal" disabled />
+                                                <Form.Control type="text"  placeholder="nama awal"  />
                                             </div>
                                             <div className="col-md-6">
                                                 <label className="labels">Nama Akhir:</label>
-                                                <Form.Control type="text"  placeholder="nama akhir" disabled />
+                                                <Form.Control type="text"  placeholder="nama akhir"  />
                                             </div>
                                         </div><br />
                                         <div className="row mt-2">
                                             <div className="col-md-6">
                                                 <label className="labels">No Telepon: </label> 
-                                                <Form.Control type="text"  placeholder="08xxx" disabled />
+                                                <Form.Control type="text"  placeholder="08xxx"  />
                                             </div>
                                             <div className="col-md-6">
                                                 <label className="labels">Alamat Email:</label>
-                                                <Form.Control type="text"  placeholder="anda@gmail.com" disabled />
+                                                <Form.Control type="text"  placeholder="anda@gmail.com"  />
                                             </div>
                                         </div><br />
                                         <div className="row mt-2">
                                             <div className="col-md-6">
                                                 <label className="labels">Passcode: </label> 
-                                                <Form.Control type="text"  placeholder=" xxx" disabled />
+                                                <Form.Control type="text"  placeholder=" xxx" />
                                             </div>
                                             <div className="col-md-6">
                                                 <label className="labels">Alammat rumah:</label>
-                                                <Form.Control type="text"  placeholder="Jalan xxx" disabled />
+                                                <Form.Control type="text"  placeholder="Jalan xxx"  />
                                             </div>
                                         </div><br />
                                         <div className="d-flex flex-row-reverse">
@@ -105,4 +105,4 @@ function profile(){
     );
 }
 
-export default profile;
+export default Profile;

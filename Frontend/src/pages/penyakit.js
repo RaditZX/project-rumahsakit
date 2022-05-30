@@ -19,13 +19,17 @@ import * as MdIcons from 'react-icons/md';
 function Penyakit(){
     const [penyakit,setPenyakit] = useState([]);
     const [search,setSearch] = useState('');
+    const [role,setRole] = useState('');
     const [currentPage,setCurrentPage] = useState(1);
     const [postsPerPage] = useState(5);
     const history = useHistory();
+    const Id = localStorage.getItem('id')
 
     useEffect(()=>{
         getPenyakit();
         autorization();
+        getRoles();
+
     },[])
 
     const getPenyakit = () => {
@@ -36,6 +40,16 @@ function Penyakit(){
         .then(res => {
             setPenyakit(res.data);
             console.log(res.data);
+        })
+        .catch(err => {
+            console.log(err);
+        })
+    }
+
+    const getRoles = () => {
+        axios.get(`http://localhost:3000/user/${Id}`)
+        .then(res => {
+            setRole(res.data.role);
         })
         .catch(err => {
             console.log(err);
@@ -66,113 +80,124 @@ function Penyakit(){
             console.log(err);
         })
     }
-    
-    return(
-        <div>
-            <Navbar />
-            <div className="container">
-                {/* header penyakit */}
-                    <div className="d-flex justify-content-between">
-                        <div className="p-2 col-example text-left">
-                            <div className="header">
-                                <h1>Penyakit</h1>
+
+    if (role === 'pasien'){
+        return <Redirect to='/pasien'/>
+    }
+    else {
+        return(
+            <div>
+                <Navbar />
+                <div className="container">
+                    {/* header penyakit */}
+                        <div className="d-flex justify-content-between">
+                            <div className="p-2 col-example text-left">
+                                <div className="header">
+                                    <h1>Penyakit</h1>
+                                </div>
                             </div>
-                        </div>
 
-                        {/* fitur tambah data */}
-                        <div className="p-2 col-example text-left">
-                            <Link to={`/t_penyakit`} className="btn btn-primary" size="sm">Tambah Data</Link>{' '}
+                            {/* fitur tambah data */}
+                            {role === 'admin' || role === 'perawat' ? 
+                            <div className="p-2 col-example text-left">
+                                <Link to={`/t_pasien`} className="btn btn-primary" size="sm">Tambah Data</Link>{' '}
+                            </div>
+                            : null}
                         </div>
-                    </div>
-                    <br />
+                        <br />
 
-                    {/* fitur filter */}
-                    <div className="d-flex justify-content-between">
-                        <div className="p-2 col-example text-left">
-                            <div className="d-flex flex-row">
-                                <div className="p-2">Filter:</div>
-                                <div className="p-2">
-                                    <Form.Select size="sm">
-                                        <option>Small select</option>
-                                    </Form.Select>
+                        {/* fitur filter */}
+                        <div className="d-flex justify-content-between">
+                            <div className="p-2 col-example text-left">
+                                <div className="d-flex flex-row">
+                                    <div className="p-2">Filter:</div>
+                                    <div className="p-2">
+                                        <Form.Select size="sm">
+                                            <option>Small select</option>
+                                        </Form.Select>
+                                    </div>
+                                </div>
+                            </div>
+
+                        {/* fitur cari */}
+                            <div className="p-2 col-example text-left">
+                                <div className="d-flex flex-row-reverse">
+                                    <div className="p-2">
+                                        <Button variant="outline-primary" size="sm"><BsIcons.BsSearch /></Button>{' '}
+                                    </div>
+                                    <div className="p-2">
+                                        <Form.Control size="sm" value={search} onChange={(e)=> setSearch(e.target.value)} type="text" placeholder="Cari" />
+                                    </div>
                                 </div>
                             </div>
                         </div>
-
-                       {/* fitur cari */}
-                        <div className="p-2 col-example text-left">
-                            <div className="d-flex flex-row-reverse">
-                                <div className="p-2">
-                                    <Button variant="outline-primary" size="sm"><BsIcons.BsSearch /></Button>{' '}
-                                </div>
-                                <div className="p-2">
-                                    <Form.Control size="sm" type="text" placeholder="Cari" />
-                                </div>
-                            </div>
+                        
+                        {/* tabel data penyakit */}
+                        <div className="d-flex justify-content-center">
+                            <Table striped bordered hover size="sm" className="tabel-pasien">
+                                <thead>
+                                    <tr className="header-tabel">
+                                        <th>No</th>
+                                        <th>Nama Penyakit</th>
+                                        <th>Deskripsi</th>
+                                        <th>Solusi</th>
+                                        <th>Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {penyakit.slice(currentPage * postsPerPage - postsPerPage, currentPage * postsPerPage)
+                                    .filter(penyakit => penyakit.nama_penyakit.toLowerCase().includes(search.toLowerCase()))
+                                    .map((list,index) => {
+                                        return(
+                                            <tr key={index}>
+                                                <td>{index+1}</td>
+                                                <td>{list.nama_penyakit}</td>
+                                                <td>{list.deskripsi}</td>
+                                                <td>{list.solusi}</td>
+                                                {role === 'admin' &&
+                                                <td>
+                                                    <Link to={`penyakit/edit/${list._id}`} className="btn btn-outline-primary"><MdIcons.MdEdit /></Link>
+                                                    <button type="submit" className="btn btn-outline-danger" onClick={() => deletePenyakit(list._id)}><MdIcons.MdDelete /></button>
+                                                </td>
+                                                }
+                                            </tr>
+                                        )
+                                    })}
+                                </tbody>
+                            </Table>
                         </div>
-                    </div>
-                    
-                    {/* tabel data penyakit */}
-                    <div className="d-flex justify-content-center">
-                        <Table striped bordered hover size="sm" className="tabel-pasien">
-                            <thead>
-                                <tr className="header-tabel">
-                                    <th>No</th>
-                                    <th>Nama Penyakit</th>
-                                    <th>Deskripsi</th>
-                                    <th>Solusi</th>
-                                    <th>Aksi</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {penyakit.slice(currentPage * postsPerPage - postsPerPage, currentPage * postsPerPage).map((list,index) => {
-                                    return(
-                                        <tr key={index}>
-                                            <td>{index+1}</td>
-                                            <td>{list.nama_penyakit}</td>
-                                            <td>{list.deskripsi}</td>
-                                            <td>{list.solusi}</td>
-                                            <td>
-                                                <Link to={`penyakit/edit/${list._id}`} className="btn btn-outline-primary"><MdIcons.MdEdit /></Link>
-                                                <button type="submit" className="btn btn-outline-danger" onClick={() => deletePenyakit(list._id)}><MdIcons.MdDelete /></button>
-                                            </td>
-                                        </tr>
-                                    )
-                                })}
-                            </tbody>
-                        </Table>
-                    </div>
 
-                    {/* pagination */}
-                    <div className="d-flex flex-row-reverse">
-                      <ReactPaginate
-                        previousLabel={'previous'}
-                        nextLabel={'next'}
-                        breakLabel={'...'}
-                        pageCount={penyakit.length / postsPerPage}
-                        marginPagesDisplayed={2}
-                        pageRangeDisplayed={5}
-                        onPageChange={(e)=>setCurrentPage(e.selected)}
-                        containerClassName={'pagination'}
-                        subContainerClassName={'pages pagination'}
-                        pageClassName={'page-item'}
-                        previousClassName={'page-item'}
-                        nextClassName={'page-item'}
-                        previousLinkClassName={'page-link'}
-                        nextLinkClassName={'page-link'}
-                        disabledClassName={'disabled'}
-                        activeLinkClassName={'active'}
-                        pageLinkClassName={'page-link'}
-                        breakClassName={'page-item'}
-                        breakLinkClassName={'page-link'}
-                      
-                      >
-                      </ReactPaginate>
-                    </div>
-          
+                        {/* pagination */}
+                        <div className="d-flex flex-row-reverse">
+                        <ReactPaginate
+                            previousLabel={'previous'}
+                            nextLabel={'next'}
+                            breakLabel={'...'}
+                            pageCount={penyakit.length / postsPerPage}
+                            marginPagesDisplayed={2}
+                            pageRangeDisplayed={5}
+                            onPageChange={(e)=>setCurrentPage(e.selected)}
+                            containerClassName={'pagination'}
+                            subContainerClassName={'pages pagination'}
+                            pageClassName={'page-item'}
+                            previousClassName={'page-item'}
+                            nextClassName={'page-item'}
+                            previousLinkClassName={'page-link'}
+                            nextLinkClassName={'page-link'}
+                            disabledClassName={'disabled'}
+                            activeLinkClassName={'active'}
+                            pageLinkClassName={'page-link'}
+                            breakClassName={'page-item'}
+                            breakLinkClassName={'page-link'}
+                        
+                        >
+                        </ReactPaginate>
+                        </div>
+            
+                </div>
             </div>
-        </div>
-    )
+        )
+    }
     
 }
 

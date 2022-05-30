@@ -28,6 +28,7 @@ function U_pasien() {
     const [biaya,setBiaya] = useState([]);
     const history = useHistory();
     const {Id} = useParams();
+    
 
     const autorization = () => {
         axios.get(`http://localhost:3000/authenticated`,{
