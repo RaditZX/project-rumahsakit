@@ -118,32 +118,27 @@ function T_pasien() {
     },[])
     
     return(
-        //form login
+        //form pasien
         <div className="login">
         <div className="d-flex justify-content-center">
             <div className="" style={{marginTop: "120px"}}>
-                {/* card form login  */}
+                {/* card form pasien  */}
                 <Card style={{ width: '60rem' }}>
                     <Card.Header>Pasien </Card.Header>
                     <ListGroup variant="flush">
                         <ListGroup.Item>
                             <Form onSubmit={handleSubmit}>
                                 <div className="d-flex flex-column">
-                                   
-                                    
-                                                <label>Nama Pasien: </label>
-                                                <Form.Control type="text" value={nama} onChange={(e)=> setNama(e.target.value)} placeholder="nama pasien" /><br/>
-                                    
-                                          
-                                                <label>No Telepon:</label>
-                                                <Form.Control type="text" value={no_telp} onChange={(e)=> setNo_telp(e.target.value)} placeholder="no telepon" /><br/>
-                                         
-                                            
-                                                
-
-                                                <label>Tanggal Daftar</label>
-                                                <Form.Control type="date" value={tanggal_daftar} onChange={(e)=> setTanggal_daftar(e.target.value)} placeholder="name@example.com" />
-                                    
+                                    {/* nama */}
+                                    <label>Nama Pasien: </label>
+                                    <Form.Control type="text" value={nama} onChange={(e)=> setNama(e.target.value)} placeholder="nama pasien" /><br/>
+                                    {/* no telepon */}
+                                    <label>No Telepon:</label>
+                                    <Form.Control type="text" value={no_telp} onChange={(e)=> setNo_telp(e.target.value)} placeholder="no telepon" /><br/>
+                                    {/* tanggal daftar */}
+                                    <label>Tanggal Daftar</label>
+                                    <Form.Control type="date" value={tanggal_daftar} onChange={(e)=> setTanggal_daftar(e.target.value)} placeholder="name@example.com" />
+                                    {/* pilih biaya */}
                                     <div className="p-2 col-example text-left">
                                         <div className="d-flex justify-content-start">
                                             <div className="p-2 col-example text-left">
@@ -157,6 +152,8 @@ function T_pasien() {
                                                     })}
                                                 </Form.Select>
                                             </div>
+                                            
+                                            {/* pilih Kamar */}
                                             <div className="p-2 col-example text-left">
                                                 <label>Kamar:</label>
                                                 <Form.Select size="sm" value={kode_kamar} onChange={(e)=> setKode_kamar(e.target.value)}>
@@ -168,6 +165,8 @@ function T_pasien() {
                                                     })}
                                                 </Form.Select>
                                             </div>
+
+                                            {/* pilih jenis_kelamin */}
                                             <div className="p-2 col-example text-left">
                                             <label>Jenis Kelamin:</label>
                                                 <Form.Select size="sm" value={jenis_kelamin} onChange={(e)=> setJenis_kelamin(e.target.value)}>
@@ -177,8 +176,9 @@ function T_pasien() {
 
                                             </div>
 
+                                            {/* pilih penyakit */}
                                             <div className="p-2 col-example text-left">
-                                            <label>Penyakit:</label>
+                                                <label>Penyakit:</label>
                                                 <Form.Select size="sm" value={kode_penyakit} onChange={(e)=> setKode_penyakit(e.target.value)}>
                                                     <option value="-">Pilih Penyakit</option>
                                                     {penyakit.map(item => {
@@ -188,6 +188,8 @@ function T_pasien() {
                                                     })}
                                                 </Form.Select>
                                             </div>
+
+                                            {/* pilih golongan_darah */}
                                             <div className="p-2  col-example text-left">
                                                 <label>Golongan Darah:</label>
                                                 <Form.Select size="sm" value={Golongan_darah} onChange={(e)=> setGolongan_darah (e.target.value)}>
@@ -199,13 +201,13 @@ function T_pasien() {
                                             </div>
                                         </div>
                                     </div>
+
+                                    {/* alamat */}
                                     <label>Alamat:</label> 
-                                    <Form.Control type="text" value={alamat} onChange={(e)=> setAlamat(e.target.value)} placeholder="alamat" /><br/>"        
-                                    <div className="p-2 col-example text-left">
-                                        <div className="d-flex flex-row-reverse">
-                                            <button type="submit" className="btn btn-primary" size="sm">Tambah</button>
-                                            <div className="p-2"><Link to={`/pasien`} className="btn btn-primary" >Batal</Link>{' '}</div>
-                                        </div>
+                                    <Form.Control type="text" value={alamat} onChange={(e)=> setAlamat(e.target.value)} placeholder="alamat" /><br/>        
+                                    <div className="d-flex flex-row-reverse">
+                                        <div className="p-2"><button type="submit" className="btn btn-primary" size="sm">Tambah</button></div>
+                                        <div className="p-2"><Link to={`/pasien`} className="btn btn-primary" >Batal</Link>{' '}</div>
                                     </div>
                                 </div>
                             </Form>

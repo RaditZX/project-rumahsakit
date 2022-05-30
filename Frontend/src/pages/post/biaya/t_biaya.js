@@ -48,21 +48,20 @@ function T_biaya() {
     }
 
     return(
-        //form reset
+        //form tambah biaya
         <div className="register">
             <div className="d-flex justify-content-center">
                 <div className="reset" style={{marginTop: "130px"}}>
 
-                    {/* card form reset password  */}
+                    {/* card form tambah biaya  */}
                     <Card style={{ width: '25rem' }}>
                         <Card.Header className="card-header">Form tambah data biaya</Card.Header>
                         <ListGroup variant="flush">
                             <ListGroup.Item>
                                 <Form onSubmit={handleSubmit}>
                                 
-                                    {/* Email */}
+                                    {/* nama biaya */}
                                     <div className="d-flex flex-column"> 
-
                                         <div className="p-2 col-example text-left">
                                             <div className="d-flex flex-row">
                                                 <label>Nama Biaya</label>
@@ -70,7 +69,7 @@ function T_biaya() {
                                             <Form.Control type="text" value={nama_biaya} onChange={(e) => setNama_biaya(e.target.value)} placeholder="nama biaya" />
                                         </div>
 
-                                        {/* username */}
+                                        {/* harga */}
                                         <div className="p-2 col-example text-left">
                                             <div className="d-flex flex-row">
                                                 <label>Harga:</label>

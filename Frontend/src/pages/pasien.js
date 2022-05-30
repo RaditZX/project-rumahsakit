@@ -75,24 +75,21 @@ function Pasien(){
             <Navbar />
             <div className="container">
                 <div className="wrapper">
-
-                {/* header pasien */}
-                <div className="header">
-                    <h1>Pasien</h1>
-                    
-                </div>
-                <br />
-
-                {/* fitur pasien */}
-            
-                    <div className="d-flex flex-row">
+                    {/* header pasien */}
+                    <div className="d-flex justify-content-between">
+                        <div className="p-2 col-example text-left">
+                            <div className="header">
+                                <h1>Pasien</h1>
+                            </div>
+                        </div>
 
                         {/* fitur tambah data */}
-                        <div className="p-3">
+                        <div className="p-2 col-example text-left">
                             <Link to={`/t_pasien`} className="btn btn-primary" size="sm">Tambah Data</Link>{' '}
                         </div>
                     </div>
-
+                    <br />
+                    
                     {/* fitur filter */}
                     <div className="d-flex justify-content-between">
                         <div className="p-2 col-example text-left">
@@ -120,7 +117,6 @@ function Pasien(){
                     </div>
                     
                     {/* tabel data pasien */}
-                    
                     <div class="table-responsive">
                         <Table striped bordered hover size="sm" className="table">
                             <thead>
@@ -132,9 +128,9 @@ function Pasien(){
                                     <th>Jenis Kelamin</th>
                                     <th>Total hari</th>
                                     <th>G_Darah</th>
-                                    <th>Kode Penyakit</th>
-                                    <th>Kode Kamar</th>
-                                    <th>Kode Biaya</th>
+                                    <th>Jenis Penyakit</th>
+                                    <th>Jenis Kamar</th>
+                                    <th>Jenis Biaya</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
@@ -164,16 +160,16 @@ function Pasien(){
                                                     <td>{biaya.nama_biaya}</td>
                                                 )
                                             })}
-                                            
-                                    <td>
-                                        <Link to={`pasien/edit/${pasien._id}`} className="btn btn-outline-info"><MdIcons.MdEdit /></Link>
-                                        <button type="submit" className="btn btn-outline-danger" onClick={() => deletePasien(pasien._id)}><MdIcons.MdDelete /></button>
-                                    </td>
-                                </tr>   
-                            )})}
+                                            <td>
+                                                <Link to={`pasien/edit/${pasien._id}`} className="btn btn-outline-primary"><MdIcons.MdEdit /></Link>
+                                                <button type="submit" className="btn btn-outline-danger" onClick={() => deletePasien(pasien._id)}><MdIcons.MdDelete /></button>
+                                            </td>
+                                        </tr>
+                                    )})
+                                }
                             </tbody>
                         </Table>
-                        </div>
+                    </div>
                   
                     {/* pagination */}
                     <div className="d-flex flex-row-reverse">

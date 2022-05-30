@@ -63,44 +63,34 @@ function T_kamar() {
     }
     else{
     return(
-        //form reset
+        //form tambah kamar
         <div className="register">
             <div className="d-flex justify-content-center">
                 <div className="reset" style={{marginTop: "130px"}}>
 
-                    {/* card form reset password  */}
+                    {/* card form tambah kamar */}
                     <Card style={{ width: '25rem' }}>
                         <Card.Header className="card-header">Kamar</Card.Header>
                         <ListGroup variant="flush">
                             <ListGroup.Item>
                                 <Form onSubmit={handelSubmit}>
-                                
-                                {/* Email */}
-                                        <label>Nama kamar:</label>
-                                        <Form.Control type="text" value={nama_kamar} onChange={(e) => setNama_kamar(e.target.value)} placeholder="nama kamar" />
-                                  
-
-                                   
-                                        <label>Lantai</label>
-                                        <Form.Control type="text" value={lantai} onChange={(e) => setLantai(e.target.value)} placeholder="Lantai" />
-                              
-
-                                    {/* username */}
-                                
-                                        <label>Harga:</label> 
-                                        <Form.Control type="text" value={harga} onChange={(e) => setHarga(e.target.value)} placeholder="harga" />
-                                   
-
-                                    {/* password */}
-                                  
-                                        <label>Status:</label>
-                                        <Form.Select value={status} onChange={(e) => setStatus(e.target.value)}>
-                                            <option value="">Pilih Status</option>
-                                            <option value="tersedia">Tersedia</option>
-                                            <option value="terisi">Terisi</option>
-                                        </Form.Select>
-                                    
-
+                                    {/* nama kamar */}
+                                    <label>Nama kamar:</label>
+                                    <Form.Control type="text" value={nama_kamar} onChange={(e) => setNama_kamar(e.target.value)} placeholder="nama kamar" />
+                                    {/* Lantai */}
+                                    <label>Lantai</label>
+                                    <Form.Control type="text" value={lantai} onChange={(e) => setLantai(e.target.value)} placeholder="Lantai" />
+                                    {/* harga */}
+                                    <label>Harga:</label> 
+                                    <Form.Control type="text" value={harga} onChange={(e) => setHarga(e.target.value)} placeholder="harga" />
+                                    {/* status */}
+                                    <label>Status:</label>
+                                    <Form.Select value={status} onChange={(e) => setStatus(e.target.value)}>
+                                        <option value="">Pilih Status</option>
+                                        <option value="tersedia">Tersedia</option>
+                                        <option value="terisi">Terisi</option>
+                                    </Form.Select>
+                                    {/* button */}
                                     <div className="d-flex flex-row-reverse">
                                         <div className="p-2">
                                             <div className="p-2"><Link to={`/kamar`} className="btn btn-primary" size="sm">Batal</Link>{' '}</div>

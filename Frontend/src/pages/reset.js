@@ -48,13 +48,13 @@ function reset() {
                                     {/* button reset */}
                                     <div className="p-3 col-example text-left">
                                         <div className="d-grid gap-2">
-                                            <button type="submit" className="btn btn-info btn-block">Reset Password</button>
+                                            <button type="submit" className="btn btn-primary btn-block">Reset Password</button>
                                         </div>
                                         <p />
 
                                         {/* button back */}
                                         <div className="d-grid gap-2">
-                                            <Link to={`/`} className="btn btn-info" size="sm">Back</Link>{' '}
+                                            <Link to={`/`} className="btn btn-primary" size="sm">Back</Link>{' '}
                                         </div>
                                     </div>
                                 </div>

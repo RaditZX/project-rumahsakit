@@ -27,6 +27,7 @@ import U_pasien from "./pages/post/pasien/updatePasien";
 import U_penyakit from "./pages/post/penyakit/updatePenyakit";
 import U_kamar from "./pages/post/kamar/updateKamar";
 import U_biaya from "./pages/post/biaya/updateBiaya";
+import U_profile from "./pages/UpdateProfile";
 
 
 function App() {
@@ -50,7 +51,7 @@ function App() {
         <Route exact path="/penyakit/edit/:Id" component={U_penyakit} />
         <Route exact path="/kamar/edit/:Id" component={U_kamar} />
         <Route exact path="/biaya/edit/:Id" component={U_biaya} />
-
+        <Route exact path="/u_profile" component={U_profile} />
       </Switch>
     </div>
   );

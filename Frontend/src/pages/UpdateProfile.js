@@ -10,15 +10,13 @@ import {Form} from 'react-bootstrap';
 
 //import react router dom
 
-function profile(){
+function UpdateProfile(){
     return(
         <div className="home">
             <Navbar />
             <div className='container'>
-                <div className="d-flex flex-row" style={{marginTop: "120px"}}>
+                <div className="d-flex flex-row">
                     <div className="p-2">
-
-                        {/* Card Foto */}
                         <Card style={{ width: '18rem' }}>
                             <Card.Header style={{ height: 'auto' }}>
                                 <div className="d-flex justify-content-center">
@@ -31,29 +29,27 @@ function profile(){
                                         {/* nama */}
                                         <div className="p-2 col-example text-left">
                                             <div className="d-flex justify-content-center">
-                                                <h4>Nama Awal</h4>
+                                                <h2>gduwd</h2>
                                             </div>
                                         </div>
 
-                                        {/* username */}
+                                        {/* nama */}
                                         <div className="p-2 col-example text-left">
                                             <div className="d-flex justify-content-center">
-                                                <p>username</p>
+                                                <p>hfwhefi</p>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-
-                                {/* Sebagai apa */}
                             </Card.Header>
                             <ListGroup variant="flush">
-                                <ListGroup.Item>Admin/perawat/user</ListGroup.Item>
+                                <ListGroup.Item>Cras justo odio</ListGroup.Item>
                             </ListGroup>
                         </Card>
                     </div>
                     <div className="p-2">
                         <div >
-                            {/* profile */}
+                            {/* card form login  */}
                             <Card style={{ width: '45rem' }}>
                                 <Card.Header><h2>Pasien</h2></Card.Header>
                                 <ListGroup variant="flush">
@@ -62,35 +58,35 @@ function profile(){
                                         <div className="row mt-2">
                                             <div className="col-md-6">
                                                 <label className="labels">Nama Awal: </label> 
-                                                <Form.Control type="text"  placeholder="nama awal" disabled />
+                                                <Form.Control type="text"  placeholder="nama awal" />
                                             </div>
                                             <div className="col-md-6">
                                                 <label className="labels">Nama Akhir:</label>
-                                                <Form.Control type="text"  placeholder="nama akhir" disabled />
+                                                <Form.Control type="text"  placeholder="nama akhir" />
                                             </div>
                                         </div><br />
                                         <div className="row mt-2">
                                             <div className="col-md-6">
                                                 <label className="labels">No Telepon: </label> 
-                                                <Form.Control type="text"  placeholder="08xxx" disabled />
+                                                <Form.Control type="text"  placeholder="08xxx" />
                                             </div>
                                             <div className="col-md-6">
                                                 <label className="labels">Alamat Email:</label>
-                                                <Form.Control type="text"  placeholder="anda@gmail.com" disabled />
+                                                <Form.Control type="text"  placeholder="anda@gmail.com" />
                                             </div>
                                         </div><br />
                                         <div className="row mt-2">
                                             <div className="col-md-6">
                                                 <label className="labels">Passcode: </label> 
-                                                <Form.Control type="text"  placeholder=" xxx" disabled />
+                                                <Form.Control type="text"  placeholder=" xxx" />
                                             </div>
                                             <div className="col-md-6">
                                                 <label className="labels">Alammat rumah:</label>
-                                                <Form.Control type="text"  placeholder="Jalan xxx" disabled />
+                                                <Form.Control type="text"  placeholder="Jalan xxx" />
                                             </div>
                                         </div><br />
                                         <div className="d-flex flex-row-reverse">
-                                            <Link to={`/u_profile`} className="btn btn-primary" size="sm">EDIT</Link>{' '}
+                                            <button className="btn btn-primary" type="submit">Simpan</button>
                                         </div>
                                         
                                         </Form>
@@ -105,4 +101,4 @@ function profile(){
     );
 }
 
-export default profile;
+export default UpdateProfile;

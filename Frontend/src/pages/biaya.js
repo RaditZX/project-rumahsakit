@@ -75,22 +75,20 @@ function Biaya(){
             <div className="container">
 
                 {/* header pasien */}
-                <div className="header">
-                    <h1>Biaya</h1>
-                    
-                </div>
-                <br />
-
-                {/* fitur pasien */}
-
-                    <div className="d-flex flex-row">
+                    <div className="d-flex justify-content-between">
+                        <div className="p-2 col-example text-left">
+                            <div className="header">
+                                <h1>Biaya</h1>
+                            </div>
+                        </div>
 
                         {/* fitur tambah data */}
-                        <div className="p-3">
+                        <div className="p-2 col-example text-left">
                             <Link to={`/t_biaya`} className="btn btn-primary" size="sm">Tambah Data</Link>{' '}
                         </div>
                     </div>
-
+                    <br />
+                
                     {/* fitur filter */}
                     <div className="d-flex justify-content-between">
                         <div className="p-2 col-example text-left">
@@ -117,7 +115,7 @@ function Biaya(){
                         </div>
                     </div>
                     
-                    {/* tabel data pasien */}
+                    {/* tabel data biaya */}
                     <div className="d-flex justify-content-center">
                         <Table striped bordered hover size="sm" className="tabel-pasien">
                             <thead>
@@ -140,7 +138,7 @@ function Biaya(){
                                             <td>{item.harga}</td>
                                             <td>{item.status}</td>
                                             <td>
-                                                <Link to={`biaya/edit/${item._id}`} className="btn btn-outline-info"><MdIcons.MdEdit /></Link>
+                                                <Link to={`biaya/edit/${item._id}`} className="btn btn-outline-primary"><MdIcons.MdEdit /></Link>
                                                 <button type="submit" className="btn btn-outline-danger" onClick={() => deleteBiaya(item._id)}><MdIcons.MdDelete /></button>
                                             </td>
                                         </tr>

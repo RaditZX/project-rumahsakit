@@ -60,16 +60,16 @@ function Register() {
         })
     }
     return(
-        //form reset
+        //form register
         <div className="register">
             <div className="d-flex justify-content-center">
                 <div className="reset" style={{marginTop: "130px"}}>
-                    {/* card form reset password  */}
                     <Card style={{ width: '25rem' }}>
                         <Card.Header className="card-header">Form Register</Card.Header>
                         <ListGroup variant="flush">
                             <ListGroup.Item>
                                 <Form onSubmit={handleSubmit}>
+                                    
                                     {/* Email */}
                                     <div className="d-flex flex-column"> 
                                         <div className="p-2 col-example text-left">
@@ -96,13 +96,13 @@ function Register() {
                                         {/* button register */}
                                         <div className="p-3 col-example text-left">
                                             <div className="d-grid gap-2">
-                                                <button type="submit" className="btn btn-info btn-block">Register</button>
+                                                <button type="submit" className="btn btn-primary btn-block">Register</button>
                                             </div>
                                             <p />
 
                                             {/* button back */}
                                             <div className="d-grid gap-2">
-                                                <Link to={`/`} className="btn btn-info" size="sm">Back</Link>{' '}
+                                                <Link to={`/`} className="btn btn-primary" size="sm">Back</Link>{' '}
                                             </div>
                                         </div>
                                     </div>

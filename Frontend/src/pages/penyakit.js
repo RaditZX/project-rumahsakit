@@ -71,23 +71,20 @@ function Penyakit(){
         <div>
             <Navbar />
             <div className="container">
-
-                {/* header pasien */}
-                <div className="header">
-                    <h1>Penyakit</h1>
-                    
-                </div>
-                <br />
-
-                {/* fitur pasien */}
-        
-                    <div className="d-flex flex-row">
+                {/* header penyakit */}
+                    <div className="d-flex justify-content-between">
+                        <div className="p-2 col-example text-left">
+                            <div className="header">
+                                <h1>Penyakit</h1>
+                            </div>
+                        </div>
 
                         {/* fitur tambah data */}
-                        <div className="p-3">
+                        <div className="p-2 col-example text-left">
                             <Link to={`/t_penyakit`} className="btn btn-primary" size="sm">Tambah Data</Link>{' '}
                         </div>
                     </div>
+                    <br />
 
                     {/* fitur filter */}
                     <div className="d-flex justify-content-between">
@@ -115,7 +112,7 @@ function Penyakit(){
                         </div>
                     </div>
                     
-                    {/* tabel data pasien */}
+                    {/* tabel data penyakit */}
                     <div className="d-flex justify-content-center">
                         <Table striped bordered hover size="sm" className="tabel-pasien">
                             <thead>
@@ -136,7 +133,7 @@ function Penyakit(){
                                             <td>{list.deskripsi}</td>
                                             <td>{list.solusi}</td>
                                             <td>
-                                                <Link to={`penyakit/edit/${list._id}`} className="btn btn-outline-info"><MdIcons.MdEdit /></Link>
+                                                <Link to={`penyakit/edit/${list._id}`} className="btn btn-outline-primary"><MdIcons.MdEdit /></Link>
                                                 <button type="submit" className="btn btn-outline-danger" onClick={() => deletePenyakit(list._id)}><MdIcons.MdDelete /></button>
                                             </td>
                                         </tr>
