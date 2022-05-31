@@ -4,9 +4,8 @@
   text-align: start;
   font-family: serif ;
   font-weight: bold;
-  font-size: large;
-  color: white;
   font-size: 25px;
+  color: white;
 }
 
 
@@ -20,7 +19,7 @@
   justify-content: center;
   height: 100vh;
   border-radius: 30px;
-
+  background-image: url("./image/background.jpg")
 }
 
 
@@ -107,6 +106,10 @@
 .judul{
   font-size: 30px;
   justify-content: center;
+}
+
+.card{
+  width: 45rem;
 }
 
 

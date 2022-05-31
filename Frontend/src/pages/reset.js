@@ -11,20 +11,23 @@ import '../App.css';
 //import component react-bootstrap
 import {Card} from "react-bootstrap";
 import {ListGroup} from "react-bootstrap"; 
-import {Form} from "react-bootstrap"
+import {Form} from "react-bootstrap";
+import lambang from "../image/icon.png";
+
 
 function reset() {
     return(
         //form reset
-        <div className="register">
+        <div className="login">
             <div className="d-flex justify-content-center">
-                <div className="reset" style={{marginTop: "130px"}}>
+                <div style={{marginTop: "130px"}}>
 
                     {/* card form reset password  */}
-                    <Card style={{ width: '25rem' }}>
+                    <Card className="card">
                         <Card.Header className="card-header">Form riset password</Card.Header>
                         <ListGroup variant="flush">
                             <ListGroup.Item>
+                                <div className="d-flex justify-content-center"><img alt = "image" height = "90" width = "150" align="center" src={lambang}  /></div>
 
                                 {/* email */}
                                 <div className="d-flex flex-column"> 

@@ -18,6 +18,7 @@ export const SidebarData = [
         cName: 'nav-text'
     },
 
+
     //pasien
     {
         title: 'Pasien',
@@ -26,8 +27,27 @@ export const SidebarData = [
         cName: 'nav-text'
     },
 
-    //penyakit
     {
+        title: 'Data',
+        path: '/data',
+        icon: <FaIcons.FaBook />,
+        cName: 'nav-text'
+    },
+
+    //profile
+    {
+        title: 'Profile',
+        path:  `/profile`, 
+        icon: <CgIcons.CgProfile />,
+        cName: 'nav-text'
+    },
+
+   
+]
+
+export const SidebarAdmin = [
+     //penyakit
+     {
         title: 'Penyakit',
         path: '/penyakit',
         icon: <FaIcons.FaDisease/>,
@@ -49,22 +69,16 @@ export const SidebarData = [
         icon: <FaIcons.FaMoneyBill />,
         cName: 'nav-text'
     },
+]
 
-    //data user
-    {
-        title: 'Data',
-        path: '/data',
-        icon: <FaIcons.FaBook />,
-        cName: 'nav-text'
-    },
-    
     //pasien
+    export const logout = [
+
+    //logout
     {
-        title: 'Profile',
-        path:  `/profile`, 
-        icon: <CgIcons.CgProfile />,
+        title: 'Logout',
+        path:  `/`,
+        icon: <IoIcons.IoIosLogOut/>,
         cName: 'nav-text'
     }
-
-    
-]
+    ]

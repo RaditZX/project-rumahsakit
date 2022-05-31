@@ -13,6 +13,7 @@ import '../App.css';
 import {Card} from "react-bootstrap";
 import {ListGroup} from "react-bootstrap"; 
 import {Form} from "react-bootstrap"
+import lambang from "../image/icon.png";
 
 function Login() {
     const [email,setEmail] = useState('');
@@ -69,11 +70,13 @@ function Login() {
         <div className="d-flex justify-content-center">
             <div className="" style={{marginTop: "120px"}}>
                 {/* card form login  */}
-                <Card style={{ width: '25rem' }}>
+                <Card className="card" >
                     <Card.Header>Form Login</Card.Header>
                     <ListGroup variant="flush">
                         <ListGroup.Item>
                             <Form onSubmit={handelSubmit}>
+                                <div className="d-flex justify-content-center"><img alt = "image" height = "90" width = "150" align="center" src={lambang}  /></div>
+                            
                                 <div className="d-flex flex-column"> 
                                     <div className="p-2 col-example text-left"></div>
                                     <div className="p-2 col-example text-left">

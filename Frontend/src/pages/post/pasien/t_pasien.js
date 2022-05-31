@@ -26,6 +26,7 @@ function T_pasien() {
     const [penyakit,setPenyakit] = useState([]);
     const [kamar,setKamar] = useState([]);
     const [biaya,setBiaya] = useState([]);
+    const [role,setRole] = useState('');
     const history = useHistory();
     const Id = localStorage.getItem('id')
 
@@ -42,6 +43,16 @@ function T_pasien() {
         })
         .catch(err => {
             console.log(err.response.message);
+        })
+    }
+
+    const getRoles = () => {
+        axios.get(`http://localhost:3000/user/${Id}`)
+        .then(res => {
+            setRole(res.data.role);
+        })
+        .catch(err => {
+            console.log(err);
         })
     }
     
@@ -115,6 +126,7 @@ function T_pasien() {
         getkamar();
         getbiaya();
         autorization();
+        getRoles();
     },[])
     
     return(
@@ -124,7 +136,7 @@ function T_pasien() {
             <div className="" style={{marginTop: "120px"}}>
                 {/* card form pasien  */}
                 <Card style={{ width: '60rem' }}>
-                    <Card.Header className='judul'>Pasien </Card.Header>
+                    <Card.Header>Pasien </Card.Header>
                     <ListGroup variant="flush">
                         <ListGroup.Item>
                             <Form onSubmit={handleSubmit}>
@@ -218,6 +230,7 @@ function T_pasien() {
             </div>
     </div>
     );
-
 }
+
+
 export default T_pasien;

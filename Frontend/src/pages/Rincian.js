@@ -13,6 +13,7 @@ function Rincian(){
             <Navbar />
             <div className='container'>
                 <div>
+                    {/* header */}
                     <h2>Rincian</h2><br/>
                 </div>
                 <div className="d-flex flex-row">
@@ -22,18 +23,26 @@ function Rincian(){
                                 <div className="p-2 col-example text-left">
                                     <div className="d-flex justify-content-center"><h4>Rincian Biaya Rumah Sakit</h4></div>
                                 </div>
-                                <div className="p-2 col-example text-left">
-                                    <label>Nama Lengkap: </label><br/><p/>
-                                    <label>No Telepon: </label><br/><p/>
-                                    <label>Alamat Email: </label><br/><p/>
-                                    <label>Alamat Rumah: </label><br/><p/>
+                                <div className="d-flex justify-content-start">
+                                    {/* Judul data user */}
+                                    <div className="p-2 col-example text-left">
+                                        <label>Nama Lengkap:</label><br/><p/>
+                                        <label>No Telepon:</label><br/><p/>
+                                        <label>Alamat Rumah: </label><br/><p/>
+                                    </div>
+                                    {/* isi data user */}
+                                    <div className="p-2 col-example text-left">
+                                        <label>:VVIP</label><br/><p/>
+                                        <label>:100000</label><br/><p/>
+                                        <label>:Reaver</label>
+                                    </div>
                                 </div>
                                 <div className="p-2 col-example text-left">
-                                    
                                     <label>Rincian Biaya:</label><p/>
                                     <Card body style={{ width: '30rem' }}>
                                         <div className="d-flex justify-content-start">
                                             <div className="p-2 col-example text-left">
+                                                {/* judul total biaya */}
                                                 <label>Jenis Kamar</label><br/><p/>
                                                 <label>Harga Kamar</label><br/><p/>
                                                 <label>Total hari meninap</label><br/><p/>
@@ -42,6 +51,7 @@ function Rincian(){
                                                 <b>Total</b>
                                             </div>
                                             <div className="p-2 col-example text-left">
+                                                {/* harga total biaya */}
                                                 <label>:VVIP</label><br/><p/>
                                                 <label>:100000</label><br/><p/>
                                                 <label>:7</label><br/><p/>
@@ -57,19 +67,12 @@ function Rincian(){
                     </div>
                     <div className="p-2">
                         <div className="d-flex flex-column">
-                            
-                                <button className="btn btn-primary" type="submit">Ekspor ke pdf</button><br/>
-                                <Link to={`/data`} className="btn btn-primary btn-block" >Batal</Link>{' '}
+                            <button className="btn btn-outline-primary" type="submit">Ekspor ke pdf</button><br/>
+                            <Link to={`/data`} className="btn btn-primary btn-block" >Batal</Link>{' '}
                         </div>
                     </div>
-                </div>
-                    
-                        
-                    
-                        
-                    </div>
-                             
-            
+                </div> 
+            </div>
         </div>
     );
 }

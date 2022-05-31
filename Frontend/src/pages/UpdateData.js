@@ -16,7 +16,7 @@ function UpdateData(){
             <Navbar />
             <div className='container'>
             <Card style={{ width: '60rem' }}>
-                <Card.Header>Edit data </Card.Header>
+                <Card.Header className='judul'>Edit data </Card.Header>
                 <ListGroup variant="flush">
                     <ListGroup.Item>
                         <Form>

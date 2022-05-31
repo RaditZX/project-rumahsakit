@@ -17,8 +17,10 @@ function U_kamar() {
     const [lantai,setLantai] = useState('');
     const [harga,setHarga] = useState('');
     const [status,setStatus] = useState('');
+    const [role,setRole] = useState('');
     const history = useHistory();
     const {Id} = useParams();
+    const id = localStorage.getItem('id');
 
     const autorization = () => {
         axios.get(`http://localhost:3000/authenticated`,{
@@ -33,6 +35,16 @@ function U_kamar() {
         })
         .catch(err => {
             console.log(err.response.message);
+        })
+    }
+
+    const getRoles = () => {
+        axios.get(`http://localhost:3000/user/${Id}`)
+        .then(res => {
+            setRole(res.data.role);
+        })
+        .catch(err => {
+            console.log(err);
         })
     }
 
@@ -70,55 +82,61 @@ function U_kamar() {
     useEffect(() => {
         getKamar();
         autorization();
+        getRoles();
     },[]);
+    
+    if(role === 'pasien'){
+        return <Redirect to='/pasien'/>
+    }
+    else{
+        return(
+            //form update kamar
+            <div className="login">
+                <div className="d-flex justify-content-center">
+                    <div className="reset" style={{marginTop: "130px"}}>
 
-    return(
-        //form update kamar
-        <div className="register">
-            <div className="d-flex justify-content-center">
-                <div className="reset" style={{marginTop: "130px"}}>
-
-                    {/* card form update kamar  */}
-                    <Card style={{ width: '25rem' }}>
-                        <Card.Header className="card-header">Kamar</Card.Header>
-                        <ListGroup variant="flush">
-                            <ListGroup.Item>
-                                <Form onSubmit={handelSubmit}>
-                                    {/* nama */}
-                                    <label>Nama kamar:</label>
-                                    <Form.Control type="text" value={nama_kamar} onChange={(e) => setNama_kamar(e.target.value)} placeholder="nama kamar" />
-                                    {/* lantai */}
-                                    <label>Lantai</label>
-                                     <Form.Control type="text" value={lantai} onChange={(e) => setLantai(e.target.value)} placeholder="Lantai" />
-                                     {/* harga */}
-                                    <label>Harga:</label> 
-                                    <Form.Control type="text" value={harga} onChange={(e) => setHarga(e.target.value)} placeholder="harga" />
-                                    {/* status */}
-                                    <label>Status:</label>
-                                    <Form.Select value={status} onChange={(e) => setStatus(e.target.value)}>
-                                        <option value="">Pilih Status</option>
-                                        <option value="tersedia">Tersedia</option>
-                                        <option value="terisi">Terisi</option>
-                                    </Form.Select>
-                                    {/* button */}
-                                    <div className="d-flex flex-row-reverse">
-                                        <div className="p-2">
-                                            <div className="p-2"><Link to={`/kamar`} className="btn btn-primary" size="sm">Batal</Link>{' '}</div>
-                                        </div>
-                                        <div className="p-2">
+                        {/* card form update kamar  */}
+                        <Card className='card'>
+                            <Card.Header className="card-header">Kamar</Card.Header>
+                            <ListGroup variant="flush">
+                                <ListGroup.Item>
+                                    <Form onSubmit={handelSubmit}>
+                                        {/* nama */}
+                                        <label>Nama kamar:</label>
+                                        <Form.Control type="text" value={nama_kamar} onChange={(e) => setNama_kamar(e.target.value)} placeholder="nama kamar" />
+                                        {/* lantai */}
+                                        <label>Lantai</label>
+                                        <Form.Control type="text" value={lantai} onChange={(e) => setLantai(e.target.value)} placeholder="Lantai" />
+                                        {/* harga */}
+                                        <label>Harga:</label> 
+                                        <Form.Control type="text" value={harga} onChange={(e) => setHarga(e.target.value)} placeholder="harga" />
+                                        {/* status */}
+                                        <label>Status:</label>
+                                        <Form.Select value={status} onChange={(e) => setStatus(e.target.value)}>
+                                            <option value="">Pilih Status</option>
+                                            <option value="tersedia">Tersedia</option>
+                                            <option value="terisi">Terisi</option>
+                                        </Form.Select>
+                                        {/* button */}
+                                        <div className="d-flex flex-row-reverse">
                                             <div className="p-2">
-                                                <button className="btn btn-primary" type="submit">Tambah</button>
+                                                <div className="p-2"><Link to={`/kamar`} className="btn btn-primary" size="sm">Batal</Link>{' '}</div>
+                                            </div>
+                                            <div className="p-2">
+                                                <div className="p-2">
+                                                    <button className="btn btn-primary" type="submit">Tambah</button>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </Form>
-                            </ListGroup.Item>
-                        </ListGroup>
-                    </Card>
+                                    </Form>
+                                </ListGroup.Item>
+                            </ListGroup>
+                        </Card>
+                    </div>
                 </div>
             </div>
-        </div>
-    );
+        );
+    }
 
 }
 export default U_kamar;
