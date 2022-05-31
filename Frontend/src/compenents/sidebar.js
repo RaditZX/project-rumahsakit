@@ -50,11 +50,21 @@ export const SidebarData = [
         cName: 'nav-text'
     },
 
+    //data user
+    {
+        title: 'Data',
+        path: '/data',
+        icon: <FaIcons.FaBook />,
+        cName: 'nav-text'
+    },
+    
     //pasien
     {
         title: 'Profile',
         path:  `/profile`, 
         icon: <CgIcons.CgProfile />,
         cName: 'nav-text'
-    },
+    }
+
+    
 ]

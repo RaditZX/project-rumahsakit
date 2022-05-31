@@ -19,6 +19,7 @@ import Penyakit from "./pages/penyakit";
 import Kamar from "./pages/kamar";
 import Biaya from "./pages/biaya";
 import profile from "./pages/profile";
+import Data from "./pages/data";
 import T_pasien from "./pages/post/pasien/t_pasien";
 import T_penyakit from "./pages/post/penyakit/t_penyakit";
 import T_kamar from "./pages/post/kamar/t_kamar";
@@ -28,6 +29,8 @@ import U_penyakit from "./pages/post/penyakit/updatePenyakit";
 import U_kamar from "./pages/post/kamar/updateKamar";
 import U_biaya from "./pages/post/biaya/updateBiaya";
 import U_profile from "./pages/UpdateProfile";
+import U_data from "./pages/UpdateData";
+import Rincian from "./pages/Rincian";
 
 
 function App() {
@@ -43,6 +46,7 @@ function App() {
         <Route exact path="/kamar" component={Kamar} />
         <Route exact path="/biaya" component={Biaya} />
         <Route exact path="/profile" component={profile} />
+        <Route exact path="/data" component={Data} />
         <Route exact path="/t_pasien" component={T_pasien} />
         <Route exact path="/t_penyakit" component={T_penyakit} />
         <Route exact path="/t_kamar" component={T_kamar} />
@@ -52,6 +56,8 @@ function App() {
         <Route exact path="/kamar/edit/:Id" component={U_kamar} />
         <Route exact path="/biaya/edit/:Id" component={U_biaya} />
         <Route exact path="/u_profile" component={U_profile} />
+        <Route exact path="/u_data" component={U_data} />
+        <Route exact path="/rincian" component={Rincian} />
       </Switch>
     </div>
   );

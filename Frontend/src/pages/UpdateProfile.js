@@ -16,7 +16,7 @@ function UpdateProfile(){
             <Navbar />
             <div className='container'>
                 <div className="d-flex flex-row">
-                    <div className="p-2">
+                    <div className="p-2" style={{marginTop: "120px"}}>
                         <Card style={{ width: '18rem' }}>
                             <Card.Header style={{ height: 'auto' }}>
                                 <div className="d-flex justify-content-center">
@@ -47,7 +47,7 @@ function UpdateProfile(){
                             </ListGroup>
                         </Card>
                     </div>
-                    <div className="p-2">
+                    <div className="p-2" style={{marginTop: "120px"}}>
                         <div >
                             {/* card form login  */}
                             <Card style={{ width: '45rem' }}>
@@ -86,7 +86,8 @@ function UpdateProfile(){
                                             </div>
                                         </div><br />
                                         <div className="d-flex flex-row-reverse">
-                                            <button className="btn btn-primary" type="submit">Simpan</button>
+                                            <div className="p-2"><Link to={`/profile`} className="btn btn-primary" >Batal</Link>{' '}</div>
+                                            <div className="p-2"><button type="submit" className="btn btn-primary" size="sm">Simpan</button></div>
                                         </div>
                                         
                                         </Form>

@@ -124,7 +124,7 @@ function T_pasien() {
             <div className="" style={{marginTop: "120px"}}>
                 {/* card form pasien  */}
                 <Card style={{ width: '60rem' }}>
-                    <Card.Header>Pasien </Card.Header>
+                    <Card.Header className='judul'>Pasien </Card.Header>
                     <ListGroup variant="flush">
                         <ListGroup.Item>
                             <Form onSubmit={handleSubmit}>

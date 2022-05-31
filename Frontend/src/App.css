@@ -91,12 +91,22 @@
   margin-top: 1.5rem;
 }
 
-.pasien{
-
-}
 
 .card-login{
   background-color: white;
+}
+
+.huruf{
+  font-size: large;
+}
+
+.total{
+  margin-left: 1rem;
+}
+
+.judul{
+  font-size: 30px;
+  justify-content: center;
 }
 
 
