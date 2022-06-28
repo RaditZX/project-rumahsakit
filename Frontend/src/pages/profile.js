@@ -3,7 +3,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { useHistory,useParams, Link } from 'react-router-dom';
 import Navbar from "../compenents/navbar";
 import axios from 'axios';
-import "../App.css";
 
 //import react boostrap
 import {Card} from 'react-bootstrap';
@@ -12,13 +11,12 @@ import {Form} from 'react-bootstrap';
 
 //import react router dom
 
-function UpdateProfile(){
+function Profile(){
     const [nama_awal,setNama_awal] = useState('');
     const [nama_akhir,setNama_akhir] = useState('');   
     const [alamat,setAlamat] = useState('');
     const [email,setEmail] = useState('');
     const [pekerjaan,setPekerjaan] = useState('');
-    const [profile,setProfile] = useState('');
     const [no_telp,setNo_telp] = useState('');
     const [role,setRole] = useState('');
     const history = useHistory();
@@ -58,14 +56,6 @@ function UpdateProfile(){
         })
     }
 
-    const onImageChange = (e) => {
-        console.log(e.target.files[0])
-        let uploaded = e.target.files[0];
-        console.log(URL.createObjectURL(uploaded))
-        setProfile(uploaded);
-     
-    }
-
     const handleSubmit = (e) => {
         e.preventDefault();
         axios.put(`http://localhost:3000/user/${id}`,{
@@ -74,7 +64,6 @@ function UpdateProfile(){
             pekerjaan,
             alamat,
             email,
-            profile,
             no_telp
         })
         .then(res => {
@@ -94,10 +83,10 @@ function UpdateProfile(){
     return(
         <div className="home">
             <Navbar />
-            <div className='container-fluid'>
+            <div className='container'>
                 <div className="d-flex flex-row">
-                    <div className="p-2">
-                        <Card className="profile">
+                    <div className="p-2" style={{marginTop: "120px"}}>
+                        <Card style={{ width: '18rem' }}>
                             <Card.Header style={{ height: 'auto' }}>
                                 <div className="d-flex justify-content-center">
                                     <div className="d-flex flex-column">
@@ -129,46 +118,54 @@ function UpdateProfile(){
                     </div>
                     <div className="p-2" style={{marginTop: "120px"}}>
                         <div >
-                            {/* card form login  */}
-                            <Card className="data">
-                                <Card.Header><h2>Pasien</h2></Card.Header>
+                            {/* card form profile  */}
+                            <Card style={{ width: '45rem' }}>
+                                <Card.Header><h2 className='judul'>Profile</h2></Card.Header>
                                 <ListGroup variant="flush">
                                     <ListGroup.Item>
                                         <Form onSubmit={handleSubmit}>
-                                        <div className="row mt-2">
-                                            <div className="col-md-6">
-                                                <label className="labels">Nama Awal: </label> 
-                                                <Form.Control type="text" value={nama_awal} onChange={(e)=> setNama_awal(e.target.value)}   />
+                                            <div className="row mt-2">
+                                                <div className="col-md-6">
+                                                    {/* nama awal */}
+                                                    <label className="labels">Nama Awal: </label> 
+                                                    <Form.Control type="text" value={nama_awal} onChange={(e)=> setNama_awal(e.target.value)}   disabled />
+                                                </div>
+                                                <div className="col-md-6">
+                                                    {/* nama akhir */}
+                                                    <label className="labels">Nama Akhir:</label>
+                                                    <Form.Control type="text" value={nama_akhir} onChange={(e)=> setNama_akhir(e.target.value)}  disabled />
+                                                </div>
                                             </div>
-                                            <div className="col-md-6">
-                                                <label className="labels">Nama Akhir:</label>
-                                                <Form.Control type="text" value={nama_akhir} onChange={(e)=> setNama_akhir(e.target.value)}  />
+                                            <br />
+                                            <div className="row mt-2">
+                                                <div className="col-md-6">
+                                                    {/* no telepon */}
+                                                    <label className="labels">No Telepon: </label> 
+                                                    <Form.Control type="text" value={no_telp} onChange={(e)=> setNo_telp(e.target.value)} disabled />
+                                                </div>
+                                                <div className="col-md-6">
+                                                    {/* alamat email */}
+                                                    <label className="labels">Alamat Email:</label>
+                                                    <Form.Control type="text" value={email} onChange={(e)=> setEmail(e.target.value)} disabled />
+                                                </div>
                                             </div>
-                                        </div><br />
-                                        <div className="row mt-2">
-                                            <div className="col-md-6">
-                                                <label className="labels">No Telepon: </label> 
-                                                <Form.Control type="text" value={no_telp} onChange={(e)=> setNo_telp(e.target.value)} />
+                                            <br />
+                                            <div className="row mt-2">
+                                                <div className="col-md-6">
+                                                    {/* pekerjaan */}
+                                                    <label className="labels">Pekerjaan: </label> 
+                                                    <Form.Control type="text" value={pekerjaan} onChange={(e)=> setPekerjaan(e.target.value)}  disabled />
+                                                </div>
+                                                <div className="col-md-6">
+                                                    {/* alamat rumah */}
+                                                    <label className="labels">Alamat rumah:</label>
+                                                    <Form.Control type="text" value={alamat} onChange={(e)=> setAlamat(e.target.value)} disabled />
+                                                </div>
                                             </div>
-                                            <div className="col-md-6">
-                                                <label className="labels">Alamat Email:</label>
-                                                <Form.Control type="text" value={email} onChange={(e)=> setEmail(e.target.value)}  />
+                                            <br />
+                                            <div className="d-flex flex-row-reverse">
+                                                <div className="p-2"><Link to={`/u_profile`} className="btn btn-primary" >Edit data diri</Link>{' '}</div>
                                             </div>
-                                        </div><br />
-                                        <div className="row mt-2">
-                                            <div className="col-md-6">
-                                                <label className="labels">pekerjaan: </label> 
-                                                <Form.Control type="text" value={pekerjaan} onChange={(e)=> setPekerjaan(e.target.value)}  />
-                                            </div>
-                                            <div className="col-md-6">
-                                                <label className="labels">Alammat rumah:</label>
-                                                <Form.Control type="text" value={alamat} onChange={(e)=> setAlamat(e.target.value)}  />
-                                            </div>
-                                        </div><br />
-                                        <div className="d-flex flex-row-reverse">
-                                            <div className="p-2"><Link to={`/profile`} className="btn btn-primary" >Batal</Link>{' '}</div>
-                                            <div className="p-2"><button type="submit" className="btn btn-primary" size="sm">Simpan</button></div>
-                                        </div>
                                         </Form>
                                     </ListGroup.Item>
                                 </ListGroup>
@@ -181,4 +178,4 @@ function UpdateProfile(){
     );
 }
 
-export default UpdateProfile;
+export default Profile;

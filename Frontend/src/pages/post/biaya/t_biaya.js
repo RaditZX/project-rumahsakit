@@ -86,7 +86,7 @@ function T_biaya() {
                                             <div className="p-2"><Link to={`/pasien`} className="btn btn-primary" >Batal</Link>{' '}</div>
                                         </div>
                                     </div>
-                                </Form>
+                             </Form>
                     </div>
                 </div>
             </div>

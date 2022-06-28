@@ -12,7 +12,9 @@ import '../App.css';
 //import component react-bootstrap
 import {Card} from "react-bootstrap";
 import {ListGroup} from "react-bootstrap"; 
-import {Form} from "react-bootstrap"
+import {Form} from "react-bootstrap";
+import lambang from "../image/icon.png";
+
 
 function Register() {
     const [nama,setNama] = useState('');

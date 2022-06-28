@@ -4,9 +4,8 @@
   text-align: start;
   font-family: serif ;
   font-weight: bold;
-  font-size: large;
-  color: white;
   font-size: 25px;
+  color: white;
 }
 
 .test{
@@ -104,7 +103,7 @@
   justify-content: center;
   height: 100vh;
   border-radius: 30px;
-
+  background-image: url("./image/background.jpg")
 }
 
 .menu-bars{
@@ -185,4 +184,38 @@ td{
 .card-login{
   background-color: white;
 }
+
+.huruf{
+  font-size: large;
+}
+
+.total{
+  margin-left: 1rem;
+}
+
+.judul{
+  font-size: 30px;
+  justify-content: center;
+}
+
+.card{
+  width: 45rem;
+}
+
+
+
+
+
+
+@media  (min-width: 1366px){
+  .container{
+   width: 70%;
+  }
+  }
+  @media  (min-width: 1920px){
+    .container{
+     width: 100%;
+    }
+    
+    }
 

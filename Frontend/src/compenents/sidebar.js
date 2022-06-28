@@ -20,13 +20,6 @@ export const SidebarData = [
         cName: 'nav-text'
     },
 
-     //profile
-     {
-        title: 'Profile',
-        path:  `/u_profile`, 
-        icon: <CgIcons.CgProfile />,
-        cName: 'nav-text'
-    },
 
     //pasien
     {
@@ -69,13 +62,14 @@ export const SidebarAdmin = [
     },
 ]
 
-export const logout = [
+    //pasien
+    export const logout = [
 
     //logout
     {
         title: 'Logout',
         path:  `/`,
-        icon: <AiIcons.AiFillHome />,
+        icon: <IoIcons.IoIosLogOut/>,
         cName: 'nav-text'
-    },
-]
+    }
+    ]

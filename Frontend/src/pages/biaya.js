@@ -197,7 +197,6 @@ function Biaya(){
                                 breakLinkClassName={'page-link'}
                         ></ReactPaginate>
                         </div>
-    
                 </div>
             </div>
         )

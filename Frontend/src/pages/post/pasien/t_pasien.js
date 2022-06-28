@@ -140,6 +140,7 @@ function T_pasien() {
         autorization();
         getRoles();
     },[])
+    
 
     if(role === 'pasien'){
         return <Redirect to='/pasien'/>
@@ -238,6 +239,7 @@ function T_pasien() {
             </div>
         );
     }
-
 }
+
+
 export default T_pasien;
