@@ -88,7 +88,7 @@ function Penyakit(){
         return(
             <div>
                 <Navbar />
-                <div className="container">
+                <div className="container-fluid">
                     {/* header penyakit */}
                         <div className="d-flex justify-content-between">
                             <div className="p-2 col-example text-left">
@@ -100,7 +100,7 @@ function Penyakit(){
                             {/* fitur tambah data */}
                             {role === 'admin' || role === 'perawat' ? 
                             <div className="p-2 col-example text-left">
-                                <Link to={`/t_pasien`} className="btn btn-primary" size="sm">Tambah Data</Link>{' '}
+                                <Link to={`/t_penyakit`} className="btn btn-primary" size="sm">Tambah Data</Link>{' '}
                             </div>
                             : null}
                         </div>
@@ -113,7 +113,7 @@ function Penyakit(){
                                     <div className="p-2">Filter:</div>
                                     <div className="p-2">
                                         <Form.Select size="sm">
-                                            <option>Small select</option>
+                                            <option>select</option>
                                         </Form.Select>
                                     </div>
                                 </div>
@@ -134,13 +134,14 @@ function Penyakit(){
                         
                         {/* tabel data penyakit */}
                         <div className="d-flex justify-content-center">
-                            <Table striped bordered hover size="sm" className="tabel-pasien">
-                                <thead>
+                        <Table class="table align-middle mb-0 bg-white">
+                            <thead class="bg-light">
                                     <tr className="header-tabel">
                                         <th>No</th>
                                         <th>Nama Penyakit</th>
                                         <th>Deskripsi</th>
                                         <th>Solusi</th>
+                                        <th>Harga Obat</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
@@ -153,7 +154,8 @@ function Penyakit(){
                                                 <td>{index+1}</td>
                                                 <td>{list.nama_penyakit}</td>
                                                 <td>{list.deskripsi}</td>
-                                                <td>{list.solusi}</td>
+                                                <td>{list.obat}</td>
+                                                <td>{list.harga_obat}</td>
                                                 {role === 'admin' &&
                                                 <td>
                                                     <Link to={`penyakit/edit/${list._id}`} className="btn btn-outline-primary"><MdIcons.MdEdit /></Link>

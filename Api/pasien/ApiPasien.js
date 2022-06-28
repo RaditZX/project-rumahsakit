@@ -31,8 +31,7 @@ class ApiUser {
                         as: 'kamar'
 
                     }
-                },
-               
+                },              
                 {
                     $project: {
                         _id: 1,
@@ -53,11 +52,19 @@ class ApiUser {
                                 }
 
                         },
-                        Golongan_darah: 1,
+                        golongan_darah: 1,
                         penyakit: 1,
                         biaya: 1,
-                        kamar: 1
-
+                        kamar: 1,
+                        biaya_perawatan: {
+                                $sum: "$biaya.harga"
+                        },
+                        biaya_kamar: {
+                                $sum: "$kamar.harga"
+                        },
+                        biaya_obat: {
+                                $sum: "$penyakit.harga_obat"
+                        },
                     }
                 }
             ], (err, pasien) => {
@@ -75,6 +82,16 @@ class ApiUser {
                 res.json(users);
             });
         }
+
+        // find user by name
+        this.findname = (req, res) => {
+            Pasien.model.findOne({ nama: req.params.name }, (err, users) => {
+                if (err)
+                    res.send(err);
+                res.json(users);
+            });
+        }
+
         //addUser
         this.addUser = (req, res) => {
             if (!req.body.nama) {
@@ -93,18 +110,22 @@ class ApiUser {
         };
         //update user
         this.updateUser = (req, res) => {
-            if (!req.body.nama) {
-                res.json({
-                    status: false,
-                    message: 'Name is required'
-                });
-            }else{
             Pasien.model.findOneAndUpdate({ _id: req.params.Id }, req.body, { new: true }, (err, users) => {
                 if (err)
                     res.send(err);
                 res.json(users);
             });
-          }
+          
+        }
+
+        //update user by name 
+        this.updateUserbyname = (req, res) => {
+            Pasien.model.findOneAndUpdate({ nama_awal: req.params.name }, req.body, { new: true }, (err, users) => {
+                if (err)
+                    res.send(err);
+                res.json(users);
+            });
+          
         }
         //delete user
         this.deleteUser = (req, res) => {

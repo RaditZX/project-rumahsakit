@@ -11,8 +11,10 @@ const biaya = require('../Api/Biayaperawatan/ApiBiaya')
 // Route pasien
 app.get('/pasien', user.getusers ) 
 app.get('/pasien/:Id', user.findUsers ) 
+app.get('/pasien/namapasien/:name', user.findname )
 app.post('/addpasien', user.addUser )
 app.put('/edit/:Id', user.updateUser )
+app.put('/edit/updateuserbyname/:name', user.updateUserbyname )
 app.delete('/pasien/:Id', user.deleteUser )
 
 // Route auth
@@ -22,6 +24,9 @@ app.get('/user', auth.getUser )
 app.get('/user/:Id', auth.getUserById )
 app.put('/user/:Id', auth.updateUser )
 app.get('/authenticated', auth.authenticated )
+app.post('/forgotPassword', auth.forgotPassword )
+app.put('/reset/:token', auth.resetPassword )
+app.put('/verifikasi/:token', auth.verify)
 
 // Route penyakit
 app.get('/penyakit', penyakit.getpenyakit )

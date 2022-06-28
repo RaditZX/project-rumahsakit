@@ -48,7 +48,7 @@ function U_biaya() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        axios.post('http://localhost:3000/addbiaya',{
+        axios.put(`http://localhost:3000/editbiaya/${Id}`,{
             nama_biaya,
             harga
         })
@@ -81,50 +81,25 @@ function U_biaya() {
     }
     else {
         return(
-            //form update biaya
-            <div className="register">
-                <div className="d-flex justify-content-center">
-                    <div className="reset" style={{marginTop: "130px"}}>
+            <div className="container">
+                <div className="row"  style={{"padding-top":"5rem"}}>
+                    <div className="box">
+                        <h1>Penyakit</h1>
+                             <Form onSubmit={handleSubmit}>
+                                    <div className="d-flex flex-column">
+                                        {/* nama */}
+                                        <label>Nama Biaya: </label>
+                                        <Form.Control type="text" value={nama_biaya} id="form-input" onChange={(e) => setNama_biaya(e.target.value)} placeholder="nama biaya" /><br/>
+                                        {/* no telepon */}
+                                        <label>Harga</label>
+                                        <Form.Control type="text" id="form-input"   value={harga} onChange={(e) => setHarga(e.target.value)} placeholder="harga" /><br/>
 
-                        {/* card form update biaya  */}
-                        <Card style={{ width: '25rem' }}>
-                            <Card.Header className="card-header">Form tambah data biaya</Card.Header>
-                            <ListGroup variant="flush">
-                                <ListGroup.Item>
-                                    <Form onSubmit={handleSubmit}>
-                                    
-                                        {/* nama biaya */}
-                                        <div className="d-flex flex-column">
-                                            <div className="p-2 col-example text-left">
-                                                <div className="d-flex flex-row">
-                                                    <label>Nama Biaya</label>
-                                                </div>
-                                                <Form.Control type="text" value={nama_biaya} onChange={(e) => setNama_biaya(e.target.value)} placeholder="nama biaya" />
-                                            </div>
-
-                                            {/* harga */}
-                                            <div className="p-2 col-example text-left">
-                                                <div className="d-flex flex-row">
-                                                    <label>Harga:</label>
-                                                </div>
-                                                <Form.Control type="text"  value={harga} onChange={(e) => setHarga(e.target.value)} placeholder="harga" />
-                                            </div>
-
-                                            <div className="d-flex flex-row-reverse">
-                                                <div className="p-2">
-                                                    <div className="p-2"><Link to={`/biaya`} className="btn btn-primary" size="sm">Batal</Link>{' '}</div>
-                                                </div>
-                                                <div className="p-2">
-                                                    <div className="p-2">
-                                                        <button className="btn btn-primary" type="submit">Tambah</button>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                        <div className="d-flex flex-row-reverse">
+                                            <div className="p-2"><button type="submit" className="btn btn-primary" size="sm">Tambah</button></div>
+                                            <div className="p-2"><Link to={`/pasien`} className="btn btn-primary" >Batal</Link>{' '}</div>
                                         </div>
-                                    </Form>
-                                </ListGroup.Item>
-                            </ListGroup>
-                        </Card>
+                                    </div>
+                             </Form>
                     </div>
                 </div>
             </div>

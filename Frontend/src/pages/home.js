@@ -14,7 +14,6 @@ function Home(){
                 "x-access-token": localStorage.getItem('token')
             }})
         .then(res => {
-            console.log(res.data.auth);
             if(res.data.auth === false){
                 history.push('/');
             }
@@ -27,10 +26,8 @@ function Home(){
 
     const getName = () => {
         const Id = localStorage.getItem('id');
-        console.log(Id);
         axios.get(`http://localhost:3000/user/${Id}`)
         .then(res => {
-            console.log(res.data);
             setName(res.data.nama_awal);
         })
         .catch(err => {
@@ -45,13 +42,23 @@ function Home(){
         getName();
         autorization();
     },[]);
+
+    const showDate = () => {
+        var today = new Date();
+        var getMonth = today.getMonth() + 1;
+        var date = today.getDate() + "/" + getMonth + "/" + today.getFullYear() + "," + today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+        return date;
+    }
+
     return(
         <div className="home">
             <Navbar />  
         
-            <div className="container">
+            <div className="container-fluid">
                 <div className="header">
                     <h1>Welcome {name}</h1>
+                    <h3 id="date">{showDate()}</h3>
+
                 </div>
             </div>
         </div>

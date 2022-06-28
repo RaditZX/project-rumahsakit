@@ -1,12 +1,14 @@
 //import react dan route
-import React from 'react';
+import React,{useState,useEffect} from 'react';
 import { useHistory} from 'react-router-dom';
+import axios from 'axios';
 
 //import react-icons
 import * as AiIcons from 'react-icons/ai';
 import * as IoIcons from 'react-icons/io';
 import * as FaIcons from 'react-icons/fa';
 import * as CgIcons from 'react-icons/cg';
+
 
 
 export const SidebarData = [
@@ -33,10 +35,13 @@ export const SidebarData = [
         icon: <IoIcons.IoIosPerson/>,
         cName: 'nav-text'
     },
+
  
 
    
 ]
+
+
 
 export const SidebarAdmin = [
      //penyakit

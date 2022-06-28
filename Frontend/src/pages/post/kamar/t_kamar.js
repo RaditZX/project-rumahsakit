@@ -51,7 +51,7 @@ function T_kamar() {
         getRoles();
     },[]);
 
-    const handelSubmit = (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
         axios.post('http://localhost:3000/addkamar',{
             nama_kamar,
@@ -73,48 +73,34 @@ function T_kamar() {
     }
     else{
         return(
-            //form tambah kamar
-            <div className="register">
-                <div className="d-flex justify-content-center">
-                    <div className="reset" style={{marginTop: "130px"}}>
-
-                        {/* card form tambah kamar */}
-                        <Card style={{ width: '25rem' }}>
-                            <Card.Header className="card-header">Kamar</Card.Header>
-                            <ListGroup variant="flush">
-                                <ListGroup.Item>
-                                    <Form onSubmit={handelSubmit}>
-                                        {/* nama kamar */}
-                                        <label>Nama kamar:</label>
-                                        <Form.Control type="text" value={nama_kamar} onChange={(e) => setNama_kamar(e.target.value)} placeholder="nama kamar" />
-                                        {/* Lantai */}
+            <div className="container">
+                <div className="row"  style={{"padding-top":"5rem"}}>
+                    <div className="box">
+                        <h1>Penyakit</h1>
+                             <Form onSubmit={handleSubmit}>
+                                    <div className="d-flex flex-column">
+                                        {/* nama */}
+                                        <label>Nama Biaya: </label>
+                                        <Form.Control type="text" value={nama_kamar} id="form-input" onChange={(e) => setNama_kamar(e.target.value)} placeholder="nama Kamar" /><br/>
+                                        {/* no telepon */}
                                         <label>Lantai</label>
-                                        <Form.Control type="text" value={lantai} onChange={(e) => setLantai(e.target.value)} placeholder="Lantai" />
-                                        {/* harga */}
-                                        <label>Harga:</label> 
-                                        <Form.Control type="text" value={harga} onChange={(e) => setHarga(e.target.value)} placeholder="harga" />
-                                        {/* status */}
-                                        <label>Status:</label>
-                                        <Form.Select value={status} onChange={(e) => setStatus(e.target.value)}>
+                                        <Form.Control type="text" id="form-input" value={lantai} onChange={(e) => setLantai(e.target.value)} placeholder="Lantai" /><br/>
+
+                                        <Form.Control type="text" id="form-input" value={harga} onChange={(e) => setHarga(e.target.value)} placeholder="Harga" /><br/>
+
+                                        <Form.Select id="form-input" value={status} onChange={(e) => setStatus(e.target.value)}>
                                             <option value="">Pilih Status</option>
                                             <option value="tersedia">Tersedia</option>
                                             <option value="terisi">Terisi</option>
                                         </Form.Select>
-                                        {/* button */}
+
+
                                         <div className="d-flex flex-row-reverse">
-                                            <div className="p-2">
-                                                <div className="p-2"><Link to={`/kamar`} className="btn btn-primary" size="sm">Batal</Link>{' '}</div>
-                                            </div>
-                                            <div className="p-2">
-                                                <div className="p-2">
-                                                    <button className="btn btn-primary" type="submit">Tambah</button>
-                                                </div>
-                                            </div>
+                                            <div className="p-2"><button type="submit" className="btn btn-primary" size="sm">Tambah</button></div>
+                                            <div className="p-2"><Link to={`/pasien`} className="btn btn-primary" >Batal</Link>{' '}</div>
                                         </div>
-                                    </Form>
-                                </ListGroup.Item>
-                            </ListGroup>
-                        </Card>
+                                    </div>
+                             </Form>
                     </div>
                 </div>
             </div>

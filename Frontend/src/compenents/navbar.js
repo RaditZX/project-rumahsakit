@@ -3,20 +3,21 @@ import React, { useState,useEffect } from 'react';
 import {useHistory} from 'react-router-dom';
 import {Link} from 'react-router-dom';
 import axios from 'axios';
+import * as IoIcons from 'react-icons/io';
 
 //import sidebar
-import { SidebarData,SidebarAdmin,logout }from './sidebar';
+import { SidebarData,SidebarAdmin,logout,SidebarPasien }from './sidebar';
 
 //import css
 import '../App.css';
 
-//import logo
-import * as CgIcons from 'react-icons/cg';
+
 
 function Navbar() {
     const [sidebar, setSidebar] = useState(false);
     const showSidebar = () => setSidebar(!sidebar);
     const [role,setRole] = useState('');
+    const [nama,setNama] = useState('');
     const history = useHistory();
     const Id = localStorage.getItem('id')
 
@@ -24,6 +25,7 @@ function Navbar() {
         axios.get(`http://localhost:3000/user/${Id}`)
         .then(res => {
             setRole(res.data.role);
+            setNama(res.data.nama_awal)
         })
         .catch(err => {
             console.log(err);
@@ -37,14 +39,11 @@ function Navbar() {
     const Logout = () => {
         localStorage.removeItem('token');
         localStorage.removeItem('id');
+        localStorage.removeItem('name');
         history.push('/');
     }
     return(
-        <>
-            <div className="navbar">
-            
-            </div>
-            
+    <div>
             {/* sidebar */}
             <nav className={sidebar ? 'nav-menu active' : 'nav-menu'}>
                 <ul className='nav-menu-items'>
@@ -61,7 +60,18 @@ function Navbar() {
                             </li>
                         )
                     })}
-                    {role === 'admin' ? SidebarAdmin.map((item, index) => {
+
+                     {role === 'pasien' ? 
+                            <li className='nav-text'>
+                                <Link to={`/pasien/Editdata/${nama}`}>
+                                    <IoIcons.IoIosPerson/><p>ㅤ</p>
+                                    Edit data
+                                </Link>
+                            </li>
+                        
+                    : null} 
+
+                    {role === 'admin'|| role === 'perawat' ? SidebarAdmin.map((item, index) => {
                         return(
                             <li key={index} className={item.cName}>
                                 <Link to={item.path}>
@@ -70,7 +80,7 @@ function Navbar() {
                                 </Link>
                             </li>
                         )
-                    }) : null}
+                    }) : null} 
 
                     {logout.map((item, index) => {
                         return(
@@ -89,7 +99,8 @@ function Navbar() {
                 </ul>
 
             </nav>
-        </>
+        </div>
+
     );
 }
 

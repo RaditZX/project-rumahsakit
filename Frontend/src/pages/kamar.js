@@ -88,7 +88,7 @@ function Kamar(){
         return(
             <div>
                 <Navbar />
-                <div className="container">
+                <div className="container-fluid">
 
                     {/* header kamar */}
                         <div className="d-flex justify-content-between">
@@ -135,8 +135,8 @@ function Kamar(){
                         
                         {/* tabel data kamar */}
                         <div className="d-flex justify-content-center">
-                            <Table striped bordered hover size="sm" className="tabel-pasien">
-                                <thead>
+                        <Table class="table align-middle mb-0 bg-white">
+                            <thead class="bg-light">
                                     <tr className="header-tabel">
                                         <th>No</th>
                                         <th>Nama Kamar</th>

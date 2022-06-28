@@ -13,7 +13,7 @@ import {Card} from "react-bootstrap";
 import {ListGroup} from "react-bootstrap"; 
 import {Form} from "react-bootstrap"
 
-function U_pasien() {
+function U_pasienbyname() {
     const [nama,setNama] = useState('');
     const [alamat,setAlamat] = useState('');
     const [no_telp,setNo_telp] = useState();
@@ -27,7 +27,7 @@ function U_pasien() {
     const [kamar,setKamar] = useState([]);
     const [biaya,setBiaya] = useState([]);
     const history = useHistory();
-    const {Id} = useParams();
+    const {name} = useParams();
     
 
     const autorization = () => {
@@ -49,7 +49,7 @@ function U_pasien() {
     const handleSubmit = (e) => {
         e.preventDefault();
       
-        axios.put(`http://localhost:3000/edit/${Id}`,{
+        axios.put(`http://localhost:3000/edit/pasienbyname/${name}`,{
             nama,
             alamat,
             no_telp,
@@ -112,7 +112,7 @@ function U_pasien() {
     },[])
 
     const getPasien = () => {
-        axios.get(`http://localhost:3000/pasien/${Id}`)
+        axios.get(`http://localhost:3000/pasien/namapasien/${name}`)
         .then(res => {
             setNama(res.data.nama);
             setAlamat(res.data.alamat);
@@ -123,6 +123,7 @@ function U_pasien() {
             setKode_penyakit(res.data.kode_penyakit);
             setKode_kamar(res.data.kode_kamar);
             setKode_biaya(res.data.kode_biaya);
+            console.log(res.data)
 
         })
         .catch(err => {
@@ -222,6 +223,5 @@ function U_pasien() {
             </div>
         </div>
     );
-
 }
-export default U_pasien;
+export default U_pasienbyname;

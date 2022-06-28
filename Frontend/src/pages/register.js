@@ -20,6 +20,8 @@ function Register() {
     const [password,setPassword] = useState('');
     const [auth,setAuth] = useState([]);
     const history = useHistory();
+    const role = 'pasien'
+    const verifikasi = false;
     const  Id = localStorage.getItem('id')
 
     const autorization = () => {
@@ -45,71 +47,40 @@ function Register() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-
         axios.post('http://localhost:3000/register',{
-            nama,
             email,
-            password
+            password,
+            verifikasi,
+            role
         })
         .then(res => {
             console.log(res.data);
-            history.push('/');
         })
         .catch(err => {
             console.log(err);
+            console.log(err.response.data.message);
         })
     }
     return(
         //form register
-        <div className="register">
-            <div className="d-flex justify-content-center">
-                <div className="reset" style={{marginTop: "130px"}}>
-                    <Card style={{ width: '25rem' }}>
-                        <Card.Header className="card-header">Form Register</Card.Header>
-                        <ListGroup variant="flush">
-                            <ListGroup.Item>
+         <div className="container">
+            <div className="row">
+                <div className="test">
+                        <div className="image" >
+                            <img src="https://images.unsplash.com/photo-1517999144091-3d9dca6d1e43?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=627&q=80"/>
+                        </div>
+                        <div className="content">
+                            <h1>Welcome to <span>SOCA</span></h1>
+                            <p>Welcome back! Log in to your account to view today's clients:</p>
+                            <div className="input">
                                 <Form onSubmit={handleSubmit}>
-                                    
-                                    {/* Email */}
-                                    <div className="d-flex flex-column"> 
-                                        <div className="p-2 col-example text-left">
-                                            <div className="d-flex flex-row">
-                                                <label>Email:</label>
-                                            </div>
-                                            <Form.Control type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email@gmail.com" />
-                                        </div>
-
-                                        {/* username */}
-                                        <div className="p-2 col-example text-left">
-                                            <div className="d-flex flex-row">
-                                                <label>Username</label>
-                                            </div>
-                                            <Form.Control type="text" value={nama} onChange={(e) => setNama(e.target.value)} placeholder="Username" />
-                                        </div>
-
-                                        {/* password */}
-                                        <div className="p-2 col-example text-left">
-                                            <div className="d-flex flex-row"><label>Password:</label></div>
-                                            <Form.Control type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" />
-                                        </div>
-
-                                        {/* button register */}
-                                        <div className="p-3 col-example text-left">
-                                            <div className="d-grid gap-2">
-                                                <button type="submit" className="btn btn-primary btn-block">Register</button>
-                                            </div>
-                                            <p />
-
-                                            {/* button back */}
-                                            <div className="d-grid gap-2">
-                                                <Link to={`/`} className="btn btn-primary" size="sm">Back</Link>{' '}
-                                            </div>
-                                        </div>
-                                    </div>
+                                    <input type="text" id="form-input" className="form-control" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)}/>
+                                    <input style={{"margin-top":"1rem"}} id="form-input" type="password" className="form-control" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)}/>
+                                    <button style={{"margin-top":"1rem"}} type="submit" className="btn btn-primary">Login</button>
                                 </Form>
-                            </ListGroup.Item>
-                        </ListGroup>
-                    </Card>
+                                    <Link to={'/'} style={{"margin-top":"1rem"}} type="submit" className="btn btn-primary">Login</Link>
+                            </div>
+                        </div>
                 </div>
             </div>
         </div>

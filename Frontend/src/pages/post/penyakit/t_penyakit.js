@@ -14,7 +14,8 @@ import {Form} from "react-bootstrap"
 function T_penyakit() {
     const [nama_penyakit, setNama_penyakit] = useState('');
     const [deskripsi, setDeskripsi] = useState('');
-    const [solusi, setSolusi] = useState('');
+    const [obat, setobat] = useState('');
+    const [harga_obat, setHarga_obat] = useState('');
     const [role,setRole] = useState('');
     const history = useHistory();
     const Id = localStorage.getItem('id')
@@ -56,7 +57,8 @@ function T_penyakit() {
         axios.post('http://localhost:3000/addpenyakit',{
             nama_penyakit,
             deskripsi,
-            solusi
+            obat,
+            harga_obat
         })
         // receive response
         .then(res=>{
@@ -73,54 +75,32 @@ function T_penyakit() {
     }
     else {
         return(
-            //form penyakit
-            <div className="register">
-                <div className="d-flex justify-content-center">
-                    <div className="reset" style={{marginTop: "130px"}}>
-
-                        {/* card form penyakit  */}
-                        <Card style={{ width: '25rem' }}>
-                            <Card.Header className="card-header">Form tambah data penyakit</Card.Header>
-                            <ListGroup variant="flush">
-                                <ListGroup.Item>
-                                    <Form onSubmit={handleSubmit}>
-                                    
-                                    {/* nama */}
-                                    <div className="d-flex flex-column"> 
-                                        <div className="p-2 col-example text-left">
-                                            <div className="d-flex flex-row">
-                                                <label>Nama Penyakit:</label>
-                                            </div>
-                                            <Form.Control type="text" value={nama_penyakit} onChange={(e) => setNama_penyakit(e.target.value)} placeholder="nama penyakit" />
-                                        </div>
-
-                                        {/* deskripsi */}
-                                        <div className="p-2 col-example text-left">
-                                            <div className="d-flex flex-row">
-                                                <label>Deskripsi:</label>
-                                            </div>
-                                            <Form.Control as="textarea" rows={3} value={deskripsi} onChange={(e) => setDeskripsi(e.target.value)}  />
-                                        </div>
-
-                                        {/* solusi */}
-                                        <div className="p-2 col-example text-left">
-                                            <div className="d-flex flex-row"><label>Solusi:</label></div>
-                                            <Form.Control as="textarea" rows={3} value={solusi} onChange={(e) => setSolusi(e.target.value)}  />
-                                        </div>
+            <div className="container">
+                <div className="row"  style={{"padding-top":"5rem"}}>
+                    <div className="box">
+                        <h1>Penyakit</h1>
+                             <Form onSubmit={handleSubmit}>
+                                    <div className="d-flex flex-column">
+                                        {/* nama */}
+                                        <label>Nama Penyakit: </label>
+                                        <Form.Control style={{"padding":"0.25rem"}} id="form-input"type="text" value={nama_penyakit} onChange={(e) => setNama_penyakit(e.target.value)} placeholder="Nama Penyakit" /><br/>
+                                        {/* no telepon */}
+                                        <label>Deskripsi:</label>
+                                        <Form.Control style={{"padding":"0.25rem"}} id="form-input" type="text" value={deskripsi} onChange={(e) => setDeskripsi(e.target.value)} placeholder="no telepon" /><br/>
+                                        {/* tanggal daftar */}
+                                        <label>Obat</label>
+                                        <Form.Control style={{"padding":"0.25rem"}} id="form-input" type="text" value={obat} onChange={(e)=> setobat(e.target.value)} placeholder="name@example.com" /> <br/>
+                                       
+                                        {/* alamat */}
+                                        <label>Harga Obat:</label> 
+                                        <Form.Control style={{"padding":"0.25rem"}} id="form-input" type="text" value={harga_obat} onChange={(e)=> setHarga_obat(e.target.value)} placeholder="alamat" /><br/>
 
                                         <div className="d-flex flex-row-reverse">
-                                            <div className="p-2">
-                                                <Link to={`/penyakit`} className="btn btn-primary" size="sm">Batal</Link>{' '}
-                                            </div>
-                                            <div className="p-2">
-                                                <button className="btn btn-primary" size="sm" type="submit">Tambah</button>
-                                            </div>
+                                            <div className="p-2"><button type="submit" className="btn btn-primary" size="sm">Tambah</button></div>
+                                            <div className="p-2"><Link to={`/pasien`} className="btn btn-primary" >Batal</Link>{' '}</div>
                                         </div>
                                     </div>
-                                    </Form>
-                                </ListGroup.Item>
-                            </ListGroup>
-                        </Card>
+                                </Form>
                     </div>
                 </div>
             </div>

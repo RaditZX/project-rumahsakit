@@ -12,7 +12,9 @@ class UserAuth{
             email: String,
             alamat: String,
             no_telp: String,
+            profile: String,
             pekerjaan: String,
+            verifikasi: Boolean,
             created_at: Date,
             updated_at: Date
         }, this.options);

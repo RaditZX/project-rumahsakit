@@ -3,6 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { useHistory,useParams, Link } from 'react-router-dom';
 import Navbar from "../compenents/navbar";
 import axios from 'axios';
+import "../App.css";
 
 //import react boostrap
 import {Card} from 'react-bootstrap';
@@ -17,6 +18,7 @@ function UpdateProfile(){
     const [alamat,setAlamat] = useState('');
     const [email,setEmail] = useState('');
     const [pekerjaan,setPekerjaan] = useState('');
+    const [profile,setProfile] = useState('');
     const [no_telp,setNo_telp] = useState('');
     const [role,setRole] = useState('');
     const history = useHistory();
@@ -56,6 +58,14 @@ function UpdateProfile(){
         })
     }
 
+    const onImageChange = (e) => {
+        console.log(e.target.files[0])
+        let uploaded = e.target.files[0];
+        console.log(URL.createObjectURL(uploaded))
+        setProfile(uploaded);
+     
+    }
+
     const handleSubmit = (e) => {
         e.preventDefault();
         axios.put(`http://localhost:3000/user/${id}`,{
@@ -64,6 +74,7 @@ function UpdateProfile(){
             pekerjaan,
             alamat,
             email,
+            profile,
             no_telp
         })
         .then(res => {
@@ -83,10 +94,10 @@ function UpdateProfile(){
     return(
         <div className="home">
             <Navbar />
-            <div className='container'>
+            <div className='container-fluid'>
                 <div className="d-flex flex-row">
                     <div className="p-2">
-                        <Card style={{ width: '18rem' }}>
+                        <Card className="profile">
                             <Card.Header style={{ height: 'auto' }}>
                                 <div className="d-flex justify-content-center">
                                     <div className="d-flex flex-column">
@@ -119,7 +130,7 @@ function UpdateProfile(){
                     <div className="p-2">
                         <div >
                             {/* card form login  */}
-                            <Card style={{ width: '45rem' }}>
+                            <Card className="data">
                                 <Card.Header><h2>Pasien</h2></Card.Header>
                                 <ListGroup variant="flush">
                                     <ListGroup.Item>

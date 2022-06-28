@@ -42,8 +42,6 @@ function Login() {
         autorization();
     },[]);
 
-
-
     const handelSubmit = (e) => {
         e.preventDefault();
         axios.post('http://localhost:3000/login',{
@@ -64,52 +62,26 @@ function Login() {
     }
  
     return(
-        //form login
-        <div className="login">
-        <div className="d-flex justify-content-center">
-            <div className="" style={{marginTop: "120px"}}>
-                {/* card form login  */}
-                <Card style={{ width: '25rem' }}>
-                    <Card.Header>Form Login</Card.Header>
-                    <ListGroup variant="flush">
-                        <ListGroup.Item>
-                            <Form onSubmit={handelSubmit}>
-                                <div className="d-flex flex-column"> 
-                                    <div className="p-2 col-example text-left"></div>
-                                    <div className="p-2 col-example text-left">
-                                        <Form.Control type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="username" />
-                                    </div>
-                                    <div className="p-2 col-example text-left">
-                                        <Form.Control type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="password" />
-                                    </div>
-                                    
-                                    {/* lupa password */}
-                                    <div className="p-1 col-example text-left">
-                                        <div className="d-flex justify-content-end">
-                                            <Link to={`/reset`}  size="sm">Lupa Password?</Link>{' '}
-                                        </div>
-                                    </div>
-                                    <div className="p-3 col-example text-left">
-                                        <div className="d-grid gap-2">
-                                           <button className="btn btn-primary" type="submit">Login</button>
-                                        </div>
-                                    </div>
-                                    
-                                    {/* button registrasi */}
-                                    <div className="p-0 col-example text-left">
-                                        <div className="d-flex justify-content-center">
-                                            <a>Belum punya akun?</a>
-                                            <Link to={`/register`}  size="sm">Daftar sekarang</Link>{' '}
-                                        </div>
-                                    </div>
-                                </div>
-                                < br/>
-                            </Form>
-                        </ListGroup.Item>
-                    </ListGroup>
-                </Card>
+        <div className="container">
+            <div className="row">
+                <div className="test">
+                        <div className="image" >
+                            <img src="https://images.unsplash.com/photo-1517999144091-3d9dca6d1e43?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=627&q=80"/>
+                        </div>
+                        <div className="content">
+                            <h1>Welcome to <span>SOCA</span></h1>
+                            <p>Welcome back! Log in to your account to view today's clients:</p>
+                            <div className="input">
+                                <Form onSubmit={handelSubmit}>
+                                    <input type="text" id="form-input" className="form-control" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)}/>
+                                    <input style={{"margin-top":"1rem"}} id="form-input" type="password" className="form-control" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)}/>
+                                    <button style={{"margin-top":"1rem"}} type="submit" className="btn btn-primary">Login</button>
+                                </Form>
+                                    <Link to={'/register'} style={{"margin-top":"1rem"}} type="submit" className="btn btn-primary">Register</Link>
+                            </div>
+                        </div>
+                </div>
             </div>
-        </div>
         </div>
     );
     

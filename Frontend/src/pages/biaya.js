@@ -88,7 +88,7 @@ function Biaya(){
         return(
             <div>
                 <Navbar />
-                <div className="container">
+                <div className="container-fluid">
 
                     {/* header pasien */}
                         <div className="d-flex justify-content-between">
@@ -113,7 +113,7 @@ function Biaya(){
                                 <div className="d-flex flex-row">
                                     <div className="p-2">Filter:</div>
                                     <div className="p-2">
-                                        <Form.Select size="sm">
+                                        <Form.Select  size="sm">
                                             <option>Small select</option>
                                         </Form.Select>
                                     </div>
@@ -135,8 +135,8 @@ function Biaya(){
                         
                         {/* tabel data biaya */}
                         <div className="d-flex justify-content-center">
-                            <Table striped bordered hover size="sm" className="tabel-pasien">
-                                <thead>
+                        <Table class="table align-middle mb-0 bg-white">
+                            <thead class="bg-light">
                                     <tr className="header-tabel">
                                         <th>No</th>
                                         <th>Kode Biaya</th>

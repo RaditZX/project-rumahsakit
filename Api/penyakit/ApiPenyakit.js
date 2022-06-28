@@ -33,18 +33,11 @@ class ApiPenyakit{
           }
         }
         this.updatepenyakit = (req, res) => {
-            if (!req.body.kode_penyakit) {
-                res.json({
-                    status: false,
-                    message: 'Name is required'
-                });
-            }else{
             penyakit.model.findOneAndUpdate({ _id: req.params.Id }, req.body, { new: true }, (err, penyakit) => {
                 if (err)
                     res.send(err);
                 res.json(penyakit);
             });
-          }
         }
         this.deletepenyakit = (req, res) => {
             penyakit.model.deleteOne({ _id: req.params.Id }, (err, penyakit) => {

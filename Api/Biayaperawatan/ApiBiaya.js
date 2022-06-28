@@ -33,18 +33,12 @@ class Biaya {
           }
         }
         this.updatebiaya = (req, res) => {
-            if (!req.body.kode_biaya, !req.body.nama_biaya, !req.body.harga, !req.body.status) {
-                res.json({
-                    status: false,
-                    message: 'Name is required'
-                });
-            }else{
             biaya.model.findOneAndUpdate({ _id: req.params.Id }, req.body, { new: true }, (err, biaya) => {
                 if (err)
                     res.send(err);
                 res.json(biaya);
             });
-          }
+          
         }
         this.deletebiaya = (req, res) => {
             biaya.model.deleteOne({ _id: req.params.Id }, (err, biaya) => {

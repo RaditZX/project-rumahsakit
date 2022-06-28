@@ -1,6 +1,10 @@
 const Auth = require('../../model/Auth')
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcryptjs')
+const nodemailer = require('nodemailer')
+const multer = require('multer')
+
+
 
 class Authentication {
     constructor() {
@@ -45,7 +49,7 @@ class Authentication {
                         user: {
                             id: user._id,
                             email: user.email,
-                            nama: user.nama,
+                            nama: user.nama_awal,
                             role: user.role
                         },
                         auth: true,
@@ -56,10 +60,10 @@ class Authentication {
             });
             
          };
-         //register
-        this.register = async (req, res) => {
+             //register
+             this.register = async (req, res) => {
                 //check input fields
-                if(!req.body.email,!req.body.password,!req.body.nama){
+                if(!req.body.email,!req.body.password){
                     res.status(400).json({message:'silahkan isi data dengan lengkap'});
                 }
                 //check if the user already exists
@@ -68,26 +72,140 @@ class Authentication {
                     res.status(400).json({message:'email sudah terdaftar'});
                 }
                 else{
-                //hash password
-                const salt = bcrypt.genSaltSync(10);
-                const hash = bcrypt.hashSync(req.body.password, salt);
+                    //hash password
+                    const salt = await bcrypt.genSalt(10);
+                    const hashedPassword = await bcrypt.hash(req.body.password, salt);
+                    //create new user
+                    const user = new Auth.model({
+                        email: req.body.email,
+                        password: hashedPassword,
+                        role: req.body.role,
+                        verifikasi: req.body.verifikasi
+                    });
+                    //save user
+                    await user.save();
 
-                
-                //create new user
-                const newUser = new Auth.model({
-                    email: req.body.email,
-                    password: hash,
-                    nama: req.body.nama,
-                    role: req.body.role
-                });
-                //save user
-                newUser.save((err, user) => {
-                    if (err)
-                        res.send(err);
-                    res.json(user);
-                });
+                    //sign token
+                    const token = jwt.sign({
+                        id: user._id
+                        },"jwtsecret", {
+                        expiresIn: 86400
+                    });
+
+                    //send emailverification
+                    const transporter = nodemailer.createTransport({
+                        service: 'gmail',
+                        auth: {
+                            user: 'r29069992@gmail.com',
+                            pass: 'raditya567'
+                        }
+                    });
+                    const mailOptions = {
+                        from: '',
+                        to: user.email,
+                        subject: 'Verifikasi Email',
+                        text: 'Klik link berikut untuk verifikasi email anda : http://localhost:3001/verifikasi/'+token
+                    };
+                    transporter.sendMail(mailOptions, function(error, info){
+                        if (error) {
+                            console.log(error);
+                        } else {
+                            console.log('Email sent: ' + info.response);
+                        }
+                    });
+                    //send response
+                    res.status(200).json({message:'berhasil mendaftar'});
               }
             };
+
+            this.forgotPassword = async (req, res) => {
+                //check input fields
+                if(!req.body.email){
+                    res.status(400).json({message:'silahkan isi data dengan lengkap'});
+                }
+
+                // find email address
+                const userFound =  await Auth.model.findOne({email:req.body.email});
+                if(userFound){
+                    //generate token
+                    const token = jwt.sign({
+                        id: userFound._id
+                        },"jwtsecret", {
+                        expiresIn: 86400
+                    });
+                    //send email
+                    const transporter = nodemailer.createTransport({
+                        service: 'gmail',
+                        host: 'smtp.gmail.com',
+                        port: 587,
+                        auth: {
+                            user: 'r29069992@gmail.com',
+                            pass: 'raditya567'
+
+                        }
+                    });
+                    const mailOptions = {
+                        from: 'RumahSakit',
+                        to: req.body.email,
+                        subject: 'Reset Password',
+                        text: 'Click the link to reset your password: http://localhost:3001/reset/'+token
+                    };
+                    transporter.sendMail(mailOptions, function(error, info){
+                        if (error) {
+                            console.log(error);
+                        } else {
+                            console.log('Email sent: ' + info.response);
+                        }
+                    });
+                    res.status(200).json({message:'email telah dikirim'});
+                }
+                else{
+                    res.status(400).json({message:'email tidak terdaftar'});
+                }
+            };
+
+            this.resetPassword = async (req, res) => {
+                //check input fields
+                if(!req.body.password){
+                    res.status(400).json({message:'silahkan isi data dengan lengkap'});
+                }
+
+                //jwt decode
+                const decoded = jwt.verify(req.params.token, 'jwtsecret');
+                //find user by id
+                const userFound =  await Auth.model.findByIdAndUpdate(decoded.id);
+                if(userFound){
+                    //hash password
+                    const salt = bcrypt.genSaltSync(10);
+                    const hash = bcrypt.hashSync(req.body.password, salt);
+                    //update password
+                    userFound.password = hash;
+                    userFound.save((err, user) => {
+                        if (err)
+                            res.send(err);
+                        res.json(user);
+                    });
+                }
+                
+            };
+
+            this.verify = async (req, res) => {
+                //jwt decode
+                const decoded = jwt.verify(req.params.token, 'jwtsecret');
+                //find user by id
+                const userFound =  await Auth.model.findByIdAndUpdate(decoded.id);
+                if(userFound){
+                    //update verifikasi
+                    userFound.verifikasi = true;
+                    userFound.save((err, user) => {
+                        if (err)
+                            res.send(err);
+                        res.json(user);
+                    });
+
+                }
+            };
+                            
 
             //get user
             this.getUser = (req, res) => {
@@ -107,7 +225,7 @@ class Authentication {
             }
 
             this.updateUser = (req, res) => {
-                Auth.model.findOneAndUpdate({ _id: req.params.Id }, req.body, { new: true }, (err, user) => {
+                Auth.model.findOneAndUpdate({ _id: req.params.Id }, req.body,{ new: true }, (err, user) => {
                     if (err)
                         res.send(err);
                     res.json(user);
