@@ -16,6 +16,7 @@ function U_biaya() {
     const [nama_biaya,setNama_biaya] = useState('');
     const [harga,setHarga] = useState('');
     const [role,setRole] = useState('');
+    const [deskripsi,setDeskripsi] = useState('');
     const history = useHistory();
     const {Id} = useParams();
     const id = localStorage.getItem('id');
@@ -50,7 +51,8 @@ function U_biaya() {
         e.preventDefault();
         axios.put(`http://localhost:3000/editbiaya/${Id}`,{
             nama_biaya,
-            harga
+            harga,
+            deskripsi
         })
         .then(res => {
             console.log(res.data);
@@ -67,6 +69,7 @@ function U_biaya() {
             console.log(res.data);
             setNama_biaya(res.data.nama_biaya);
             setHarga(res.data.harga);
+            setDeskripsi(res.data.deskripsi);
         })
     }
 
@@ -93,6 +96,10 @@ function U_biaya() {
                                         {/* no telepon */}
                                         <label>Harga</label>
                                         <Form.Control type="text" id="form-input"   value={harga} onChange={(e) => setHarga(e.target.value)} placeholder="harga" /><br/>
+
+                                        <label>Deskripsi</label>
+                                        <Form.Control type="text" id="form-input"   value={deskripsi} onChange={(e) => setDeskripsi(e.target.value)} placeholder="harga" /><br/>
+
 
                                         <div className="d-flex flex-row-reverse">
                                             <div className="p-2"><button type="submit" className="btn btn-primary" size="sm">Tambah</button></div>

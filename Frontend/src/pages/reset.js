@@ -28,9 +28,6 @@ function Reset() {
     const handelSubmit = (e) => {
         e.preventDefault();
         if (password === confirmPassword){
-            return false
-        }
-        else{
             axios.put(`http://localhost:3000/reset/${token}`,{
                 password,
                 confirmPassword
@@ -43,53 +40,31 @@ function Reset() {
                 console.log(err.response.message);
             })
         }
+        else{
+            setError('Password tidak sama');
+        }
     }
 
 
     return(
-        //form reset
-        <div className="login">
-            <div className="d-flex justify-content-center">
-                <div style={{marginTop: "130px"}}>
-
-                    {/* card form reset password  */}
-                    <Card className="card">
-                        <Card.Header className="card-header">Form riset password</Card.Header>
-                        <ListGroup variant="flush">
-                            <ListGroup.Item>
+        <div className="container">
+            <div className="row">
+                <div className="test">
+                        <div className="image" >
+                            <img src="https://images.unsplash.com/photo-1517999144091-3d9dca6d1e43?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=627&q=80"/>
+                        </div>
+                        <div className="content">
+                            <h1>Welcome to <span>SOCA</span></h1>
+                            <p>Welcome back! Log in to your account to view today's clients:</p>
+                            {error ? <p className="error">{error}</p> : null}
+                            <div className="input">
                                 <Form onSubmit={handelSubmit}>
-                                    {/* email */}
-                                    <div className="d-flex flex-column"> 
-
-                                        {/* new password */}
-                                        <div className="p-2 col-example text-left">
-                                            <div className="d-flex flex-row"><label>New Password:</label></div>
-                                            <Form.Control type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="New Password" />
-                                        </div>
-                                        
-                                        {/* confir password baru */}
-                                        <div className="p-2 col-example text-left">
-                                            <div className="d-flex flex-row"><label>Confir Password:</label></div>
-                                            <Form.Control type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="New Password" />
-                                        </div>
-
-                                        {/* button reset */}
-                                        <div className="p-3 col-example text-left">
-                                            <div className="d-grid gap-2">
-                                                <button type="submit" className="btn btn-primary btn-block">Reset Password</button>
-                                            </div>
-                                            <p />
-
-                                            {/* button back */}
-                                            <div className="d-grid gap-2">
-                                                <Link to={`/`} className="btn btn-primary" size="sm">Back</Link>{' '}
-                                            </div>
-                                        </div>
-                                    </div>
+                                    <input id="form-input" type="password" className="form-control" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)}/>
+                                    <input  style={{"margin-top":"1rem"}} type="password" id="form-input" className="form-control" placeholder="Confirm password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)}/>
+                                    <button style={{"margin-top":"1rem"}} type="submit" className="btn btn-primary">Reset</button>
                                 </Form>
-                            </ListGroup.Item>
-                        </ListGroup>
-                    </Card>
+                            </div>
+                        </div>
                 </div>
             </div>
         </div>

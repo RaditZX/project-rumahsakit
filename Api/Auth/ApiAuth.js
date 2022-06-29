@@ -95,10 +95,13 @@ class Authentication {
                     //send emailverification
                     const transporter = nodemailer.createTransport({
                         service: 'gmail',
+                        host: 'smtp.gmail.com',
+                        port: 465,
+                        secure: true,
                         auth: {
                             user: 'r29069992@gmail.com',
-                            pass: 'raditya567'
-                        }
+                            pass: 'ndwmmzeciketoxxk'
+                        },
                     });
                     const mailOptions = {
                         from: '',
@@ -114,7 +117,7 @@ class Authentication {
                         }
                     });
                     //send response
-                    res.status(200).json({message:'berhasil mendaftar'});
+                    res.status(200).json({message:'berhasil mendaftar,Silahkan cek email untuk verfikasi'});
               }
             };
 
@@ -137,10 +140,11 @@ class Authentication {
                     const transporter = nodemailer.createTransport({
                         service: 'gmail',
                         host: 'smtp.gmail.com',
-                        port: 587,
+                        port: 465,
+                        secure: true,
                         auth: {
                             user: 'r29069992@gmail.com',
-                            pass: 'raditya567'
+                            pass: 'ndwmmzeciketoxxk'
 
                         }
                     });
@@ -157,7 +161,7 @@ class Authentication {
                             console.log('Email sent: ' + info.response);
                         }
                     });
-                    res.status(200).json({message:'email telah dikirim'});
+                    res.status(200).json({message:'email telah dikirim, silahkan cek email anda'});
                 }
                 else{
                     res.status(400).json({message:'email tidak terdaftar'});

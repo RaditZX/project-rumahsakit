@@ -6,6 +6,8 @@ import "../App.css";
 import axios from 'axios';
 import ReactPaginate from 'react-paginate';
 import jsPDF from 'jspdf';
+import CurrencyFormat from 'react-currency-format';
+import currencyFormatter from 'currency-formatter';
 
 //import react boostrap
 import {Card} from 'react-bootstrap';
@@ -25,7 +27,7 @@ function Pasien(){
     const [name,setName] = useState('');
     const [role,setRole] = useState('');
     const [currentPage,setCurrentPage] = useState(1);
-    const [postsPerPage] = useState(5);
+    const [postsPerPage] = useState(10);
     const Id = localStorage.getItem('id')
     const history = useHistory();
 
@@ -88,15 +90,15 @@ function Pasien(){
     }
 
     const pdfDownload = (nama,jenis_kelamin,biaya,penyakit,kamar,biaya_perawatan,biayaTotal) => {
-        var doc = new jsPDF();
+        const doc = new jsPDF();
         doc.text(20, 20, 'Pasien');
         doc.text(20, 30, 'Nama : '+nama);
         doc.text(20, 40, 'Jenis Kelamin : '+jenis_kelamin);
         doc.text(20, 50, 'penyakit : '+penyakit);
         doc.text(20, 60, 'Kamar : '+kamar);
-        doc.text(20, 70, 'Biaya Perawatan : '+biaya_perawatan);
-        doc.text(20, 80, 'Biaya Pengobatan : '+biaya);
-        doc.text(20, 90, 'Biaya Total : '+biayaTotal);
+        doc.text(20, 70, 'Biaya Perawatan : '+   currencyFormatter.format(biaya_perawatan, {code: 'IDR'}));
+        doc.text(20, 80, 'Biaya Pengobatan : '+   currencyFormatter.format(biaya, {code: 'IDR'}));
+        doc.text(20, 90, 'Biaya Total : '+   currencyFormatter.format(biayaTotal, {code: 'IDR'}));
         doc.save('Pasien.pdf');
 
     }
@@ -204,15 +206,39 @@ function Pasien(){
                                                     <td>{biaya.nama_biaya}</td>
                                                 )
                                             })}
-                                            <td>{pasien.biaya_perawatan+pasien.biaya_kamar+pasien.biaya_obat}</td>
+                                            <td><CurrencyFormat value={pasien.biaya_perawatan+pasien.biaya_kamar+pasien.biaya_obat} displayType={'text'} thousandSeparator={true} prefix={'Rp.'}/></td>
                                             { role === 'pasien' ?
                                             <td>
-                                                <Button variant="outline-primary" size="sm" onClick={()=> pdfDownload(pasien.nama,pasien.jenis_kelamin,pasien.biaya_perawatan+pasien.biaya_kamar+pasien.biaya_obat)}>Cetak</Button>{' '}
+                                                {pasien.penyakit.map((penyakit,index)  => {
+                                                return(
+                                                    pasien.kamar.map((kamar,index) => {
+                                                         return(
+                                                            pasien.biaya.map((biaya,index) => {
+                                                                return(
+                                                                    <button type="submit" className="btn btn-outline-warning" onClick={()=>pdfDownload(pasien.nama,pasien.jenis_kelamin,pasien.biaya_perawatan+pasien.biaya_obat+pasien.biaya_kamar,penyakit.nama_penyakit,kamar.nama_kamar,biaya.harga,biaya.harga+pasien.biaya_perawatan+pasien.biaya_obat+pasien.biaya_kamar)}><MdIcons.MdDownload /></button>
+                                                                )
+                                                                })
+                                                            )
+                                                        })
+                                                     )
+                                            })}
                                             </td>
                                             : null}
                                             { role === 'perawat' ?
                                             <td>
-                                                <button type="submit" className="btn btn-outline-danger" onClick={()=>pdfDownload(pasien.nama,pasien.jenis_kelamin,pasien.biaya_perawatan+pasien.biaya_obat+pasien.biaya_kamar)}><MdIcons.MdDownload /></button>
+                                              {pasien.penyakit.map((penyakit,index)  => {
+                                                return(
+                                                    pasien.kamar.map((kamar,index) => {
+                                                         return(
+                                                            pasien.biaya.map((biaya,index) => {
+                                                                return(
+                                                                    <button type="submit" className="btn btn-outline-warning" onClick={()=>pdfDownload(pasien.nama,pasien.jenis_kelamin,pasien.biaya_perawatan+pasien.biaya_obat+pasien.biaya_kamar,penyakit.nama_penyakit,kamar.nama_kamar,biaya.harga,biaya.harga+pasien.biaya_perawatan+pasien.biaya_obat+pasien.biaya_kamar)}><MdIcons.MdDownload /></button>
+                                                                )
+                                                                })
+                                                            )
+                                                        })
+                                                     )
+                                            })}
                                             </td>
                                             : null}
                                             {role === 'admin' &&
@@ -225,7 +251,7 @@ function Pasien(){
                                                          return(
                                                             pasien.biaya.map((biaya,index) => {
                                                                 return(
-                                                                    <button type="submit" className="btn btn-outline-danger" onClick={()=>pdfDownload(pasien.nama,pasien.jenis_kelamin,pasien.biaya_perawatan+pasien.biaya_obat+pasien.biaya_kamar,penyakit.nama_penyakit,kamar.nama_kamar,biaya.harga,biaya.harga+pasien.biaya_perawatan+pasien.biaya_obat+pasien.biaya_kamar)}><MdIcons.MdDownload /></button>
+                                                                    <button type="submit" className="btn btn-outline-warning" onClick={()=>pdfDownload(pasien.nama,pasien.jenis_kelamin,pasien.biaya_perawatan+pasien.biaya_obat+pasien.biaya_kamar,penyakit.nama_penyakit,kamar.nama_kamar,biaya.harga,biaya.harga+pasien.biaya_perawatan+pasien.biaya_obat+pasien.biaya_kamar)}><MdIcons.MdDownload /></button>
                                                                 )
                                                                 })
                                                             )

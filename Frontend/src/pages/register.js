@@ -20,7 +20,8 @@ function Register() {
     const [nama,setNama] = useState('');
     const [email,setEmail] = useState('');
     const [password,setPassword] = useState('');
-    const [auth,setAuth] = useState([]);
+    const [error,setError] = useState('');
+    const [msg,setMsg] = useState('');
     const history = useHistory();
     const role = 'pasien'
     const verifikasi = false;
@@ -57,10 +58,11 @@ function Register() {
         })
         .then(res => {
             console.log(res.data);
+            setMsg(res.data.message);
         })
         .catch(err => {
             console.log(err);
-            console.log(err.response.data.message);
+            setError(err.response.data.message);
         })
     }
     return(
@@ -69,16 +71,18 @@ function Register() {
             <div className="row">
                 <div className="test">
                         <div className="image" >
-                            <img src="https://images.unsplash.com/photo-1517999144091-3d9dca6d1e43?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=627&q=80"/>
+                            <img src="https://images.unsplash.com/photo-1511207538754-e8555f2bc187?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=627&q=80"/>
                         </div>
                         <div className="content">
-                            <h1>Welcome to <span>SOCA</span></h1>
-                            <p>Welcome back! Log in to your account to view today's clients:</p>
+                            <h1>Welcome to <span>Rumah Sakit</span></h1>
+                            <p>Hello please Register account to view today's clients:</p>
+                            {msg ? <p>{msg}</p> : null}
+                            {error ? <p>{error}</p> : null}
                             <div className="input">
                                 <Form onSubmit={handleSubmit}>
                                     <input type="text" id="form-input" className="form-control" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)}/>
                                     <input style={{"margin-top":"1rem"}} id="form-input" type="password" className="form-control" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)}/>
-                                    <button style={{"margin-top":"1rem"}} type="submit" className="btn btn-primary">Login</button>
+                                    <button style={{"margin-top":"1rem"}} type="submit" className="btn btn-primary">Register</button>
                                 </Form>
                                     <Link to={'/'} style={{"margin-top":"1rem"}} type="submit" className="btn btn-primary">Login</Link>
                             </div>

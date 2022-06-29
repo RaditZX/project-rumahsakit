@@ -17,6 +17,7 @@ function T_kamar() {
     const [lantai,setLantai] = useState('');
     const [harga,setHarga] = useState('');
     const [status,setStatus] = useState('');
+    const [deskripsi,setDeskripsi] = useState('');
     const [role,setRole] = useState('');
     const history = useHistory();
     const Id = localStorage.getItem('id')
@@ -57,7 +58,8 @@ function T_kamar() {
             nama_kamar,
             lantai,
             harga,
-            status
+            status,
+            deskripsi
         })
         .then(res => {
             console.log(res.data);
@@ -87,6 +89,10 @@ function T_kamar() {
                                         <Form.Control type="text" id="form-input" value={lantai} onChange={(e) => setLantai(e.target.value)} placeholder="Lantai" /><br/>
 
                                         <Form.Control type="text" id="form-input" value={harga} onChange={(e) => setHarga(e.target.value)} placeholder="Harga" /><br/>
+
+                                        <label>Deskripsi</label>
+                                        <Form.Control type="text" id="form-input"   value={deskripsi} onChange={(e) => setDeskripsi(e.target.value)} placeholder="harga" /><br/>
+
 
                                         <Form.Select id="form-input" value={status} onChange={(e) => setStatus(e.target.value)}>
                                             <option value="">Pilih Status</option>

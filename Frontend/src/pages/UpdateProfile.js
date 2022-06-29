@@ -20,6 +20,7 @@ function UpdateProfile(){
     const [pekerjaan,setPekerjaan] = useState('');
     const [profile,setProfile] = useState('');
     const [no_telp,setNo_telp] = useState('');
+    const [verfikasi,setVerifikasi] = useState('');
     const [role,setRole] = useState('');
     const history = useHistory();
     const {Id} = useParams();
@@ -51,6 +52,7 @@ function UpdateProfile(){
             setEmail(res.data.email);
             setNo_telp(res.data.no_telp);
             setRole(res.data.role);
+            setVerifikasi(res.data.verifikasi);
             
         })
         .catch(err => {
@@ -58,11 +60,15 @@ function UpdateProfile(){
         })
     }
 
-    const onImageChange = (e) => {
-        console.log(e.target.files[0])
-        let uploaded = e.target.files[0];
-        console.log(URL.createObjectURL(uploaded))
-        setProfile(uploaded);
+    const CheckVerifikasi = () => {
+        if(verfikasi === true){
+            const check = 'Sudah Verifikasi';
+            return check;
+        }else{
+            const check = ' Belum Verifikasi';
+            return check;
+        }
+        
      
     }
 
@@ -92,87 +98,35 @@ function UpdateProfile(){
     },[])
 
     return(
-        <div className="home">
+        <div>
             <Navbar />
-            <div className='container-fluid'>
-                <div className="d-flex flex-row">
-                    <div className="p-2">
-                        <Card className="profile">
-                            <Card.Header style={{ height: 'auto' }}>
-                                <div className="d-flex justify-content-center">
-                                    <div className="d-flex flex-column">
-                                        {/* foto */}
-                                        <div className="p-2 col-example text-left">
-                                            <img className="rounded-circle" width="150px" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg" />
+            <div className="container-fluid">
+                <div className="row-profile">
+                    <div className="box-profile">
+                    <div className="image" >
+                            <img src="https://images.unsplash.com/photo-1517999144091-3d9dca6d1e43?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=627&q=80"/>
+                        </div>
+                        <div className="content">
+                            <h1> <span>Profile</span></h1>
+                            <p>Please check and update your account details:</p>
+                            <div className="input">
+                                <Form onSubmit={handleSubmit}>
+                                    <div className="d-flex flex-row justify-content-between">
+                                        <div className="item-flex">
+                                            <input type="text" id="form-input" className="form-control" placeholder="Email" value={nama_awal} onChange={(e) => setNama_awal(e.target.value)}/>
                                         </div>
-
-                                        {/* nama */}
-                                        <div className="p-2 col-example text-left">
-                                            <div className="d-flex justify-content-center">
-                                                <h2>{nama_awal}</h2>
-                                            </div>
-                                        </div>
-
-                                        {/* pekerjaan */}
-                                        <div className="p-2 col-example text-left">
-                                            <div className="d-flex justify-content-center">
-                                                <p>{pekerjaan}</p>
-                                            </div>
+                                        <div className="item-flex">
+                                            <input type="text" id="form-input" className="form-control" placeholder="Email" value={nama_akhir} onChange={(e) => setNama_akhir(e.target.value)}/>
                                         </div>
                                     </div>
-                                </div>
-                            </Card.Header>
-                            <ListGroup variant="flush">
-                                <ListGroup.Item>{role}</ListGroup.Item>
-                            </ListGroup>
-                        </Card>
-                    </div>
-                    <div className="p-2" style={{marginTop: "120px"}}>
-                        <div >
-                            {/* card form login  */}
-                            <Card className="data">
-                                <Card.Header><h2>Pasien</h2></Card.Header>
-                                <ListGroup variant="flush">
-                                    <ListGroup.Item>
-                                        <Form onSubmit={handleSubmit}>
-                                        <div className="row mt-2">
-                                            <div className="col-md-6">
-                                                <label className="labels">Nama Awal: </label> 
-                                                <Form.Control type="text" value={nama_awal} onChange={(e)=> setNama_awal(e.target.value)}   />
-                                            </div>
-                                            <div className="col-md-6">
-                                                <label className="labels">Nama Akhir:</label>
-                                                <Form.Control type="text" value={nama_akhir} onChange={(e)=> setNama_akhir(e.target.value)}  />
-                                            </div>
-                                        </div><br />
-                                        <div className="row mt-2">
-                                            <div className="col-md-6">
-                                                <label className="labels">No Telepon: </label> 
-                                                <Form.Control type="text" value={no_telp} onChange={(e)=> setNo_telp(e.target.value)} />
-                                            </div>
-                                            <div className="col-md-6">
-                                                <label className="labels">Alamat Email:</label>
-                                                <Form.Control type="text" value={email} onChange={(e)=> setEmail(e.target.value)}  />
-                                            </div>
-                                        </div><br />
-                                        <div className="row mt-2">
-                                            <div className="col-md-6">
-                                                <label className="labels">pekerjaan: </label> 
-                                                <Form.Control type="text" value={pekerjaan} onChange={(e)=> setPekerjaan(e.target.value)}  />
-                                            </div>
-                                            <div className="col-md-6">
-                                                <label className="labels">Alammat rumah:</label>
-                                                <Form.Control type="text" value={alamat} onChange={(e)=> setAlamat(e.target.value)}  />
-                                            </div>
-                                        </div><br />
-                                        <div className="d-flex flex-row-reverse">
-                                            <div className="p-2"><Link to={`/profile`} className="btn btn-primary" >Batal</Link>{' '}</div>
-                                            <div className="p-2"><button type="submit" className="btn btn-primary" size="sm">Simpan</button></div>
-                                        </div>
-                                        </Form>
-                                    </ListGroup.Item>
-                                </ListGroup>
-                            </Card>
+                                    <input type="text" style={{"margin-top":"1rem"}} id="form-input" className="form-control" placeholder="Email" value={pekerjaan} onChange={(e) => setPekerjaan(e.target.value)}/>
+                                    <input type="text" style={{"margin-top":"1rem"}} id="form-input" className="form-control" placeholder="Email" value={alamat} onChange={(e) => setAlamat(e.target.value)}/>
+                                    <input type="text" style={{"margin-top":"1rem"}} id="form-input" className="form-control" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} disabled/>
+                                    <input type="text" style={{"margin-top":"1rem"}} id="form-input" className="form-control" placeholder="Email" value={CheckVerifikasi()} disabled/>
+                                    <input type="text" style={{"margin-top":"1rem"}} id="form-input" className="form-control" placeholder="Email" value={no_telp} onChange={(e) => setNo_telp(e.target.value)}/>
+                                    <button style={{"margin-top":"1rem"}} type="submit" className="btn btn-primary">Update</button>
+                                </Form>
+                            </div>
                         </div>
                     </div>
                 </div>

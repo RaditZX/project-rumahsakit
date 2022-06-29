@@ -4,6 +4,7 @@ import { useHistory,useParams, Link,Redirect } from 'react-router-dom';
 import Navbar from "../compenents/navbar";
 import axios from "axios";
 import ReactPaginate from 'react-paginate';
+import CurrencyFormat from 'react-currency-format';
 
 //import react boostrap
 import {Card} from 'react-bootstrap';
@@ -135,42 +136,46 @@ function Kamar(){
                         
                         {/* tabel data kamar */}
                         <div className="d-flex justify-content-center">
-                        <Table class="table align-middle mb-0 bg-white">
-                            <thead class="bg-light">
-                                    <tr className="header-tabel">
-                                        <th>No</th>
-                                        <th>Nama Kamar</th>
-                                        <th>Lantai</th>
-                                        <th>Harga</th>
-                                        <th>Status</th>
-                                        <th>Aksi</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {kamar.slice(currentPage * postsPerPage - postsPerPage, currentPage * postsPerPage)
-                                    .filter(kamar => {
-                                        return kamar.nama_kamar.toLowerCase().includes(search.toLowerCase())
-                                    })
-                                    .map((kamar,index) => {
-                                        return(
-                                            <tr key={index}>
-                                                <td>{index+1}</td>
-                                                <td>{kamar.nama_kamar}</td>
-                                                <td>{kamar.lantai}</td>
-                                                <td>{kamar.harga}</td>
-                                                <td>{kamar.status}</td>
-                                                {role === 'admin' &&
-                                                <td>
-                                                <Link to={`kamar/edit/${kamar._id}`} className="btn btn-outline-primary"><MdIcons.MdEdit /></Link>
-                                                    <button type="submit" className="btn btn-outline-danger" onClick={() => deleteKamar(kamar._id)}><MdIcons.MdDelete /></button>
-                                                </td>
-                                                }
-        
-                                            </tr>
-                                        )
-                                    })}
-                                </tbody>
-                            </Table>
+                            <div class="table-responsive">
+                            <Table class="table align-middle mb-0 bg-white">
+                                <thead class="bg-light">
+                                        <tr className="header-tabel">
+                                            <th>No</th>
+                                            <th>Nama Kamar</th>
+                                            <th>Lantai</th>
+                                            <th>Harga</th>
+                                            <th>Status</th>
+                                            <th>Deskripsi</th>
+                                            <th>Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {kamar.slice(currentPage * postsPerPage - postsPerPage, currentPage * postsPerPage)
+                                        .filter(kamar => {
+                                            return kamar.nama_kamar.toLowerCase().includes(search.toLowerCase())
+                                        })
+                                        .map((kamar,index) => {
+                                            return(
+                                                <tr key={index}>
+                                                    <td>{index+1}</td>
+                                                    <td>{kamar.nama_kamar}</td>
+                                                    <td>{kamar.lantai}</td>
+                                                    <td><CurrencyFormat value={kamar.harga} displayType={'text'} thousandSeparator={true} prefix={'Rp.'}/></td>
+                                                    <td>{kamar.status}</td>
+                                                    <td>{kamar.deskripsi}</td>
+                                                    {role === 'admin' &&
+                                                    <td>
+                                                    <Link to={`kamar/edit/${kamar._id}`} className="btn btn-outline-primary"><MdIcons.MdEdit /></Link>
+                                                        <button type="submit" className="btn btn-outline-danger" onClick={() => deleteKamar(kamar._id)}><MdIcons.MdDelete /></button>
+                                                    </td>
+                                                    }
+            
+                                                </tr>
+                                            )
+                                        })}
+                                    </tbody>
+                                </Table>
+                            </div>
                         </div>
 
                         {/* pagination */}

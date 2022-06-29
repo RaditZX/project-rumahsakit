@@ -1,7 +1,7 @@
 //import react dan route
 import React, { useState,useEffect } from 'react';
 import {useHistory} from 'react-router-dom';
-import {Link} from 'react-router-dom';
+import {NavLink,Link} from 'react-router-dom';
 import axios from 'axios';
 import * as IoIcons from 'react-icons/io';
 
@@ -53,31 +53,31 @@ function Navbar() {
                     {SidebarData.map((item, index) => {
                         return(
                             <li key={index} className={item.cName}>
-                                <Link to={item.path}>
+                                <NavLink to={item.path} activeClassName='is-active'>
                                   {item.icon}<p>ㅤ</p>
                                   {item.title}
-                                </Link> 
+                                </NavLink> 
                             </li>
                         )
                     })}
 
                      {role === 'pasien' ? 
                             <li className='nav-text'>
-                                <Link to={`/pasien/Editdata/${nama}`}>
+                                <NavLink to={`/pasien/Editdata/${nama}`} activeClassName='is-active'>
                                     <IoIcons.IoIosPerson/><p>ㅤ</p>
                                     Edit data
-                                </Link>
+                                </NavLink>
                             </li>
                         
                     : null} 
 
                     {role === 'admin'|| role === 'perawat' ? SidebarAdmin.map((item, index) => {
                         return(
-                            <li key={index} className={item.cName}>
-                                <Link to={item.path}>
+                            <li key={index} className={item.cName} >
+                                <NavLink to={item.path} activeClassName='is-active'>
                                     {item.icon}<p>ㅤ</p>
                                     {item.title}
-                                </Link>
+                                </NavLink>
                             </li>
                         )
                     }) : null} 

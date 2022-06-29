@@ -8,7 +8,7 @@ function Verifikasi() {
     const {token} = useParams();
     
 
-    const handelSubmit = (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
         axios.put(`http://localhost:3000/verifikasi/${token}`)
         .then(res => {
@@ -40,13 +40,22 @@ function Verifikasi() {
 
     return (
         <div className="container">
-            <div className="row">
-                <div className="col-md-6 mt-5 mx-auto">
-                    {notification()}
-                    <button className="btn btn-info btn-block" onClick={handelSubmit}>Verifikasi</button>
-                </div>
+        <div className="row">
+            <div className="test">
+                    <div className="image" >
+                        <img src="https://images.unsplash.com/photo-1517999144091-3d9dca6d1e43?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=627&q=80"/>
+                    </div>
+                    <div className="content">
+                        <h1>Welcome to <span>SOCA</span></h1>
+                        <p>Welcome back! Log in to your account to view today's clients:</p>
+                        {notification()}
+                        <div className="input">
+                            <button style={{"margin-top":"1rem"}} type="submit" onClick={handleSubmit} className="btn btn-primary">Verifikasi</button>
+                        </div>
+                    </div>
             </div>
         </div>
+    </div>
     )
 
 }

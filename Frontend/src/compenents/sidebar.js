@@ -29,6 +29,14 @@ export const SidebarData = [
         cName: 'nav-text'
     },
 
+    //profile
+    {
+        title: 'Profile',
+        path:  `/U_profile`,
+        icon: <FaIcons.FaUserAlt />,
+        cName: 'nav-text'
+    },
+
  
 
    
