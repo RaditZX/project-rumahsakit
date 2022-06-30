@@ -6,6 +6,8 @@ import "../App.css";
 import axios from 'axios';
 import ReactPaginate from 'react-paginate';
 import jsPDF from 'jspdf';
+import CurrencyFormat from 'react-currency-format';
+import currencyFormatter from 'currency-formatter';
 
 //import react boostrap
 import {Card} from 'react-bootstrap';
@@ -24,8 +26,9 @@ function Pasien(){
     const [pasienId,setPasienId] = useState('');
     const [name,setName] = useState('');
     const [role,setRole] = useState('');
+    const [jenis_kelamin,setJenis_kelamin] = useState('');
     const [currentPage,setCurrentPage] = useState(1);
-    const [postsPerPage] = useState(5);
+    const [postsPerPage] = useState(10);
     const Id = localStorage.getItem('id')
     const history = useHistory();
 
@@ -76,31 +79,33 @@ function Pasien(){
             console.log(err);
         })
     }
-
     const deletePasien = (id) => {
-        axios.delete(`http://localhost:3000/pasien/${id}`)
-        .then(res => {
-            getPasien();
-        })
-        .catch(err => {
-            console.log(err);
-        })
+        if (window.confirm('Are you sure you want to delete this item?')) {
+            axios.delete(`http://localhost:3000/pasien/${id}`)
+            .then(res => {
+                console.log(res.data);
+                getPasien();
+            })
+            .catch(err => {
+                console.log(err);
+            })
+        }      
     }
 
+    //file pdf
     const pdfDownload = (nama,jenis_kelamin,biaya,penyakit,kamar,biaya_perawatan,biayaTotal) => {
-        var doc = new jsPDF();
-        doc.text(80, 20, 'Biaya Total Pasien');
-        doc.text(20, 40, 'Nama :' +nama);
-        doc.text(20, 50, 'Jenis Kelamin :'+jenis_kelamin);
-        doc.text(20, 60, 'penyakit :'+penyakit);
-        doc.text(20, 70, 'Kamar :'+kamar);
-        doc.text(20, 80, 'Biaya Perawatan  :'+biaya_perawatan);
-        doc.text(20, 90, 'Biaya Pengobatan :'+biaya);
-        doc.text(20, 100, 'Biaya Total :'+biayaTotal);
+        const doc = new jsPDF();
+        doc.text(80, 20, 'Rincian Biaya Pasien');
+        doc.text(20, 40, 'Nama : '+nama);
+        doc.text(20, 50, 'Jenis Kelamin : '+jenis_kelamin);
+        doc.text(20, 60, 'penyakit : '+penyakit);
+        doc.text(20, 70, 'Kamar : '+kamar);
+        doc.text(20, 80, 'Biaya Perawatan : '+   currencyFormatter.format(biaya_perawatan, {code: 'IDR'}));
+        doc.text(20, 90, 'Biaya Pengobatan : '+   currencyFormatter.format(biaya, {code: 'IDR'}));
+        doc.text(20, 100, 'Biaya Total : '+   currencyFormatter.format(biayaTotal, {code: 'IDR'}));
         doc.save('Pasien.pdf');
 
     }
-
     return(
         <>
             <Navbar />
@@ -134,14 +139,17 @@ function Pasien(){
                     <div className="d-flex justify-content-between">
                         <div className="p-2 col-example text-left">
                             <div className="d-flex flex-row">
-                                <div className="p-2">Filter:</div>
+                                <div className="p-2">Filter Jenis Kelamin:</div>
                                 <div className="p-2">
-                                    <Form.Select size="sm">
-                                        <option>select</option>
+                                    <Form.Select value={jenis_kelamin} onChange={(e)=> setJenis_kelamin(e.target.value)} size="sm">
+                                        <option value='' >Select</option>
+                                        <option value='L'>Pria</option>
+                                        <option value='P'>Wanita</option>
                                     </Form.Select>
                                 </div>
                             </div>
                         </div>
+                        
 
                        {/* fitur cari */}
                         <div className="p-2 col-example text-left">
@@ -179,10 +187,20 @@ function Pasien(){
                                 {pasien.filter(pasien => {
                                     return pasien.nama.toLowerCase().includes(search.toLowerCase())
                                     
-                                }).slice(currentPage * postsPerPage - postsPerPage, currentPage * postsPerPage).map((pasien,index) => {
+                                })
+                                .filter(pasien => {
+                                    if (jenis_kelamin === '') {
+                                        return pasien
+                                    }
+                                    else{
+                                        return pasien.jenis_kelamin.toLowerCase().includes(jenis_kelamin.toLowerCase())
+                                    }
+                                    
+                                })
+                                .slice(currentPage * postsPerPage - postsPerPage, currentPage * postsPerPage).map((pasien,index) => {
                                     return(
                                         <tr key={index}>
-                                            <td>{index+1}</td>
+                                            <td>{index+1}</td>  
                                             <td>{pasien.nama}</td>
                                             <td>{pasien.alamat}</td>
                                             <td>{pasien.no_telp}</td>
@@ -204,15 +222,39 @@ function Pasien(){
                                                     <td>{biaya.nama_biaya}</td>
                                                 )
                                             })}
-                                            <td>{pasien.biaya_perawatan+pasien.biaya_kamar+pasien.biaya_obat}</td>
+                                            <td><CurrencyFormat value={pasien.biaya_perawatan+pasien.biaya_kamar+pasien.biaya_obat} displayType={'text'} thousandSeparator={true} prefix={'Rp.'}/></td>
                                             { role === 'pasien' ?
                                             <td>
-                                                <Button variant="outline-primary" size="sm" onClick={()=> pdfDownload(pasien.nama,pasien.jenis_kelamin,pasien.biaya_perawatan+pasien.biaya_kamar+pasien.biaya_obat)}>Cetak</Button>{' '}
+                                                {pasien.penyakit.map((penyakit,index)  => {
+                                                return(
+                                                    pasien.kamar.map((kamar,index) => {
+                                                         return(
+                                                            pasien.biaya.map((biaya,index) => {
+                                                                return(
+                                                                    <button type="submit" className="btn btn-outline-warning" onClick={()=>pdfDownload(pasien.nama,pasien.jenis_kelamin,pasien.biaya_perawatan+pasien.biaya_obat+pasien.biaya_kamar,penyakit.nama_penyakit,kamar.nama_kamar,biaya.harga,biaya.harga+pasien.biaya_perawatan+pasien.biaya_obat+pasien.biaya_kamar)}><MdIcons.MdDownload /></button>
+                                                                )
+                                                                })
+                                                            )
+                                                        })
+                                                     )
+                                            })}
                                             </td>
                                             : null}
                                             { role === 'perawat' ?
                                             <td>
-                                                <button type="submit" className="btn btn-outline-danger" onClick={()=>pdfDownload(pasien.nama,pasien.jenis_kelamin,pasien.biaya_perawatan+pasien.biaya_obat+pasien.biaya_kamar)}><MdIcons.MdDownload /></button>
+                                              {pasien.penyakit.map((penyakit,index)  => {
+                                                return(
+                                                    pasien.kamar.map((kamar,index) => {
+                                                         return(
+                                                            pasien.biaya.map((biaya,index) => {
+                                                                return(
+                                                                    <button type="submit" className="btn btn-outline-warning" onClick={()=>pdfDownload(pasien.nama,pasien.jenis_kelamin,pasien.biaya_perawatan+pasien.biaya_obat+pasien.biaya_kamar,penyakit.nama_penyakit,kamar.nama_kamar,biaya.harga,biaya.harga+pasien.biaya_perawatan+pasien.biaya_obat+pasien.biaya_kamar)}><MdIcons.MdDownload /></button>
+                                                                )
+                                                                })
+                                                            )
+                                                        })
+                                                     )
+                                                })}
                                             </td>
                                             : null}
                                             {role === 'admin' &&
@@ -221,21 +263,22 @@ function Pasien(){
                                                     <div className="p-2 col-example text-left"><Link to={`pasien/edit/${pasien._id}`} className="btn btn-outline-primary"><MdIcons.MdEdit /></Link></div>
                                                     <div className="p-2 col-example text-left"><button type="submit" className="btn btn-outline-danger" onClick={() => deletePasien(pasien._id)}><MdIcons.MdDelete /></button></div>
                                                 
-                                            {pasien.penyakit.map((penyakit,index)  => {
-                                                return(
-                                                    pasien.kamar.map((kamar,index) => {
-                                                         return(
-                                                            pasien.biaya.map((biaya,index) => {
-                                                                return(
-                                                                    <div className="p-2 col-example text-left"><button type="submit" className="btn btn-outline-danger" onClick={()=>pdfDownload(pasien.nama,pasien.jenis_kelamin,pasien.biaya_perawatan+pasien.biaya_obat+pasien.biaya_kamar,penyakit.nama_penyakit,kamar.nama_kamar,biaya.harga,biaya.harga+pasien.biaya_perawatan+pasien.biaya_obat+pasien.biaya_kamar)}><MdIcons.MdDownload /></button></div>
-                                                                    
+                                                
+                                                {pasien.penyakit.map((penyakit,index)  => {
+                                                    return(
+                                                        pasien.kamar.map((kamar,index) => {
+                                                            return(
+                                                                pasien.biaya.map((biaya,index) => {
+                                                                    return(
+                                                                        <div className="p-2 col-example text-left"><button type="submit" className="btn btn-outline-warning" onClick={()=>pdfDownload(pasien.nama,pasien.jenis_kelamin,pasien.biaya_perawatan+pasien.biaya_obat+pasien.biaya_kamar,penyakit.nama_penyakit,kamar.nama_kamar,biaya.harga,biaya.harga+pasien.biaya_perawatan+pasien.biaya_obat+pasien.biaya_kamar)}><MdIcons.MdDownload /></button></div>
+                                                                        
+                                                                        
+                                                                    )
+                                                                    })
                                                                 )
-                                                                })
-                                                            )
-                                                        })
-                                                     )
-                                            })}
-                                           </div>
+                                                            })
+                                                        )
+                                                })} </div>
                                             </td>
                                              }
                                         </tr>

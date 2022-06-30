@@ -1,15 +1,20 @@
 //import react dan route
 import React, { useState,useEffect } from 'react';
 import {useHistory} from 'react-router-dom';
-import {Link} from 'react-router-dom';
+import {NavLink,Link} from 'react-router-dom';
 import axios from 'axios';
+
+//import icons
 import * as IoIcons from 'react-icons/io';
+import * as AiIcons from 'react-icons/ai';
 
 //import sidebar
 import { SidebarData,SidebarAdmin,logout,SidebarPasien }from './sidebar';
 
 //import css
 import '../App.css';
+
+
 
 function Navbar() {
     const [sidebar, setSidebar] = useState(false);
@@ -35,10 +40,12 @@ function Navbar() {
     },[])
 
     const Logout = () => {
+        if(window.confirm('Apakah anda yakin ingin keluar?')){
         localStorage.removeItem('token');
         localStorage.removeItem('id');
         localStorage.removeItem('name');
         history.push('/');
+        }
     }
     return(
     <div>
@@ -50,36 +57,32 @@ function Navbar() {
                     </div>
                     {SidebarData.map((item, index) => {
                         return(
-                            // aturan menu sidebar
                             <li key={index} className={item.cName}>
-                                <Link to={item.path}>
+                                <NavLink to={item.path} activeClassName='is-active'>
                                   {item.icon}<p>ㅤ</p>
                                   {item.title}
-                                </Link> 
+                                </NavLink> 
                             </li>
                         )
                     })}
 
-                     {/* role pasien */}
                      {role === 'pasien' ? 
                             <li className='nav-text'>
-                                {/* edit data auth pasien */}
-                                <Link to={`/pasien/Editdata/${nama}`}>
-                                    <IoIcons.IoIosPerson/><p>ㅤ</p>
+                                <NavLink to={`/pasien/Editdata/${nama}`} activeClassName='is-active'>
+                                    <AiIcons.AiFillEdit/><p>ㅤ</p>
                                     Edit data
-                                </Link>
+                                </NavLink>
                             </li>
                         
                     : null} 
 
-                    {/* role admin dan perawat */}
                     {role === 'admin'|| role === 'perawat' ? SidebarAdmin.map((item, index) => {
                         return(
-                            <li key={index} className={item.cName}>
-                                <Link to={item.path}>
+                            <li key={index} className={item.cName} >
+                                <NavLink to={item.path} activeClassName='is-active'>
                                     {item.icon}<p>ㅤ</p>
                                     {item.title}
-                                </Link>
+                                </NavLink>
                             </li>
                         )
                     }) : null} 

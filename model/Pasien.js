@@ -15,9 +15,9 @@ class Pasien {
             tanggal_daftar: Date,
             golongan_darah: String,
             harga_total: Number,
-            kode_penyakit: {type:mongoose.Schema.Types.ObjectId},
-            kode_kamar: {type:mongoose.Schema.Types.ObjectId},
-            kode_biaya: {type:mongoose.Schema.Types.ObjectId},
+            kode_penyakit: {type:mongoose.Types.ObjectId},
+            kode_kamar: {type:mongoose.Types.ObjectId},
+            kode_biaya: {type:mongoose.Types.ObjectId},
         }, this.options);
         // create model for pasien
         this.model = mongoose.model('pasien', this.schema);

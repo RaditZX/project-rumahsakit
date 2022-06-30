@@ -4,6 +4,7 @@ import { useHistory,useParams, Link,Redirect} from 'react-router-dom';
 import Navbar from "../compenents/navbar";
 import axios from 'axios';
 import ReactPaginate from 'react-paginate';
+import CurrencyFormat from 'react-currency-format';
 
 //import react boostrap
 import {Card} from 'react-bootstrap';
@@ -20,6 +21,7 @@ function Biaya(){
     const [biaya,setBiaya] = useState([]);
     const [search,setSearch] = useState('');
     const [role,setRole] = useState('');
+    const [sort,setSort] = useState('');
     const [auth,setAuth] = useState([]);
     const [currentPage,setCurrentPage] = useState(1);
     const [postsPerPage] = useState(5);
@@ -73,13 +75,20 @@ function Biaya(){
     }
 
     const deleteBiaya = (id) => {
-        axios.delete(`http://localhost:3000/biaya/${id}`)
-        .then(res => {
-            getBiaya();
-        })
-        .catch(err => {
-            console.log(err);
-        })
+       if(window.confirm('Are you sure?')){
+           axios.delete(`http://localhost:3000/biaya/${id}`,{
+               headers: {
+                   "x-access-token": localStorage.getItem('token')
+               }
+           })
+           .then(res => {
+               console.log(res.data);
+               getBiaya();
+           })
+           .catch(err => {
+               console.log(err);
+           })
+       }
     }
     if (role === 'pasien') {
         return <Redirect to='/pasien' />
@@ -113,8 +122,10 @@ function Biaya(){
                                 <div className="d-flex flex-row">
                                     <div className="p-2">Filter:</div>
                                     <div className="p-2">
-                                        <Form.Select  size="sm">
-                                            <option>Small select</option>
+                                        <Form.Select value={sort} onChange={(e) => setSort(e.target.value)} size="sm">
+                                            <option>select</option>
+                                            <option value="nama_biaya">Nama</option>
+                                            <option value="harga">Harga</option>
                                         </Form.Select>
                                     </div>
                                 </div>
@@ -135,41 +146,50 @@ function Biaya(){
                         
                         {/* tabel data biaya */}
                         <div className="d-flex justify-content-center">
-                        <Table class="table align-middle mb-0 bg-white">
-                            <thead class="bg-light">
-                                    <tr className="header-tabel">
-                                        <th>No</th>
-                                        <th>Kode Biaya</th>
-                                        <th>Nama Biaya</th>
-                                        <th>Harga</th>
-                                        <th>Status</th>
-                                        <th>Aksi</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {biaya.slice(currentPage * postsPerPage - postsPerPage, currentPage * postsPerPage)
-                                    .filter(biaya => {
-                                        return biaya.nama_biaya.toLowerCase().includes(search.toLowerCase())
-                                    })
-                                    .map((item,index) => {
-                                        return(
-                                            <tr key={index}>
-                                                <td>{index+1}</td>
-                                                <td>{item.kode_biaya}</td>
-                                                <td>{item.nama_biaya}</td>
-                                                <td>{item.harga}</td>
-                                                <td>{item.status}</td>
-                                                {role === 'admin' &&
-                                                <td>
-                                                    <Link to={`biaya/edit/${item._id}`} className="btn btn-outline-primary"><MdIcons.MdEdit /></Link>
-                                                    <button type="submit" className="btn btn-outline-danger" onClick={() => deleteBiaya(item._id)}><MdIcons.MdDelete /></button>
-                                                </td>
-                                                }
-                                            </tr>
-                                        )
-                                    })}
-                                </tbody>
-                            </Table>
+                            <div class="table-responsive">
+                            <Table class="table align-middle mb-0 bg-white">
+                                <thead class="bg-light">
+                                        <tr className="header-tabel">
+                                            <th>No</th>
+                                            <th>Nama Biaya</th>
+                                            <th>Harga</th>
+                                            <th>Deskripsi</th>
+                                            <th>Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {biaya
+                                        .filter(biaya => {
+                                            return biaya.nama_biaya.toLowerCase().includes(search.toLowerCase())
+                                        })
+                                        .sort((a,b) => {
+                                            if(sort === 'nama_biaya'){
+                                                return a.nama_biaya > b.nama_biaya ? 1 : -1
+                                            }
+                                            else if(sort === 'harga'){
+                                                return a.harga > b.harga ? 1 : -1
+                                            }
+                                        })
+                                        .slice(currentPage * postsPerPage - postsPerPage, currentPage * postsPerPage)
+                                        .map((item,index) => {
+                                            return(
+                                                <tr key={index}>
+                                                    <td>{index+1}</td>
+                                                    <td>{item.nama_biaya}</td>
+                                                    <td><CurrencyFormat value={item.harga} displayType={'text'} thousandSeparator={true} prefix={'Rp.'}/></td>
+                                                    <td>{item.deskripsi}</td>
+                                                    {role === 'admin' &&
+                                                    <td>
+                                                        <Link to={`biaya/edit/${item._id}`} className="btn btn-outline-primary"><MdIcons.MdEdit /></Link>
+                                                        <button type="submit" className="btn btn-outline-danger" onClick={() => deleteBiaya(item._id)}><MdIcons.MdDelete /></button>
+                                                    </td>
+                                                    }
+                                                </tr>
+                                            )
+                                        })}
+                                    </tbody>
+                                </Table>
+                            </div>
                         </div>
 
                         {/* pagination */}

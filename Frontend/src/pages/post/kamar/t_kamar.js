@@ -17,6 +17,7 @@ function T_kamar() {
     const [lantai,setLantai] = useState('');
     const [harga,setHarga] = useState('');
     const [status,setStatus] = useState('');
+    const [deskripsi,setDeskripsi] = useState('');
     const [role,setRole] = useState('');
     const history = useHistory();
     const Id = localStorage.getItem('id')
@@ -57,7 +58,8 @@ function T_kamar() {
             nama_kamar,
             lantai,
             harga,
-            status
+            status,
+            deskripsi
         })
         .then(res => {
             console.log(res.data);
@@ -72,8 +74,8 @@ function T_kamar() {
         
     }
     else{
+        // Tambah Kamar
         return(
-             // form tambah data kamar
             <div className="container">
                 <div className="row"  style={{"padding-top":"5rem"}}>
                     <div className="box">
@@ -83,12 +85,15 @@ function T_kamar() {
                                         {/* nama */}
                                         <label>Nama Biaya: </label>
                                         <Form.Control type="text" value={nama_kamar} id="form-input" onChange={(e) => setNama_kamar(e.target.value)} placeholder="nama Kamar" /><br/>
-                                        {/* no lantai */}
+                                        {/* no telepon */}
                                         <label>Lantai</label>
                                         <Form.Control type="text" id="form-input" value={lantai} onChange={(e) => setLantai(e.target.value)} placeholder="Lantai" /><br/>
-                                        {/* harga */}
+                                        {/* Lantai */}
                                         <Form.Control type="text" id="form-input" value={harga} onChange={(e) => setHarga(e.target.value)} placeholder="Harga" /><br/>
-                                        {/* pilih status */}
+                                        {/* Deskripsi */}
+                                        <label>Deskripsi</label>
+                                        <Form.Control type="text" id="form-input"   value={deskripsi} onChange={(e) => setDeskripsi(e.target.value)} placeholder="harga" /><br/>
+                                        {/* Pilih Status */}
                                         <Form.Select id="form-input" value={status} onChange={(e) => setStatus(e.target.value)}>
                                             <option value="">Pilih Status</option>
                                             <option value="tersedia">Tersedia</option>

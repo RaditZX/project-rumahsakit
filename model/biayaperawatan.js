@@ -6,10 +6,10 @@ class biayaperawatan{
             timestamps: true
         };
         this.schema = mongoose.Schema({
-            kode_biaya: String,
             nama_biaya: String,
             harga: Number,
-            status: String
+            status: String,
+            deskripsi: String
         }, this.options);
         this.model = mongoose.model('biayaperawatan', this.schema);
     }

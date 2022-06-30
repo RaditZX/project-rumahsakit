@@ -17,6 +17,7 @@ function U_kamar() {
     const [lantai,setLantai] = useState('');
     const [harga,setHarga] = useState('');
     const [status,setStatus] = useState('');
+    const [deskripsi,setDeskripsi] = useState('');
     const [role,setRole] = useState('');
     const history = useHistory();
     const {Id} = useParams();
@@ -54,7 +55,8 @@ function U_kamar() {
             nama_kamar,
             lantai,
             harga,
-            status
+            status,
+            deskripsi
         })
         .then(res => {
             console.log(res.data);
@@ -73,6 +75,7 @@ function U_kamar() {
             setLantai(res.data.lantai);
             setHarga(res.data.harga);
             setStatus(res.data.status);
+            setDeskripsi(res.data.deskripsi);
         })
         .catch(err => {
             console.log(err);
@@ -89,22 +92,25 @@ function U_kamar() {
         return <Redirect to='/pasien'/>
     }
     else{
-         // form edit data kamar
+        //Edit Data kamar
         return(
             <div className="container">
                 <div className="row"  style={{"padding-top":"5rem"}}>
                     <div className="box">
-                        <h1>Kamar</h1>
+                        <h1>Penyakit</h1>
                              <Form onSubmit={handleSubmit}>
                                     <div className="d-flex flex-column">
                                         {/* nama */}
                                         <label>Nama Biaya: </label>
                                         <Form.Control type="text" value={nama_kamar} id="form-input" onChange={(e) => setNama_kamar(e.target.value)} placeholder="nama Kamar" /><br/>
-                                        {/* no lantai */}
+                                        {/* lantai */}
                                         <label>Lantai</label>
                                         <Form.Control type="text" id="form-input" value={lantai} onChange={(e) => setLantai(e.target.value)} placeholder="Lantai" /><br/>
-                                        {/* Harga */}
+                                        {/* harga */}
                                         <Form.Control type="text" id="form-input" value={harga} onChange={(e) => setHarga(e.target.value)} placeholder="Harga" /><br/>
+                                        {/* deskripsi */}
+                                        <label>Deskripsi</label>
+                                        <Form.Control type="text" id="form-input"   value={deskripsi} onChange={(e) => setDeskripsi(e.target.value)} placeholder="Deskripsi" /><br/>
                                         {/* pilih status */}
                                         <Form.Select id="form-input" value={status} onChange={(e) => setStatus(e.target.value)}>
                                             <option value="">Pilih Status</option>

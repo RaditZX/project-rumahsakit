@@ -9,7 +9,8 @@ class Kamar{
             nama_kamar: String,
             lantai: String,
             harga: Number,
-            status: String
+            status: String,
+            deskripsi: String
         }, this.options);
         this.model = mongoose.model('kamar', this.schema);
     }

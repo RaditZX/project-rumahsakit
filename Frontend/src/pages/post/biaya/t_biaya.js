@@ -15,6 +15,7 @@ function T_biaya() {
     const [nama_biaya,setNama_biaya] = useState('');
     const [harga,setHarga] = useState('');
     const [role,setRole] = useState('');
+    const [deskripsi,setDeskripsi] = useState('');
     const history = useHistory();
     const Id = localStorage.getItem('id')
 
@@ -53,7 +54,8 @@ function T_biaya() {
         e.preventDefault();
         axios.post('http://localhost:3000/addbiaya',{
             nama_biaya,
-            harga
+            harga,
+            deskripsi
         })
         .then(res => {
             console.log(res.data);
@@ -67,7 +69,7 @@ function T_biaya() {
         return <Redirect to='/pasien' />
     }
     else {
-        // form tambah data biaya
+        //tambah biaya
         return(
             <div className="container">
                 <div className="row"  style={{"padding-top":"5rem"}}>
@@ -81,7 +83,9 @@ function T_biaya() {
                                         {/* no telepon */}
                                         <label>Harga</label>
                                         <Form.Control type="text" id="form-input"   value={harga} onChange={(e) => setHarga(e.target.value)} placeholder="harga" /><br/>
-                                        {/* button */}
+                                        {/* deskripsi */}
+                                        <label>Deskripsi</label>
+                                        <Form.Control type="text" id="form-input"   value={deskripsi} onChange={(e) => setDeskripsi(e.target.value)} placeholder="deskripsi" /><br/>
                                         <div className="d-flex flex-row-reverse">
                                             <div className="p-2"><button type="submit" className="btn btn-primary" size="sm">Tambah</button></div>
                                             <div className="p-2"><Link to={`/biaya`} className="btn btn-primary" >Batal</Link>{' '}</div>
