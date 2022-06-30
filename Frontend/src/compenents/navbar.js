@@ -37,10 +37,12 @@ function Navbar() {
     },[])
 
     const Logout = () => {
+        if(window.confirm('Apakah anda yakin ingin keluar?')){
         localStorage.removeItem('token');
         localStorage.removeItem('id');
         localStorage.removeItem('name');
         history.push('/');
+        }
     }
     return(
     <div>

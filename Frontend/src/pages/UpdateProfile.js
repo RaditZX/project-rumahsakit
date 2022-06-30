@@ -9,6 +9,7 @@ import "../App.css";
 import {Card} from 'react-bootstrap';
 import {ListGroup} from 'react-bootstrap';
 import {Form} from 'react-bootstrap';
+import { set } from 'mongoose';
 
 //import react router dom
 
@@ -21,6 +22,7 @@ function UpdateProfile(){
     const [profile,setProfile] = useState('');
     const [no_telp,setNo_telp] = useState('');
     const [verfikasi,setVerifikasi] = useState('');
+    const [msg,setMsg] = useState('');
     const [role,setRole] = useState('');
     const history = useHistory();
     const {Id} = useParams();
@@ -72,6 +74,28 @@ function UpdateProfile(){
      
     }
 
+    const verifyemail = (e) => {
+        if(verfikasi === false){
+            e.preventDefault();
+            axios.post('http://localhost:3000/verifyemail',{
+                email
+            })
+            .then(res => {
+                // setLoading(false);
+                // setSuccess(res.data.message);
+            })
+            .catch(err => {
+                // setLoading(false);
+                // setError(err.response.data.message);
+            })
+            setMsg('Verifikasi Email Berhasil,Silahkan Cek Email Anda');
+        }
+        else{
+            setMsg('Email Sudah Terverifikasi');
+            
+        }
+    }
+
     const handleSubmit = (e) => {
         e.preventDefault();
         axios.put(`http://localhost:3000/user/${id}`,{
@@ -109,22 +133,24 @@ function UpdateProfile(){
                         <div className="content">
                             <h1> <span>Profile</span></h1>
                             <p>Please check and update your account details:</p>
+                            {msg}
                             <div className="input">
                                 <Form onSubmit={handleSubmit}>
                                     <div className="d-flex flex-row justify-content-between">
                                         <div className="item-flex">
-                                            <input type="text" id="form-input" className="form-control" placeholder="Email" value={nama_awal} onChange={(e) => setNama_awal(e.target.value)}/>
+                                            <input type="text" id="form-input" className="form-control" placeholder="Nama Awal" value={nama_awal} onChange={(e) => setNama_awal(e.target.value)}/>
                                         </div>
                                         <div className="item-flex">
-                                            <input type="text" id="form-input" className="form-control" placeholder="Email" value={nama_akhir} onChange={(e) => setNama_akhir(e.target.value)}/>
+                                            <input type="text" id="form-input" className="form-control" placeholder="Nama Akhir" value={nama_akhir} onChange={(e) => setNama_akhir(e.target.value)}/>
                                         </div>
                                     </div>
-                                    <input type="text" style={{"margin-top":"1rem"}} id="form-input" className="form-control" placeholder="Email" value={pekerjaan} onChange={(e) => setPekerjaan(e.target.value)}/>
-                                    <input type="text" style={{"margin-top":"1rem"}} id="form-input" className="form-control" placeholder="Email" value={alamat} onChange={(e) => setAlamat(e.target.value)}/>
+                                    <input type="text" style={{"margin-top":"1rem"}} id="form-input" className="form-control" placeholder="Pekerjaan" value={pekerjaan} onChange={(e) => setPekerjaan(e.target.value)}/>
+                                    <input type="text" style={{"margin-top":"1rem"}} id="form-input" className="form-control" placeholder="Alamat" value={alamat} onChange={(e) => setAlamat(e.target.value)}/>
                                     <input type="text" style={{"margin-top":"1rem"}} id="form-input" className="form-control" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} disabled/>
                                     <input type="text" style={{"margin-top":"1rem"}} id="form-input" className="form-control" placeholder="Email" value={CheckVerifikasi()} disabled/>
-                                    <input type="text" style={{"margin-top":"1rem"}} id="form-input" className="form-control" placeholder="Email" value={no_telp} onChange={(e) => setNo_telp(e.target.value)}/>
+                                    <input type="text" style={{"margin-top":"1rem"}} id="form-input" className="form-control" placeholder="No telepon" value={no_telp} onChange={(e) => setNo_telp(e.target.value)}/>
                                     <button style={{"margin-top":"1rem"}} type="submit" className="btn btn-primary">Update</button>
+                                    <button style={{"margin-top":"1rem"}} onClick={verifyemail} className="btn btn-primary">verifyemail</button>
                                 </Form>
                             </div>
                         </div>

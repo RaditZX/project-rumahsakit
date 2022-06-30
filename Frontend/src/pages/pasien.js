@@ -26,6 +26,7 @@ function Pasien(){
     const [pasienId,setPasienId] = useState('');
     const [name,setName] = useState('');
     const [role,setRole] = useState('');
+    const [jenis_kelamin,setJenis_kelamin] = useState('');
     const [currentPage,setCurrentPage] = useState(1);
     const [postsPerPage] = useState(10);
     const Id = localStorage.getItem('id')
@@ -78,15 +79,17 @@ function Pasien(){
             console.log(err);
         })
     }
-
     const deletePasien = (id) => {
-        axios.delete(`http://localhost:3000/pasien/${id}`)
-        .then(res => {
-            getPasien();
-        })
-        .catch(err => {
-            console.log(err);
-        })
+        if (window.confirm('Are you sure you want to delete this item?')) {
+            axios.delete(`http://localhost:3000/pasien/${id}`)
+            .then(res => {
+                console.log(res.data);
+                getPasien();
+            })
+            .catch(err => {
+                console.log(err);
+            })
+        }      
     }
 
     const pdfDownload = (nama,jenis_kelamin,biaya,penyakit,kamar,biaya_perawatan,biayaTotal) => {
@@ -136,14 +139,17 @@ function Pasien(){
                     <div className="d-flex justify-content-between">
                         <div className="p-2 col-example text-left">
                             <div className="d-flex flex-row">
-                                <div className="p-2">Filter:</div>
+                                <div className="p-2">Filter Jenis Kelamin:</div>
                                 <div className="p-2">
-                                    <Form.Select size="sm">
-                                        <option>select</option>
+                                    <Form.Select value={jenis_kelamin} onChange={(e)=> setJenis_kelamin(e.target.value)} size="sm">
+                                        <option value='' >Select</option>
+                                        <option value='L'>Pria</option>
+                                        <option value='P'>Wanita</option>
                                     </Form.Select>
                                 </div>
                             </div>
                         </div>
+                        
 
                        {/* fitur cari */}
                         <div className="p-2 col-example text-left">
@@ -181,10 +187,20 @@ function Pasien(){
                                 {pasien.filter(pasien => {
                                     return pasien.nama.toLowerCase().includes(search.toLowerCase())
                                     
-                                }).slice(currentPage * postsPerPage - postsPerPage, currentPage * postsPerPage).map((pasien,index) => {
+                                })
+                                .filter(pasien => {
+                                    if (jenis_kelamin === '') {
+                                        return pasien
+                                    }
+                                    else{
+                                        return pasien.jenis_kelamin.toLowerCase().includes(jenis_kelamin.toLowerCase())
+                                    }
+                                    
+                                })
+                                .slice(currentPage * postsPerPage - postsPerPage, currentPage * postsPerPage).map((pasien,index) => {
                                     return(
                                         <tr key={index}>
-                                            <td>{index+1}</td>
+                                            <td>{index+1}</td>  
                                             <td>{pasien.nama}</td>
                                             <td>{pasien.alamat}</td>
                                             <td>{pasien.no_telp}</td>
@@ -238,27 +254,26 @@ function Pasien(){
                                                             )
                                                         })
                                                      )
-                                            })}
+                                                })}
                                             </td>
                                             : null}
                                             {role === 'admin' &&
                                             <td>
                                                 <Link to={`pasien/edit/${pasien._id}`} className="btn btn-outline-primary"><MdIcons.MdEdit /></Link>
                                                 <button type="submit" className="btn btn-outline-danger" onClick={() => deletePasien(pasien._id)}><MdIcons.MdDelete /></button>
-                                            {pasien.penyakit.map((penyakit,index)  => {
-                                                return(
-                                                    pasien.kamar.map((kamar,index) => {
-                                                         return(
-                                                            pasien.biaya.map((biaya,index) => {
-                                                                return(
-                                                                    <button type="submit" className="btn btn-outline-warning" onClick={()=>pdfDownload(pasien.nama,pasien.jenis_kelamin,pasien.biaya_perawatan+pasien.biaya_obat+pasien.biaya_kamar,penyakit.nama_penyakit,kamar.nama_kamar,biaya.harga,biaya.harga+pasien.biaya_perawatan+pasien.biaya_obat+pasien.biaya_kamar)}><MdIcons.MdDownload /></button>
+                                                {pasien.penyakit.map((penyakit,index)  => {
+                                                    return(
+                                                        pasien.kamar.map((kamar,index) => {
+                                                            return(
+                                                                pasien.biaya.map((biaya,index) => {
+                                                                    return(
+                                                                        <button type="submit" className="btn btn-outline-warning" onClick={()=>pdfDownload(pasien.nama,pasien.jenis_kelamin,pasien.biaya_perawatan+pasien.biaya_obat+pasien.biaya_kamar,penyakit.nama_penyakit,kamar.nama_kamar,biaya.harga,biaya.harga+pasien.biaya_perawatan+pasien.biaya_obat+pasien.biaya_kamar)}><MdIcons.MdDownload /></button>
+                                                                    )
+                                                                    })
                                                                 )
-                                                                })
-                                                            )
-                                                        })
-                                                     )
-                                            })}
-                                           
+                                                            })
+                                                        )
+                                                })} 
                                             </td>
                                              }
                                         </tr>

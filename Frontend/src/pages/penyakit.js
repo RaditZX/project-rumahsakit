@@ -21,6 +21,7 @@ function Penyakit(){
     const [penyakit,setPenyakit] = useState([]);
     const [search,setSearch] = useState('');
     const [role,setRole] = useState('');
+    const [sort,setSort] = useState('');
     const [currentPage,setCurrentPage] = useState(1);
     const [postsPerPage] = useState(5);
     const history = useHistory();
@@ -58,13 +59,19 @@ function Penyakit(){
     }
 
     const deletePenyakit = (id) => {
-        axios.delete(`http://localhost:3000/penyakit/${id}`)
-        .then(res => {
-            getPenyakit();
-        })
-        .catch(err => {
-            console.log(err);
-        })
+        if(window.confirm('Are you sure?')){
+            axios.delete(`http://localhost:3000/penyakit/${id}`,{
+                headers: {
+                    "x-access-token": localStorage.getItem('token')
+                }})
+            .then(res => {
+                console.log(res.data);
+                getPenyakit();
+            })
+            .catch(err => {
+                console.log(err);
+            })
+        }
     }
     const autorization = () => {
         axios.get(`http://localhost:3000/authenticated`,{
@@ -114,8 +121,11 @@ function Penyakit(){
                                     <div className="d-flex flex-row">
                                         <div className="p-2">Filter:</div>
                                         <div className="p-2">
-                                            <Form.Select size="sm">
+                                            <Form.Select value={sort} onChange={(e) => setSort(e.target.value)} size="sm">
                                                 <option>select</option>
+                                                <option value='nama_penyakit'>nama_penyakit</option>
+                                                <option value='harga_obat'>Harga_obat</option>
+                                                <option value='solusi'>solusi</option>
                                             </Form.Select>
                                         </div>
                                     </div>
@@ -149,8 +159,23 @@ function Penyakit(){
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            {penyakit.slice(currentPage * postsPerPage - postsPerPage, currentPage * postsPerPage)
-                                            .filter(penyakit => penyakit.nama_penyakit.toLowerCase().includes(search.toLowerCase()))
+                                            {penyakit.filter(penyakit => penyakit.nama_penyakit.toLowerCase().includes(search.toLowerCase()))
+                                            .sort((a,b) => {
+                                                if(sort === 'nama_penyakit'){
+                                                    return a.nama_penyakit > b.nama_penyakit ? 1 : -1;
+                                                }
+                                                else if(sort === 'deskripsi'){
+                                                    return a.deskripsi > b.deskripsi ? 1 : -1;
+                                                }
+                                                else if(sort === 'solusi'){
+                                                    return a.solusi > b.solusi ? 1 : -1;
+                                                }
+                                                else if(sort === 'harga_obat'){
+                                                    return a.harga_obat > b.harga_obat ? 1 : -1;
+                                                }
+                                            }
+                                            )
+                                            .slice(currentPage * postsPerPage - postsPerPage, currentPage * postsPerPage)
                                             .map((list,index) => {
                                                 return(
                                                     <tr key={index}>
@@ -198,8 +223,7 @@ function Penyakit(){
                             
                             >
                             </ReactPaginate>
-                            </div>
-                
+                        </div>
                     </div>
                 </div>
             </div>

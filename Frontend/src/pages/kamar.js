@@ -21,6 +21,7 @@ function Kamar(){
     const [kamar,setKamar] = useState([]);
     const [search,setSearch] = useState('');
     const [role,setRole] = useState('');
+    const [sort,setSort] = useState('');
     const [currentPage,setCurrentPage] = useState(1);
     const [postsPerPage] = useState(5);
     const history = useHistory();
@@ -73,13 +74,19 @@ function Kamar(){
     }
 
     const deleteKamar = (id) => {
-        axios.delete(`http://localhost:3000/kamar/${id}`)
+      if(window.confirm('Are you sure?')){
+        axios.delete(`http://localhost:3000/kamar/${id}`,{
+            headers: {
+                "x-access-token": localStorage.getItem('token')
+            }})
         .then(res => {
+            console.log(res.data);
             getKamar();
         })
         .catch(err => {
             console.log(err);
         })
+      }
     }
 
     if (role === 'pasien'){
@@ -90,7 +97,6 @@ function Kamar(){
             <div>
                 <Navbar />
                 <div className="container-fluid">
-
                     {/* header kamar */}
                         <div className="d-flex justify-content-between">
                             <div className="p-2 col-example text-left">
@@ -114,8 +120,11 @@ function Kamar(){
                                 <div className="d-flex flex-row">
                                     <div className="p-2">Filter:</div>
                                     <div className="p-2">
-                                        <Form.Select size="sm">
-                                            <option>Small select</option>
+                                        <Form.Select value={sort} onChange={(e) => setSort(e.target.value)} size="sm">
+                                            <option>select</option>
+                                            <option value="nama_kamar">Nama</option>
+                                            <option value="harga">Harga</option>
+
                                         </Form.Select>
                                     </div>
                                 </div>
@@ -150,10 +159,22 @@ function Kamar(){
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {kamar.slice(currentPage * postsPerPage - postsPerPage, currentPage * postsPerPage)
+                                        {kamar
                                         .filter(kamar => {
                                             return kamar.nama_kamar.toLowerCase().includes(search.toLowerCase())
                                         })
+                                        .sort((a,b) => {
+                                            if(sort === 'nama_kamar'){
+                                                return a.nama_kamar > b.nama_kamar ? 1 : -1
+                                            }
+                                            else if(sort === 'lantai'){
+                                                return a.lantai > b.lantai ? 1 : -1
+                                            }
+                                            else if(sort === 'harga'){
+                                                return a.harga > b.harga ? 1 : -1
+                                            }
+                                        })
+                                        .slice(currentPage * postsPerPage - postsPerPage, currentPage * postsPerPage)
                                         .map((kamar,index) => {
                                             return(
                                                 <tr key={index}>

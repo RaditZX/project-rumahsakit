@@ -27,6 +27,7 @@ app.get('/authenticated', auth.authenticated )
 app.post('/forgotPassword', auth.forgotPassword )
 app.put('/reset/:token', auth.resetPassword )
 app.put('/verifikasi/:token', auth.verify)
+app.post('/verifyemail', auth.verifyEmail)
 
 // Route penyakit
 app.get('/penyakit', penyakit.getpenyakit )

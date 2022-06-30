@@ -104,7 +104,7 @@ class Authentication {
                         },
                     });
                     const mailOptions = {
-                        from: '',
+                        from: 'Rumah Sakit',
                         to: user.email,
                         subject: 'Verifikasi Email',
                         text: 'Klik link berikut untuk verifikasi email anda : http://localhost:3001/verifikasi/'+token
@@ -121,6 +121,7 @@ class Authentication {
               }
             };
 
+            //send email reset password
             this.forgotPassword = async (req, res) => {
                 //check input fields
                 if(!req.body.email){
@@ -168,6 +169,7 @@ class Authentication {
                 }
             };
 
+            //reset password
             this.resetPassword = async (req, res) => {
                 //check input fields
                 if(!req.body.password){
@@ -193,6 +195,53 @@ class Authentication {
                 
             };
 
+            //send email verify email
+            this.verifyEmail = async (req, res) => {
+               //check input fields
+               if(!req.body.email){
+                     res.status(400).json({message:'silahkan isi data dengan lengkap'});
+                 }
+
+            // find email address
+            const userFound =  await Auth.model.findOne({email:req.body.email});
+            if(userFound){
+                //generate token
+                const token = jwt.sign({
+                    id: userFound._id
+                    },"jwtsecret", {
+                    expiresIn: 86400
+                });
+
+                //send emailverification
+                const transporter = nodemailer.createTransport({
+                    service: 'gmail',
+                    host: 'smtp.gmail.com',
+                    port: 465,
+                    secure: true,
+                    auth: {
+                        user: 'r29069992@gmail.com',
+                        pass: 'ndwmmzeciketoxxk'
+                    },
+                });
+                const mailOptions = {
+                    from: 'Rumah Sakit',
+                    to: req.body.email,
+                    subject: 'Verifikasi Email',
+                    text: 'Klik link berikut untuk verifikasi email anda : http://localhost:3001/verifikasi/'+token
+                };
+                transporter.sendMail(mailOptions, function(error, info){
+                    if (error) {
+                        console.log(error);
+                    } else {
+                        console.log('Email sent: ' + info.response);
+                    }
+                });
+                //send response
+                res.status(200).json({message:'berhasil mendaftar,Silahkan cek email untuk verfikasi'});
+            }
+          }
+
+            //verify email
             this.verify = async (req, res) => {
                 //jwt decode
                 const decoded = jwt.verify(req.params.token, 'jwtsecret');
@@ -220,6 +269,7 @@ class Authentication {
                 });
             }
 
+            //get user by id
             this.getUserById = (req, res) => {
                 Auth.model.findById(req.params.Id, (err, user) => {
                     if (err)
@@ -228,6 +278,7 @@ class Authentication {
                 });
             }
 
+            //update user
             this.updateUser = (req, res) => {
                 Auth.model.findOneAndUpdate({ _id: req.params.Id }, req.body,{ new: true }, (err, user) => {
                     if (err)
@@ -236,6 +287,7 @@ class Authentication {
                 });
             }
 
+            // Authencication
             this.authenticated = (req, res, next) => {
                 const token = req.headers['x-access-token'];
                 if (!token)

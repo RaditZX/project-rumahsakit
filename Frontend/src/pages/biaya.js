@@ -21,6 +21,7 @@ function Biaya(){
     const [biaya,setBiaya] = useState([]);
     const [search,setSearch] = useState('');
     const [role,setRole] = useState('');
+    const [sort,setSort] = useState('');
     const [auth,setAuth] = useState([]);
     const [currentPage,setCurrentPage] = useState(1);
     const [postsPerPage] = useState(5);
@@ -74,13 +75,20 @@ function Biaya(){
     }
 
     const deleteBiaya = (id) => {
-        axios.delete(`http://localhost:3000/biaya/${id}`)
-        .then(res => {
-            getBiaya();
-        })
-        .catch(err => {
-            console.log(err);
-        })
+       if(window.confirm('Are you sure?')){
+           axios.delete(`http://localhost:3000/biaya/${id}`,{
+               headers: {
+                   "x-access-token": localStorage.getItem('token')
+               }
+           })
+           .then(res => {
+               console.log(res.data);
+               getBiaya();
+           })
+           .catch(err => {
+               console.log(err);
+           })
+       }
     }
     if (role === 'pasien') {
         return <Redirect to='/pasien' />
@@ -114,8 +122,10 @@ function Biaya(){
                                 <div className="d-flex flex-row">
                                     <div className="p-2">Filter:</div>
                                     <div className="p-2">
-                                        <Form.Select  size="sm">
-                                            <option>Small select</option>
+                                        <Form.Select value={sort} onChange={(e) => setSort(e.target.value)} size="sm">
+                                            <option>select</option>
+                                            <option value="nama_biaya">Nama</option>
+                                            <option value="harga">Harga</option>
                                         </Form.Select>
                                     </div>
                                 </div>
@@ -148,10 +158,19 @@ function Biaya(){
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {biaya.slice(currentPage * postsPerPage - postsPerPage, currentPage * postsPerPage)
+                                        {biaya
                                         .filter(biaya => {
                                             return biaya.nama_biaya.toLowerCase().includes(search.toLowerCase())
                                         })
+                                        .sort((a,b) => {
+                                            if(sort === 'nama_biaya'){
+                                                return a.nama_biaya > b.nama_biaya ? 1 : -1
+                                            }
+                                            else if(sort === 'harga'){
+                                                return a.harga > b.harga ? 1 : -1
+                                            }
+                                        })
+                                        .slice(currentPage * postsPerPage - postsPerPage, currentPage * postsPerPage)
                                         .map((item,index) => {
                                             return(
                                                 <tr key={index}>
