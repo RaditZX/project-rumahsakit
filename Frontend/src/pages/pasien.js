@@ -126,12 +126,6 @@ function Pasien(){
                         </div>
                         : null}
 
-                        {role === 'pasien' ? 
-                        <div className="p-2 col-example text-left">
-                            <Link to={`pasien/edit/${pasienId}`} className="btn btn-primary" size="sm">Tambah Data</Link>{' '}
-                        </div>
-                        : null} 
-
                     </div>
                     <br />
                     

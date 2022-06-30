@@ -8,6 +8,7 @@ import * as AiIcons from 'react-icons/ai';
 import * as IoIcons from 'react-icons/io';
 import * as FaIcons from 'react-icons/fa';
 import * as CgIcons from 'react-icons/cg';
+import * as BsIcons from 'react-icons/bs';
 
 
 
@@ -16,7 +17,7 @@ export const SidebarData = [
     {
         title: 'Home',
         path:  `/home`, 
-        icon: <AiIcons.AiFillHome />,
+        icon: <AiIcons.AiFillHome  size={25}/>,
         cName: 'nav-text'
     },
 
@@ -25,7 +26,7 @@ export const SidebarData = [
     {
         title: 'Pasien',
         path:  `/pasien`, 
-        icon: <IoIcons.IoIosPerson/>,
+        icon: <FaIcons.FaUserAlt size={20}/>,
         cName: 'nav-text'
     },
 
@@ -33,7 +34,7 @@ export const SidebarData = [
     {
         title: 'Profile',
         path:  `/U_profile`,
-        icon: <FaIcons.FaUserAlt />,
+        icon: <BsIcons.BsFillPersonLinesFill size={25} />,
         cName: 'nav-text'
     },
 
@@ -49,7 +50,7 @@ export const SidebarAdmin = [
      {
         title: 'Penyakit',
         path: '/penyakit',
-        icon: <FaIcons.FaDisease/>,
+        icon: <FaIcons.FaDisease size={25}/>,
         cName: 'nav-text'
     },
 
@@ -57,7 +58,7 @@ export const SidebarAdmin = [
     {
         title: 'Kamar',
         path:  `/kamar`, 
-        icon: <IoIcons.IoIosBed />,
+        icon: <IoIcons.IoIosBed size={25} />,
         cName: 'nav-text'
     },
 
@@ -65,7 +66,7 @@ export const SidebarAdmin = [
     {
         title: 'biaya',
         path:  `/biaya`, 
-        icon: <FaIcons.FaMoneyBill />,
+        icon: <FaIcons.FaMoneyBill size={25} />,
         cName: 'nav-text'
     },
 ]
@@ -77,7 +78,7 @@ export const SidebarAdmin = [
     {
         title: 'Logout',
         path:  `/`,
-        icon: <IoIcons.IoIosLogOut/>,
+        icon: <IoIcons.IoIosLogOut size={29}/>,
         cName: 'nav-text'
     }
     ]

@@ -177,7 +177,7 @@ function Biaya(){
                                                     <td>{index+1}</td>
                                                     <td>{item.nama_biaya}</td>
                                                     <td><CurrencyFormat value={item.harga} displayType={'text'} thousandSeparator={true} prefix={'Rp.'}/></td>
-                                                    <td>{item.deskripsi}</td>
+                                                    <td className='deskripsi'>{item.deskripsi}</td>
                                                     {role === 'admin' &&
                                                     <td>
                                                         <Link to={`biaya/edit/${item._id}`} className="btn btn-outline-primary"><MdIcons.MdEdit /></Link>

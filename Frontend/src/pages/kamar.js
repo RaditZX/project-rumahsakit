@@ -5,6 +5,7 @@ import Navbar from "../compenents/navbar";
 import axios from "axios";
 import ReactPaginate from 'react-paginate';
 import CurrencyFormat from 'react-currency-format';
+import '../App.css';
 
 //import react boostrap
 import {Card} from 'react-bootstrap';
@@ -183,7 +184,7 @@ function Kamar(){
                                                     <td>{kamar.lantai}</td>
                                                     <td><CurrencyFormat value={kamar.harga} displayType={'text'} thousandSeparator={true} prefix={'Rp.'}/></td>
                                                     <td>{kamar.status}</td>
-                                                    <td>{kamar.deskripsi}</td>
+                                                    <td className='deskripsi'>{kamar.deskripsi}</td>
                                                     {role === 'admin' &&
                                                     <td>
                                                     <Link to={`kamar/edit/${kamar._id}`} className="btn btn-outline-primary"><MdIcons.MdEdit /></Link>

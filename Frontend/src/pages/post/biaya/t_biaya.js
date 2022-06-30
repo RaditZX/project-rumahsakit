@@ -72,26 +72,28 @@ function T_biaya() {
         //tambah biaya
         return(
             <div className="container">
-                <div className="row"  style={{"padding-top":"5rem"}}>
-                    <div className="box">
-                        <h1>Biaya</h1>
-                             <Form onSubmit={handleSubmit}>
-                                    <div className="d-flex flex-column">
-                                        {/* nama */}
-                                        <label>Nama Biaya: </label>
-                                        <Form.Control type="text" value={nama_biaya} id="form-input" onChange={(e) => setNama_biaya(e.target.value)} placeholder="nama biaya" /><br/>
-                                        {/* no telepon */}
-                                        <label>Harga</label>
-                                        <Form.Control type="text" id="form-input"   value={harga} onChange={(e) => setHarga(e.target.value)} placeholder="harga" /><br/>
-                                        {/* deskripsi */}
-                                        <label>Deskripsi</label>
-                                        <Form.Control type="text" id="form-input"   value={deskripsi} onChange={(e) => setDeskripsi(e.target.value)} placeholder="deskripsi" /><br/>
-                                        <div className="d-flex flex-row-reverse">
-                                            <div className="p-2"><button type="submit" className="btn btn-primary" size="sm">Tambah</button></div>
-                                            <div className="p-2"><Link to={`/biaya`} className="btn btn-primary" >Batal</Link>{' '}</div>
+                <div className="d-flex justify-content-center">
+                    <div className="row" >
+                        <div className="box">
+                            <h1>Biaya</h1>
+                                <Form onSubmit={handleSubmit}>
+                                        <div className="d-flex flex-column">
+                                            {/* nama */}
+                                            <label>Nama Biaya: </label>
+                                            <Form.Control type="text" value={nama_biaya} id="form-input" onChange={(e) => setNama_biaya(e.target.value)} placeholder="nama biaya" /><br/>
+                                            {/* no telepon */}
+                                            <label>Harga</label>
+                                            <Form.Control type="text" id="form-input"   value={harga} onChange={(e) => setHarga(e.target.value)} placeholder="harga" /><br/>
+                                            {/* deskripsi */}
+                                            <label>Deskripsi</label>
+                                            <Form.Control type="text" id="form-input"   value={deskripsi} onChange={(e) => setDeskripsi(e.target.value)} placeholder="deskripsi" /><br/>
+                                            <div className="d-flex flex-row-reverse">
+                                                <div className="p-2"><button type="submit" className="btn btn-primary" size="sm">Tambah</button></div>
+                                                <div className="p-2"><Link to={`/biaya`} className="btn btn-primary" >Batal</Link>{' '}</div>
+                                            </div>
                                         </div>
-                                    </div>
-                             </Form>
+                                </Form>
+                        </div>
                     </div>
                 </div>
             </div>

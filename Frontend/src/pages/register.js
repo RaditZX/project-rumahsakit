@@ -68,25 +68,27 @@ function Register() {
     return(
         //form register
          <div className="container">
-            <div className="row">
-                <div className="test">
-                        <div className="image" >
-                            <img src="https://images.unsplash.com/photo-1511207538754-e8555f2bc187?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=627&q=80"/>
-                        </div>
-                        <div className="content">
-                            <h1>Welcome to <span>Rumah Sakit</span></h1>
-                            <p>Hello please Register account to view today's clients:</p>
-                            {msg ? <p>{msg}</p> : null}
-                            {error ? <p>{error}</p> : null}
-                            <div className="input">
-                                <Form onSubmit={handleSubmit}>
-                                    <input type="text" id="form-input" className="form-control" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)}/>
-                                    <input style={{"margin-top":"1rem"}} id="form-input" type="password" className="form-control" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)}/>
-                                    <button style={{"margin-top":"1rem"}} type="submit" className="btn btn-primary">Register</button>
-                                </Form>
-                                    <Link to={'/'} style={{"margin-top":"1rem"}} type="submit" className="btn btn-primary">Login</Link>
+            <div className="d-flex justify-content-center">
+                <div className="row">
+                    <div className="test">
+                            <div className="image" >
+                                <img src="https://images.unsplash.com/photo-1511207538754-e8555f2bc187?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=627&q=80"/>
                             </div>
-                        </div>
+                            <div className="content">
+                                <h1>Welcome to <span>Rumah Sakit</span></h1>
+                                <p>Hello please Register account to view today's clients:</p>
+                                {msg ? <p>{msg}</p> : null}
+                                {error ? <p>{error}</p> : null}
+                                <div className="input">
+                                    <Form onSubmit={handleSubmit}>
+                                        <input type="text" id="form-input" className="form-control" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)}/>
+                                        <input style={{"margin-top":"1rem"}} id="form-input" type="password" className="form-control" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)}/>
+                                        <button style={{"margin-top":"1rem"}} type="submit" className="btn btn-primary">Register</button>
+                                    </Form>
+                                        <Link to={'/'} style={{"margin-top":"1rem"}} type="submit" className="btn btn-primary">Login</Link>
+                                </div>
+                            </div>
+                    </div>
                 </div>
             </div>
         </div>

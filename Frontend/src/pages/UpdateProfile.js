@@ -126,33 +126,35 @@ function UpdateProfile(){
         <div>
             <Navbar />
             <div className="container-fluid">
-                <div className="row-profile">
-                    <div className="box-profile">
-                    <div className="image" >
-                            <img src="https://images.unsplash.com/photo-1517999144091-3d9dca6d1e43?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=627&q=80"/>
-                        </div>
-                        <div className="content">
-                            <h1> <span>Profile</span></h1>
-                            <p>Please check and update your account details:</p>
-                            {msg}
-                            <div className="input">
-                                <Form onSubmit={handleSubmit}>
-                                    <div className="d-flex flex-row justify-content-between">
-                                        <div className="item-flex">
-                                            <input type="text" id="form-input" className="form-control" placeholder="Nama Awal" value={nama_awal} onChange={(e) => setNama_awal(e.target.value)}/>
+                <div className="d-flex justify-content-center">
+                    <div className="row-profile">
+                        <div className="box-profile">
+                        <div className="image" >
+                                <img src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80"/>
+                            </div>
+                            <div className="content">
+                                <h1> <span>Profile</span></h1>
+                                <p>Please check and update your account details:</p>
+                                {msg}
+                                <div className="input">
+                                    <Form onSubmit={handleSubmit}>
+                                        <div className="d-flex flex-row justify-content-between">
+                                            <div className="item-flex">
+                                                <input type="text" id="form-input" className="form-control" placeholder="Nama Awal" value={nama_awal} onChange={(e) => setNama_awal(e.target.value)}/>
+                                            </div>
+                                            <div className="item-flex">
+                                                <input type="text" id="form-input" className="form-control" placeholder="Nama Akhir" value={nama_akhir} onChange={(e) => setNama_akhir(e.target.value)}/>
+                                            </div>
                                         </div>
-                                        <div className="item-flex">
-                                            <input type="text" id="form-input" className="form-control" placeholder="Nama Akhir" value={nama_akhir} onChange={(e) => setNama_akhir(e.target.value)}/>
-                                        </div>
-                                    </div>
-                                    <input type="text" style={{"margin-top":"1rem"}} id="form-input" className="form-control" placeholder="Pekerjaan" value={pekerjaan} onChange={(e) => setPekerjaan(e.target.value)}/>
-                                    <input type="text" style={{"margin-top":"1rem"}} id="form-input" className="form-control" placeholder="Alamat" value={alamat} onChange={(e) => setAlamat(e.target.value)}/>
-                                    <input type="text" style={{"margin-top":"1rem"}} id="form-input" className="form-control" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} disabled/>
-                                    <input type="text" style={{"margin-top":"1rem"}} id="form-input" className="form-control" placeholder="Email" value={CheckVerifikasi()} disabled/>
-                                    <input type="text" style={{"margin-top":"1rem"}} id="form-input" className="form-control" placeholder="No telepon" value={no_telp} onChange={(e) => setNo_telp(e.target.value)}/>
-                                    <button style={{"margin-top":"1rem"}} type="submit" className="btn btn-primary">Update</button>
-                                    <button style={{"margin-top":"1rem"}} onClick={verifyemail} className="btn btn-primary">verifyemail</button>
-                                </Form>
+                                        <input type="text" style={{"margin-top":"1rem"}} id="form-input" className="form-control" placeholder="Pekerjaan" value={pekerjaan} onChange={(e) => setPekerjaan(e.target.value)}/>
+                                        <input type="text" style={{"margin-top":"1rem"}} id="form-input" className="form-control" placeholder="Alamat" value={alamat} onChange={(e) => setAlamat(e.target.value)}/>
+                                        <input type="text" style={{"margin-top":"1rem"}} id="form-input" className="form-control" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} disabled/>
+                                        <input type="text" style={{"margin-top":"1rem"}} id="form-input" className="form-control" placeholder="Email" value={CheckVerifikasi()} disabled/>
+                                        <input type="text" style={{"margin-top":"1rem"}} id="form-input" className="form-control" placeholder="No telepon" value={no_telp} onChange={(e) => setNo_telp(e.target.value)}/>
+                                        <button style={{"margin-top":"1rem"}} type="submit" className="btn btn-primary">Update</button>
+                                        <button style={{"margin-top":"1rem"}} onClick={verifyemail} className="btn btn-primary">verifyemail</button>
+                                    </Form>
+                                </div>
                             </div>
                         </div>
                     </div>

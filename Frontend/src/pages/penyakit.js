@@ -181,7 +181,7 @@ function Penyakit(){
                                                     <tr key={index}>
                                                         <td>{index+1}</td>
                                                         <td>{list.nama_penyakit}</td>
-                                                        <td>{list.deskripsi}</td>
+                                                        <td className='deskripsi'>{list.deskripsi}</td>
                                                         <td>{list.obat}</td>
                                                         <td><CurrencyFormat value={list.harga_obat} displayType={'text'} thousandSeparator={true} prefix={'Rp.'}/></td>
                                                         {role === 'admin' &&

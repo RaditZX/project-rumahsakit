@@ -52,49 +52,62 @@ function Navbar() {
             {/* sidebar */}
             <nav className={sidebar ? 'nav-menu active' : 'nav-menu'}>
                 <ul className='nav-menu-items'>
-                    <div>
-                    
-                    </div>
                     {SidebarData.map((item, index) => {
                         return(
-                            <li key={index} className={item.cName}>
-                                <NavLink to={item.path} activeClassName='is-active'>
-                                  {item.icon}<p>ㅤ</p>
-                                  {item.title}
-                                </NavLink> 
-                            </li>
+                            <div className='nav-items'>
+                                <li key={index} className={item.cName}>
+                                    <NavLink to={item.path} activeClassName='is-active'>
+                                    <div className='icon'>
+                                            {item.icon}
+                                            {item.title}
+                                    </div>
+                                    </NavLink> 
+                                </li>
+                            </div>
                         )
                     })}
 
                      {role === 'pasien' ? 
+                        <div className='nav-items'>
                             <li className='nav-text'>
-                                <NavLink to={`/pasien/Editdata/${nama}`} activeClassName='is-active'>
-                                    <AiIcons.AiFillEdit/><p>ㅤ</p>
-                                    Edit data
-                                </NavLink>
+                                <div className='icon'>
+                                    <NavLink to={`/pasien/Editdata/${nama}`} activeClassName='is-active'>
+                                        <AiIcons.AiFillEdit/><p>ㅤ</p>
+                                        Edit data
+                                    </NavLink>
+                                </div>
                             </li>
+                        </div>
                         
                     : null} 
 
                     {role === 'admin'|| role === 'perawat' ? SidebarAdmin.map((item, index) => {
                         return(
-                            <li key={index} className={item.cName} >
-                                <NavLink to={item.path} activeClassName='is-active'>
-                                    {item.icon}<p>ㅤ</p>
-                                    {item.title}
-                                </NavLink>
-                            </li>
+                            <div className='nav-items'>
+                                <li key={index} className={item.cName} >
+                                    <NavLink to={item.path} activeClassName='is-active'>
+                                        <div className='icon'>
+                                            {item.icon}
+                                            {item.title}
+                                        </div>
+                                    </NavLink>
+                                </li>
+                            </div>
                         )
                     }) : null} 
 
                     {logout.map((item, index) => {
                         return(
-                            <li key={index} className={item.cName}>
-                                <Link onClick={Logout}>
-                                    {item.icon}<p>ㅤ</p>
-                                    {item.title}
-                                </Link>
-                            </li>
+                            <div className='nav-items'>
+                                <li key={index} className={item.cName}>
+                                    <Link onClick={Logout}>
+                                        <div className='icon'>
+                                            {item.icon}
+                                            {item.title}
+                                        </div>
+                                    </Link>
+                                </li>
+                            </div>
                         )
                     })}
 

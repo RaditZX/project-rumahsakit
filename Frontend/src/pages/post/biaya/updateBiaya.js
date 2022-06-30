@@ -86,10 +86,11 @@ function U_biaya() {
          // form edit data biaya
         return(
             <div className="container">
-                <div className="row"  style={{"padding-top":"5rem"}}>
+            <div className="d-flex justify-content-center">
+                <div className="row" >
                     <div className="box">
                         <h1>Biaya</h1>
-                             <Form onSubmit={handleSubmit}>
+                            <Form onSubmit={handleSubmit}>
                                     <div className="d-flex flex-column">
                                         {/* nama */}
                                         <label>Nama Biaya: </label>
@@ -105,10 +106,11 @@ function U_biaya() {
                                             <div className="p-2"><Link to={`/biaya`} className="btn btn-primary" >Batal</Link>{' '}</div>
                                         </div>
                                     </div>
-                             </Form>
+                            </Form>
                     </div>
                 </div>
             </div>
+        </div>
         );
     }
 

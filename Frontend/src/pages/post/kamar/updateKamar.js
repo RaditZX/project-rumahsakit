@@ -95,34 +95,36 @@ function U_kamar() {
         //Edit Data kamar
         return(
             <div className="container">
-                <div className="row"  style={{"padding-top":"5rem"}}>
-                    <div className="box">
-                        <h1>Penyakit</h1>
-                             <Form onSubmit={handleSubmit}>
-                                    <div className="d-flex flex-column">
-                                        {/* nama */}
-                                        <label>Nama Biaya: </label>
-                                        <Form.Control type="text" value={nama_kamar} id="form-input" onChange={(e) => setNama_kamar(e.target.value)} placeholder="nama Kamar" /><br/>
-                                        {/* lantai */}
-                                        <label>Lantai</label>
-                                        <Form.Control type="text" id="form-input" value={lantai} onChange={(e) => setLantai(e.target.value)} placeholder="Lantai" /><br/>
-                                        {/* harga */}
-                                        <Form.Control type="text" id="form-input" value={harga} onChange={(e) => setHarga(e.target.value)} placeholder="Harga" /><br/>
-                                        {/* deskripsi */}
-                                        <label>Deskripsi</label>
-                                        <Form.Control type="text" id="form-input"   value={deskripsi} onChange={(e) => setDeskripsi(e.target.value)} placeholder="Deskripsi" /><br/>
-                                        {/* pilih status */}
-                                        <Form.Select id="form-input" value={status} onChange={(e) => setStatus(e.target.value)}>
-                                            <option value="">Pilih Status</option>
-                                            <option value="tersedia">Tersedia</option>
-                                            <option value="terisi">Terisi</option>
-                                        </Form.Select>
-                                        <div className="d-flex flex-row-reverse">
-                                            <div className="p-2"><button type="submit" className="btn btn-primary" size="sm">Tambah</button></div>
-                                            <div className="p-2"><Link to={`/kamar`} className="btn btn-primary" >Batal</Link>{' '}</div>
+                <div className="d-flex justify-content-center">
+                    <div className="row" >
+                        <div className="box">
+                            <h1>Kamar</h1>
+                                <Form onSubmit={handleSubmit}>
+                                        <div className="d-flex flex-column">
+                                            {/* nama */}
+                                            <label>Nama Biaya: </label>
+                                            <Form.Control type="text" value={nama_kamar} id="form-input" onChange={(e) => setNama_kamar(e.target.value)} placeholder="nama Kamar" /><br/>
+                                            {/* no telepon */}
+                                            <label>Lantai</label>
+                                            <Form.Control type="text" id="form-input" value={lantai} onChange={(e) => setLantai(e.target.value)} placeholder="Lantai" /><br/>
+                                            {/* Lantai */}
+                                            <Form.Control type="text" id="form-input" value={harga} onChange={(e) => setHarga(e.target.value)} placeholder="Harga" /><br/>
+                                            {/* Deskripsi */}
+                                            <label>Deskripsi</label>
+                                            <Form.Control type="text" id="form-input"   value={deskripsi} onChange={(e) => setDeskripsi(e.target.value)} placeholder="harga" /><br/>
+                                            {/* Pilih Status */}
+                                            <Form.Select id="form-input" value={status} onChange={(e) => setStatus(e.target.value)}>
+                                                <option value="">Pilih Status</option>
+                                                <option value="tersedia">Tersedia</option>
+                                                <option value="terisi">Terisi</option>
+                                            </Form.Select>
+                                            <div className="d-flex flex-row-reverse">
+                                                <div className="p-2"><button type="submit" className="btn btn-primary" size="sm">Tambah</button></div>
+                                                <div className="p-2"><Link to={`/kamar`} className="btn btn-primary" >Batal</Link>{' '}</div>
+                                            </div>
                                         </div>
-                                    </div>
-                             </Form>
+                                </Form>
+                        </div>
                     </div>
                 </div>
             </div>

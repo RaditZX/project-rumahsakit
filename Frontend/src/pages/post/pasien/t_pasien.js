@@ -149,90 +149,92 @@ function T_pasien() {
          // form tambah data pasien admin 
         return(
             <div className="container">
-                <div className="row"  style={{"padding-top":"2rem"}}>
-                    <div className="box">
-                        <h1>Pasien</h1>
-                             <Form onSubmit={handleSubmit}>
-                                    <div className="d-flex flex-column">
-                                        {/* nama */}
-                                        <label>Nama Pasien: </label>
-                                        <Form.Control style={{"padding":"0.25rem"}} id="form-input"type="text" value={nama} onChange={(e)=> setNama(e.target.value)} placeholder="Nama pasien" /><br/>
-                                        {/* no telepon */}
-                                        <label>No Telepon:</label>
-                                        <Form.Control style={{"padding":"0.25rem"}} id="form-input" type="text" value={no_telp} onChange={(e)=> setNo_telp(e.target.value)} placeholder="no telepon" /><br/>
-                                        {/* tanggal daftar */}
-                                        <label>Tanggal Daftar</label>
-                                        <Form.Control style={{"padding":"0.25rem"}} id="form-input" type="date" value={tanggal_daftar} onChange={(e)=> setTanggal_daftar(e.target.value)} placeholder="name@example.com" /> <br/>
-                                          {/* pilih jenis_kelamin */}
-                                          <label>Jenis Kelamin:</label>
-                                                    <Form.Select style={{"padding":"0.25rem"}} id="form-input" size="sm" value={jenis_kelamin} onChange={(e)=> setJenis_kelamin(e.target.value)}>
-                                                        <option value="">Pilih Jenis Kelamin</option>
-                                                        <option value="L">Laki-Laki</option>
-                                                        <option value="P">Perempuan</option>
-                                                    </Form.Select>
-                                            <br/>
-                                        {/* pilih biaya */}
-                                        <div className="d-flex flex-row justify-content-between">
-                                                <div className='item-flex'>
-                                                    <label>Biaya:</label>
-                                                    <Form.Select style={{"padding":"0.25rem"}} id="form-input" size="sm" value={kode_biaya} onChange={(e)=> setKode_biaya(e.target.value)}>
-                                                        <option value="">Pilih Biaya</option>
-                                                        {biaya.map(item => {
-                                                            return(
-                                                                <option key={item.kode_biaya} id="form-input" value={item._id}>{item.nama_biaya}</option>
-                                                            )
-                                                        })}
-                                                    </Form.Select>
-                                                </div>
-                                                {/* pilih Kamar */}
-                                                <div className='item-flex'>
-                                                    <label>Kamar:</label>
-                                                    <Form.Select style={{"padding":"0.25rem"}} id="form-input" size="sm" value={kode_kamar} onChange={(e)=> setKode_kamar(e.target.value)}>
-                                                        <option value="">Pilih Kamar</option>
-                                                        {kamar.map(item => {
-                                                            return(
-                                                                <option key={item.kode_kamar} id="form-input" value={item._id}>{item.nama_kamar}</option>
-                                                            )
-                                                        })}
-                                                    </Form.Select>
-                                                </div>
-                                        </div><br/>
+                <div className="d-flex justify-content-center">
+                    <div className="row"  style={{"padding-top":"2rem"}}>
+                        <div className="box">
+                            <h1>Pasien</h1>
+                                <Form onSubmit={handleSubmit}>
+                                        <div className="d-flex flex-column">
+                                            {/* nama */}
+                                            <label>Nama Pasien: </label>
+                                            <Form.Control style={{"padding":"0.25rem"}} id="form-input"type="text" value={nama} onChange={(e)=> setNama(e.target.value)} placeholder="Nama pasien" /><br/>
+                                            {/* no telepon */}
+                                            <label>No Telepon:</label>
+                                            <Form.Control style={{"padding":"0.25rem"}} id="form-input" type="text" value={no_telp} onChange={(e)=> setNo_telp(e.target.value)} placeholder="no telepon" /><br/>
+                                            {/* tanggal daftar */}
+                                            <label>Tanggal Daftar</label>
+                                            <Form.Control style={{"padding":"0.25rem"}} id="form-input" type="date" value={tanggal_daftar} onChange={(e)=> setTanggal_daftar(e.target.value)} placeholder="name@example.com" /> <br/>
+                                            {/* pilih jenis_kelamin */}
+                                            <label>Jenis Kelamin:</label>
+                                                        <Form.Select style={{"padding":"0.25rem"}} id="form-input" size="sm" value={jenis_kelamin} onChange={(e)=> setJenis_kelamin(e.target.value)}>
+                                                            <option value="">Pilih Jenis Kelamin</option>
+                                                            <option value="L">Laki-Laki</option>
+                                                            <option value="P">Perempuan</option>
+                                                        </Form.Select>
+                                                <br/>
+                                            {/* pilih biaya */}
                                             <div className="d-flex flex-row justify-content-between">
-                                                <div className='item-flex'>
-                                                    {/* pilih penyakit */}
-                                                        <label>Penyakit:</label>
-                                                        <Form.Select style={{"padding":"0.25rem"}} id="form-input" size="sm" value={kode_penyakit} onChange={(e)=> setKode_penyakit(e.target.value)}>
-                                                            <option value="-">Pilih Penyakit</option>
-                                                            {penyakit.map(item => {
+                                                    <div className='item-flex'>
+                                                        <label>Biaya:</label>
+                                                        <Form.Select style={{"padding":"0.25rem"}} id="form-input" size="sm" value={kode_biaya} onChange={(e)=> setKode_biaya(e.target.value)}>
+                                                            <option value="">Pilih Biaya</option>
+                                                            {biaya.map(item => {
                                                                 return(
-                                                                    <option key={item._id} value={item._id}>{item.nama_penyakit}</option>
+                                                                    <option key={item.kode_biaya} id="form-input" value={item._id}>{item.nama_biaya}</option>
                                                                 )
                                                             })}
                                                         </Form.Select>
-                                                </div>
-                                                <div className='item-flex'>
-                                                    {/* pilih golongan_darah */}
-                                                        <label>Golongan Darah:</label>
-                                                        <Form.Select style={{"padding":"0.25rem"}} id="form-input" size="sm" value={golongan_darah} onChange={(e)=> setGolongan_darah(e.target.value)}>
-                                                            <option Value="">Pilih G_darah</option>
-                                                            <option Value="A">A</option>
-                                                            <option Value="B">B</option>
-                                                            <option Value="AB">AB</option>
-                                                            <option Value="O">O</option>
+                                                    </div>
+                                                    {/* pilih Kamar */}
+                                                    <div className='item-flex'>
+                                                        <label>Kamar:</label>
+                                                        <Form.Select style={{"padding":"0.25rem"}} id="form-input" size="sm" value={kode_kamar} onChange={(e)=> setKode_kamar(e.target.value)}>
+                                                            <option value="">Pilih Kamar</option>
+                                                            {kamar.map(item => {
+                                                                return(
+                                                                    <option key={item.kode_kamar} id="form-input" value={item._id}>{item.nama_kamar}</option>
+                                                                )
+                                                            })}
                                                         </Form.Select>
-                                                </div>
+                                                    </div>
                                             </div><br/>
+                                                <div className="d-flex flex-row justify-content-between">
+                                                    <div className='item-flex'>
+                                                        {/* pilih penyakit */}
+                                                            <label>Penyakit:</label>
+                                                            <Form.Select style={{"padding":"0.25rem"}} id="form-input" size="sm" value={kode_penyakit} onChange={(e)=> setKode_penyakit(e.target.value)}>
+                                                                <option value="-">Pilih Penyakit</option>
+                                                                {penyakit.map(item => {
+                                                                    return(
+                                                                        <option key={item._id} value={item._id}>{item.nama_penyakit}</option>
+                                                                    )
+                                                                })}
+                                                            </Form.Select>
+                                                    </div>
+                                                    <div className='item-flex'>
+                                                        {/* pilih golongan_darah */}
+                                                            <label>Golongan Darah:</label>
+                                                            <Form.Select style={{"padding":"0.25rem"}} id="form-input" size="sm" value={golongan_darah} onChange={(e)=> setGolongan_darah(e.target.value)}>
+                                                                <option Value="">Pilih G_darah</option>
+                                                                <option Value="A">A</option>
+                                                                <option Value="B">B</option>
+                                                                <option Value="AB">AB</option>
+                                                                <option Value="O">O</option>
+                                                            </Form.Select>
+                                                    </div>
+                                                </div><br/>
 
-                                        {/* alamat */}
-                                        <label>Alamat:</label> 
-                                        <Form.Control style={{"padding":"0.25rem"}} id="form-input" type="text" value={alamat} onChange={(e)=> setAlamat(e.target.value)} placeholder="alamat" /><br/>
+                                            {/* alamat */}
+                                            <label>Alamat:</label> 
+                                            <Form.Control style={{"padding":"0.25rem"}} id="form-input" type="text" value={alamat} onChange={(e)=> setAlamat(e.target.value)} placeholder="alamat" /><br/>
 
-                                        <div className="d-flex flex-row-reverse">
-                                            <div className="p-2"><button type="submit" className="btn btn-primary" size="sm">Tambah</button></div>
-                                            <div className="p-2"><Link to={`/pasien`} className="btn btn-primary" >Batal</Link>{' '}</div>
+                                            <div className="d-flex flex-row-reverse">
+                                                <div className="p-2"><button type="submit" className="btn btn-primary" size="sm">Tambah</button></div>
+                                                <div className="p-2"><Link to={`/pasien`} className="btn btn-primary" >Batal</Link>{' '}</div>
+                                            </div>
                                         </div>
-                                    </div>
-                                </Form>
+                                    </Form>
+                        </div>
                     </div>
                 </div>
             </div>

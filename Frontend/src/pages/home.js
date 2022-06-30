@@ -71,55 +71,51 @@ function Home(){
                     <h3 id="date">{showDate()}</h3>
                 <br/>
                 <div className="d-flex justify-content-between">
-                    <div className="p-1 col-example text-left">
-                        {/* Card header total transaksi */}
-                        <Card.Header style={{ width: '15rem' }}  >
-                            <h4 style={{color:'#FFD700'}}>Total Transaksi</h4>
-                            <div className="d-flex justify-content-start">
-                                <div className="p-2 col-example text-left"><FaIcons.FaMoneyBill style={{color:'#FFD700'}} className="iconsDs" /></div>
-                                <div className="p-2 col-example text-left"><p className="p">Rp. 20.000.000</p></div>
-                            </div>
-                        </Card.Header>
+                    <div className="flex-div">
+                        <div className="p-2 col-example text-left">
+                            {/* Card header jumlah pasien */}
+                            <Card.Header style={{'border-radius':'1rem'}}  >
+                                <h4 style={{color:'#48D1CC	',textAlign:'center'}}>Jumlah Pasien</h4>
+                                <div className="d-flex justify-content-center">
+                                    <div className="p-1 col-example text-left" ><IoIcons.IoIosPerson style={{color:'#48D1CC'}} className="iconsDs" /></div>
+                                    <div className="p-2 col-example text-left"> <p className="p"> 20 Orang</p></div>
+                                </div>
+                            </Card.Header>
+                        </div>
                     </div>
-                    <div className="p-1 col-example text-left">
-                        {/* Card header jumlah pasien */}
-                        <Card.Header style={{ width: '15rem' }}  >
-                            <h4 style={{color:'#48D1CC	'}}>Jumlah Pasien</h4>
-                            <div className="d-flex justify-content-start">
-                                <div className="p-2 col-example text-left"><IoIcons.IoIosPerson style={{color:'#48D1CC'}} className="iconsDs" /></div>
-                                <div className="p-2 col-example text-left"> <p className="p"> 20 Orang</p></div>
-                            </div>
-                        </Card.Header>
+                    <div className="flex-div">
+                        <div className="p-2 col-example text-left">
+                            {/* Card header total kamar */}
+                            <Card.Header style={{'border-radius':'1rem'}} >
+                                <h4 style={{color:'#663399',textAlign:'center'}}>Total Kamar</h4>
+                                <div className="d-flex justify-content-center">
+                                    <div className="p-1 col-example text-left"><MdIcons.MdMeetingRoom style={{color:'#663399'}} className="iconsDs" /></div>
+                                    <div className="p-2 col-example text-left"> <p className="p">120 Kamar</p></div>
+                                </div>
+                            </Card.Header>
+                        </div>
                     </div>
-                    <div className="p-1 col-example text-left">
-                        {/* Card header total kamar */}
-                        <Card.Header style={{ width: '15rem' }}  >
-                            <h4 style={{color:'#663399'}}>Total Kamar</h4>
-                            <div className="d-flex justify-content-start">
-                                <div className="p-2 col-example text-left"><MdIcons.MdMeetingRoom style={{color:'#663399'}} className="iconsDs" /></div>
-                                <div className="p-2 col-example text-left"> <p className="p">120 Kamar</p></div>
-                            </div>
-                        </Card.Header>
-                    </div>
-                    <div className="p-1 col-example text-left">
-                        {/* Card header kamar terisi */}
-                        <Card.Header style={{ width: '15rem' }}  >
-                            <h4 style={{color:'#008080'}}>Kamar Terisi</h4>
-                            <div className="d-flex justify-content-start">
-                                <div className="p-2 col-example text-left"><IoIcons.IoIosBed style={{color:'#008080'}} className="iconsDs" /></div>
-                                <div className="p-2 col-example text-left"> <p  className="p"> 20 Ruangan</p></div>
-                            </div>
-                        </Card.Header>
+                    <div className="flex-div">
+                        <div className="p-2 col-example text-left">
+                            {/* Card header kamar terisi */}
+                            <Card.Header style={{'border-radius':'1rem','text-align':'center','background-color':'#33333'}}  >
+                                <h4 style={{color:'#008080'}}>Kamar Terisi</h4>
+                                <div className="d-flex justify-content-center">
+                                    <div className="p-1 col-example text-left"><IoIcons.IoIosBed style={{color:'#008080'}} className="iconsDs" /></div>
+                                    <div className="p-2 col-example text-left"> <p  className="p"> 20 Ruangan</p></div>
+                                </div>
+                            </Card.Header>
+                        </div>
                     </div>
                 </div>
                 <br/>
                 <div className="d-flex justify-content-between">
-                    <div className="p-2 col-example text-left">
+                    <div className="flex-div">
                         <div className="d-flex flex-column">
                             <div className="p-2 col-example text-left">
                                 {/* Card  Kamar Terisi*/}
-                                <p className='p'>Kamar Terisi</p>
-                                <Card.Header style={{ width: '18rem' }} className="cardh">
+                                <p className='p' style={{textAlign:'center'}} >Kamar Terisi</p>
+                                <Card.Header className="cardh" style={{'border-radius':'1rem'}}>
                                     <ListGroup variant="flush">
                                         <ListGroup.Item>
                                             <div className="d-flex justify-content-between">
@@ -144,8 +140,8 @@ function Home(){
                             </div><br/>
                             <div className="p-2 col-example text-left">
                             {/* Card  Jumlah Pasien*/}
-                            <p className='p'>Jumlah Pasien</p>
-                                <Card.Header style={{ width: '18rem' }} className="cardh">
+                            <p className='p' style={{textAlign:'center'}}>Jumlah Pasien</p>
+                                <Card.Header className="cardh" style={{'border-radius':'1rem'}}>
                                     <ListGroup variant="flush">
                                         <ListGroup.Item>
                                             <div className="d-flex justify-content-between">
@@ -164,12 +160,12 @@ function Home(){
                             </div>
                         </div>
                     </div>
-                    <div className="p-2 col-example text-left">
+                    <div className="flex-div">
                     <div className="d-flex flex-column">
                             <div className="p-2 col-example text-left">
                                 {/* Card  Urutan Penyakit Terbanyak*/}
-                                <p className='p'>Urutan Penyakit Terbanyak</p>
-                                <Card.Header style={{ width: '18rem' }} className="cardh">
+                                <p className='p' style={{textAlign:'center'}}>Urutan Penyakit Terbanyak</p>
+                                <Card.Header  className="cardh" style={{'border-radius':'1rem'}}>
                                     <ListGroup variant="flush">
                                         <ListGroup.Item>
                                             <div className="d-flex justify-content-between">
@@ -194,8 +190,8 @@ function Home(){
                             </div><br/>
                             <div className="p-2 col-example text-left">
                             {/* Card Nama Dokter*/}
-                            <p className='p'>Nama Dokter</p>
-                                <Card.Header style={{ width: '18rem' }} className="cardh">
+                            <p className='p' style={{textAlign:'center'}}>Nama Dokter</p>
+                                <Card.Header  className="cardh" style={{'border-radius':'1rem'}}>
                                     <ListGroup variant="flush">
                                         <ListGroup.Item>
                                             <div className="d-flex justify-content-start">
@@ -220,43 +216,47 @@ function Home(){
                             </div>
                         </div>
                     </div>
-                    <div className="p-2 col-example text-left"><br/>
-                    {/* Card Jumlah kamar*/}
-                    <p className='p'>Jumlah Kamar</p>
-                    <Card.Header style={{ width: '18rem' }} className="cardh">
-                        <ListGroup variant="flush">
-                            <ListGroup.Item>
-                                <div className="d-flex justify-content-between">
-                                    <div className="p-1 col-example text-left" style={{fontSize: '18px'}}>Ruang Inap 1</div>
-                                    <div className="p-1 col-example text-left" style={{color:'#40E0D0	'}}><h5>50</h5></div>
-                                </div>
-                            </ListGroup.Item>
-                            <ListGroup.Item>
-                                <div className="d-flex justify-content-between">
-                                    <div className="p-1 col-example text-left" style={{fontSize: '18px'}}>  Ruang Inap 2</div>
-                                    <div className="p-1 col-example text-left" style={{color:'#6A5ACD	'}}><h5>40</h5></div>
-                                </div>
-                            </ListGroup.Item>
-                            <ListGroup.Item>
-                                <div className="d-flex justify-content-between">
-                                    <div className="p-1 col-example text-left" style={{fontSize: '18px'}}>VVIP 1</div>
-                                    <div className="p-1 col-example text-left" style={{color:'#EE82EE	'}}><h5>30</h5></div>
-                                </div>
-                            </ListGroup.Item>
-                            <ListGroup.Item>
-                                <div className="d-flex justify-content-between">
-                                    <div className="p-1 col-example text-left" style={{fontSize: '18px'}}>VVIP 2</div>
-                                    <div className="p-1 col-example text-left" style={{color:'#EE82EE	'}}><h5>20</h5></div>
-                                </div>
-                            </ListGroup.Item>
-                            <ListGroup.Item>
-                                <div className="d-flex justify-content-between">
-                                    <div className="p-1 col-example text-left" style={{fontSize: '18px'}}>VVIP 3</div>
-                                    <div className="p-1 col-example text-left" style={{color:'#EE82EE	'}}><h5>10</h5></div>
-                                </div>
-                            </ListGroup.Item>
-                        </ListGroup>
-                    </Card.Header>
+                    <div className="flex-div">
+                        <div className="d-flex flex-column">
+                            <div className="p-2 col-example text-left">
+                                {/* Card Jumlah kamar*/}
+                                <p className='p' style={{textAlign:'center'}}>Jumlah Kamar</p>
+                                <Card.Header  className="cardh" style={{'border-radius':'1rem'}}>
+                                    <ListGroup variant="flush">
+                                        <ListGroup.Item>
+                                            <div className="d-flex justify-content-between">
+                                                <div className="p-2 col-example text-left" style={{fontSize: '18px'}}>Ruang Inap 1</div>
+                                                <div className="p-2 col-example text-left" style={{color:'#40E0D0	'}}><h5>50</h5></div>
+                                            </div>
+                                        </ListGroup.Item>
+                                        <ListGroup.Item>
+                                            <div className="d-flex justify-content-between">
+                                                <div className="p-2 col-example text-left" style={{fontSize: '18px'}}>  Ruang Inap 2</div>
+                                                <div className="p-2 col-example text-left" style={{color:'#6A5ACD	'}}><h5>40</h5></div>
+                                            </div>
+                                        </ListGroup.Item>
+                                        <ListGroup.Item>
+                                            <div className="d-flex justify-content-between">
+                                                <div className="p-2 col-example text-left" style={{fontSize: '18px'}}>VVIP 1</div>
+                                                <div className="p-2 col-example text-left" style={{color:'#EE82EE	'}}><h5>30</h5></div>
+                                            </div>
+                                        </ListGroup.Item>
+                                        <ListGroup.Item>
+                                            <div className="d-flex justify-content-between">
+                                                <div className="p-2 col-example text-left" style={{fontSize: '18px'}}>VVIP 2</div>
+                                                <div className="p-2 col-example text-left" style={{color:'#EE82EE	'}}><h5>20</h5></div>
+                                            </div>
+                                        </ListGroup.Item>
+                                        <ListGroup.Item>
+                                            <div className="d-flex justify-content-between">
+                                                <div className="p-2 col-example text-left" style={{fontSize: '18px'}}>VVIP 3</div>
+                                                <div className="p-2 col-example text-left" style={{color:'#EE82EE	'}}><h5>10</h5></div>
+                                            </div>
+                                        </ListGroup.Item>
+                                    </ListGroup>
+                                </Card.Header>
+                            </div>
+                        </div>
                 </div>
             </div>
         </div>
