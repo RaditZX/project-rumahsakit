@@ -158,8 +158,10 @@ function Penyakit(){
                                                 <td>{list.harga_obat}</td>
                                                 {role === 'admin' &&
                                                 <td>
-                                                    <Link to={`penyakit/edit/${list._id}`} className="btn btn-outline-primary"><MdIcons.MdEdit /></Link>
-                                                    <button type="submit" className="btn btn-outline-danger" onClick={() => deletePenyakit(list._id)}><MdIcons.MdDelete /></button>
+                                                    <div className="d-flex justify-content-center">
+                                                        <div className="p-2 col-example text-left"><Link to={`penyakit/edit/${list._id}`} className="btn btn-outline-primary"><MdIcons.MdEdit /></Link></div>
+                                                        <div className="p-2 col-example text-left"><button type="submit" className="btn btn-outline-danger" onClick={() => deletePenyakit(list._id)}><MdIcons.MdDelete /></button></div>
+                                                    </div>
                                                 </td>
                                                 }
                                             </tr>

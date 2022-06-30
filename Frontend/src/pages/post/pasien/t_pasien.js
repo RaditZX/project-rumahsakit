@@ -146,6 +146,7 @@ function T_pasien() {
         return <Redirect to='/pasien'/>
     }
     else {
+         // form tambah data pasien admin 
         return(
             <div className="container">
                 <div className="row"  style={{"padding-top":"2rem"}}>
@@ -232,8 +233,6 @@ function T_pasien() {
                                         </div>
                                     </div>
                                 </Form>
-
-
                     </div>
                 </div>
             </div>

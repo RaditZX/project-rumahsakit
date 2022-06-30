@@ -57,6 +57,7 @@ function Register() {
         })
         .then(res => {
             console.log(res.data);
+            history.push('/');
         })
         .catch(err => {
             console.log(err);
@@ -78,9 +79,9 @@ function Register() {
                                 <Form onSubmit={handleSubmit}>
                                     <input type="text" id="form-input" className="form-control" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)}/>
                                     <input style={{"margin-top":"1rem"}} id="form-input" type="password" className="form-control" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)}/>
-                                    <button style={{"margin-top":"1rem"}} type="submit" className="btn btn-primary">Login</button>
+                                    <button style={{"margin-top":"1rem"}} type="submit" className="btn btn-primary">Register</button>
                                 </Form>
-                                    <Link to={'/'} style={{"margin-top":"1rem"}} type="submit" className="btn btn-primary">Login</Link>
+                                    <Link to={'/'} style={{"margin-top":"1rem"}} type="submit" className="btn btn-primary">Back</Link>
                             </div>
                         </div>
                 </div>

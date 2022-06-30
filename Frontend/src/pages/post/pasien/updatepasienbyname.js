@@ -6,8 +6,6 @@ import "../../../App.css";
 //boostrap react
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-//import css
-
 //import component react-bootstrap
 import {Card} from "react-bootstrap";
 import {ListGroup} from "react-bootstrap"; 
@@ -131,6 +129,7 @@ function U_pasienbyname() {
         })
     }
 
+     // form edit data pasien user
     return(
         <div className="container">
             <div className="row"  style={{"padding-top":"2rem"}}>
@@ -217,8 +216,6 @@ function U_pasienbyname() {
                                     </div>
                                 </div>
                             </Form>
-
-
                 </div>
             </div>
         </div>

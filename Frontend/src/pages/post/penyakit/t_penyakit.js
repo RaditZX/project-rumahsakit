@@ -74,6 +74,7 @@ function T_penyakit() {
         return <Redirect to='/pasien'/>
     }
     else {
+        // form tambah data penyakit
         return(
             <div className="container">
                 <div className="row"  style={{"padding-top":"5rem"}}>
@@ -89,15 +90,15 @@ function T_penyakit() {
                                         <Form.Control style={{"padding":"0.25rem"}} id="form-input" type="text" value={deskripsi} onChange={(e) => setDeskripsi(e.target.value)} placeholder="no telepon" /><br/>
                                         {/* tanggal daftar */}
                                         <label>Obat</label>
-                                        <Form.Control style={{"padding":"0.25rem"}} id="form-input" type="text" value={obat} onChange={(e)=> setobat(e.target.value)} placeholder="name@example.com" /> <br/>
+                                        <Form.Control style={{"padding":"0.25rem"}} id="form-input" type="text" value={obat} onChange={(e)=> setobat(e.target.value)} placeholder="nama obat" /> <br/>
                                        
                                         {/* alamat */}
                                         <label>Harga Obat:</label> 
-                                        <Form.Control style={{"padding":"0.25rem"}} id="form-input" type="text" value={harga_obat} onChange={(e)=> setHarga_obat(e.target.value)} placeholder="alamat" /><br/>
+                                        <Form.Control style={{"padding":"0.25rem"}} id="form-input" type="text" value={harga_obat} onChange={(e)=> setHarga_obat(e.target.value)} placeholder="harga" /><br/>
 
                                         <div className="d-flex flex-row-reverse">
                                             <div className="p-2"><button type="submit" className="btn btn-primary" size="sm">Tambah</button></div>
-                                            <div className="p-2"><Link to={`/pasien`} className="btn btn-primary" >Batal</Link>{' '}</div>
+                                            <div className="p-2"><Link to={`/penyakit`} className="btn btn-primary" >Batal</Link>{' '}</div>
                                         </div>
                                     </div>
                                 </Form>

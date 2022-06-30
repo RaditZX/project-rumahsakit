@@ -11,8 +11,6 @@ import { SidebarData,SidebarAdmin,logout,SidebarPasien }from './sidebar';
 //import css
 import '../App.css';
 
-
-
 function Navbar() {
     const [sidebar, setSidebar] = useState(false);
     const showSidebar = () => setSidebar(!sidebar);
@@ -52,6 +50,7 @@ function Navbar() {
                     </div>
                     {SidebarData.map((item, index) => {
                         return(
+                            // aturan menu sidebar
                             <li key={index} className={item.cName}>
                                 <Link to={item.path}>
                                   {item.icon}<p>ㅤ</p>
@@ -61,8 +60,10 @@ function Navbar() {
                         )
                     })}
 
+                     {/* role pasien */}
                      {role === 'pasien' ? 
                             <li className='nav-text'>
+                                {/* edit data auth pasien */}
                                 <Link to={`/pasien/Editdata/${nama}`}>
                                     <IoIcons.IoIosPerson/><p>ㅤ</p>
                                     Edit data
@@ -71,6 +72,7 @@ function Navbar() {
                         
                     : null} 
 
+                    {/* role admin dan perawat */}
                     {role === 'admin'|| role === 'perawat' ? SidebarAdmin.map((item, index) => {
                         return(
                             <li key={index} className={item.cName}>

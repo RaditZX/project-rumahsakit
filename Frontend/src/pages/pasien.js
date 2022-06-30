@@ -89,14 +89,14 @@ function Pasien(){
 
     const pdfDownload = (nama,jenis_kelamin,biaya,penyakit,kamar,biaya_perawatan,biayaTotal) => {
         var doc = new jsPDF();
-        doc.text(20, 20, 'Pasien');
-        doc.text(20, 30, 'Nama : '+nama);
-        doc.text(20, 40, 'Jenis Kelamin : '+jenis_kelamin);
-        doc.text(20, 50, 'penyakit : '+penyakit);
-        doc.text(20, 60, 'Kamar : '+kamar);
-        doc.text(20, 70, 'Biaya Perawatan : '+biaya_perawatan);
-        doc.text(20, 80, 'Biaya Pengobatan : '+biaya);
-        doc.text(20, 90, 'Biaya Total : '+biayaTotal);
+        doc.text(80, 20, 'Biaya Total Pasien');
+        doc.text(20, 40, 'Nama :' +nama);
+        doc.text(20, 50, 'Jenis Kelamin :'+jenis_kelamin);
+        doc.text(20, 60, 'penyakit :'+penyakit);
+        doc.text(20, 70, 'Kamar :'+kamar);
+        doc.text(20, 80, 'Biaya Perawatan  :'+biaya_perawatan);
+        doc.text(20, 90, 'Biaya Pengobatan :'+biaya);
+        doc.text(20, 100, 'Biaya Total :'+biayaTotal);
         doc.save('Pasien.pdf');
 
     }
@@ -217,22 +217,25 @@ function Pasien(){
                                             : null}
                                             {role === 'admin' &&
                                             <td>
-                                                <Link to={`pasien/edit/${pasien._id}`} className="btn btn-outline-primary"><MdIcons.MdEdit /></Link>
-                                                <button type="submit" className="btn btn-outline-danger" onClick={() => deletePasien(pasien._id)}><MdIcons.MdDelete /></button>
+                                                <div className="d-flex justify-content-center">
+                                                    <div className="p-2 col-example text-left"><Link to={`pasien/edit/${pasien._id}`} className="btn btn-outline-primary"><MdIcons.MdEdit /></Link></div>
+                                                    <div className="p-2 col-example text-left"><button type="submit" className="btn btn-outline-danger" onClick={() => deletePasien(pasien._id)}><MdIcons.MdDelete /></button></div>
+                                                
                                             {pasien.penyakit.map((penyakit,index)  => {
                                                 return(
                                                     pasien.kamar.map((kamar,index) => {
                                                          return(
                                                             pasien.biaya.map((biaya,index) => {
                                                                 return(
-                                                                    <button type="submit" className="btn btn-outline-danger" onClick={()=>pdfDownload(pasien.nama,pasien.jenis_kelamin,pasien.biaya_perawatan+pasien.biaya_obat+pasien.biaya_kamar,penyakit.nama_penyakit,kamar.nama_kamar,biaya.harga,biaya.harga+pasien.biaya_perawatan+pasien.biaya_obat+pasien.biaya_kamar)}><MdIcons.MdDownload /></button>
+                                                                    <div className="p-2 col-example text-left"><button type="submit" className="btn btn-outline-danger" onClick={()=>pdfDownload(pasien.nama,pasien.jenis_kelamin,pasien.biaya_perawatan+pasien.biaya_obat+pasien.biaya_kamar,penyakit.nama_penyakit,kamar.nama_kamar,biaya.harga,biaya.harga+pasien.biaya_perawatan+pasien.biaya_obat+pasien.biaya_kamar)}><MdIcons.MdDownload /></button></div>
+                                                                    
                                                                 )
                                                                 })
                                                             )
                                                         })
                                                      )
                                             })}
-                                           
+                                           </div>
                                             </td>
                                              }
                                         </tr>

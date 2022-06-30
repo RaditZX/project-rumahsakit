@@ -88,6 +88,7 @@ function U_penyakit() {
         return <Redirect to='/pasien'/>
     }
     else {
+         // form edit data penyakit
         return(
             <div className="container">
                 <div className="row"  style={{"padding-top":"5rem"}}>
@@ -111,7 +112,7 @@ function U_penyakit() {
 
                                         <div className="d-flex flex-row-reverse">
                                             <div className="p-2"><button type="submit" className="btn btn-primary" size="sm">Tambah</button></div>
-                                            <div className="p-2"><Link to={`/pasien`} className="btn btn-primary" >Batal</Link>{' '}</div>
+                                            <div className="p-2"><Link to={`/penyakit`} className="btn btn-primary" >Batal</Link>{' '}</div>
                                         </div>
                                     </div>
                                 </Form>

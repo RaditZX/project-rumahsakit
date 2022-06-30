@@ -80,11 +80,12 @@ function U_biaya() {
         return <Redirect to='/pasien' />
     }
     else {
+         // form edit data biaya
         return(
             <div className="container">
                 <div className="row"  style={{"padding-top":"5rem"}}>
                     <div className="box">
-                        <h1>Penyakit</h1>
+                        <h1>Biaya</h1>
                              <Form onSubmit={handleSubmit}>
                                     <div className="d-flex flex-column">
                                         {/* nama */}
@@ -96,7 +97,7 @@ function U_biaya() {
 
                                         <div className="d-flex flex-row-reverse">
                                             <div className="p-2"><button type="submit" className="btn btn-primary" size="sm">Tambah</button></div>
-                                            <div className="p-2"><Link to={`/pasien`} className="btn btn-primary" >Batal</Link>{' '}</div>
+                                            <div className="p-2"><Link to={`/biaya`} className="btn btn-primary" >Batal</Link>{' '}</div>
                                         </div>
                                     </div>
                              </Form>
