@@ -74,6 +74,9 @@ function T_penyakit() {
         return <Redirect to='/pasien'/>
     }
     else {
+        if (localStorage.getItem('token') === null){
+            history.push('/');
+        }
         // form tambah data penyakit
         return(
             <div className="container">

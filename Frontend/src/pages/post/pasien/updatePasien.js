@@ -128,7 +128,10 @@ function U_pasien() {
         })
     }
 
-     // form edit data pasien admin
+    if (localStorage.getItem('token') === null){
+        history.push('/');
+    } 
+    // form edit data pasien admin
     return(
         <div className="container">
                 <div className="d-flex justify-content-center">
@@ -211,7 +214,7 @@ function U_pasien() {
                                             <Form.Control style={{"padding":"0.25rem"}} id="form-input" type="text" value={alamat} onChange={(e)=> setAlamat(e.target.value)} placeholder="alamat" /><br/>
 
                                             <div className="d-flex flex-row-reverse">
-                                                <div className="p-2"><button type="submit" className="btn btn-primary" size="sm">Tambah</button></div>
+                                                <div className="p-2"><button type="submit" className="btn btn-primary" size="sm">Simpan</button></div>
                                                 <div className="p-2"><Link to={`/pasien`} className="btn btn-primary" >Batal</Link>{' '}</div>
                                             </div>
                                         </div>

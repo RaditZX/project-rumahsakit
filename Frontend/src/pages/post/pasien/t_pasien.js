@@ -146,6 +146,9 @@ function T_pasien() {
         return <Redirect to='/pasien'/>
     }
     else {
+        if (localStorage.getItem('token') === null){
+            history.push('/');
+        }
          // form tambah data pasien admin 
         return(
             <div className="container">

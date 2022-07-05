@@ -74,6 +74,9 @@ function T_kamar() {
         
     }
     else{
+        if (localStorage.getItem('token') === null){
+            history.push('/');
+        }
         // Tambah Kamar
         return(
             <div className="container">

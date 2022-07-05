@@ -18,6 +18,9 @@ import {Pagination} from 'react-bootstrap';
 import * as BsIcons from 'react-icons/bs';
 import * as MdIcons from 'react-icons/md';
 
+//import alert
+import {confirmAlert} from 'react-confirm-alert';
+
 function Kamar(){
     const [kamar,setKamar] = useState([]);
     const [search,setSearch] = useState('');
@@ -75,25 +78,39 @@ function Kamar(){
     }
 
     const deleteKamar = (id) => {
-      if(window.confirm('Are you sure?')){
-        axios.delete(`http://localhost:3000/kamar/${id}`,{
-            headers: {
-                "x-access-token": localStorage.getItem('token')
-            }})
-        .then(res => {
-            console.log(res.data);
-            getKamar();
-        })
-        .catch(err => {
-            console.log(err);
-        })
-      }
+        confirmAlert({
+            title: 'Delete',
+            message: 'Are you sure you want to delete this item?',
+            buttons: [
+                {
+                    label: 'Yes',
+                    onClick: () => {
+                        axios.delete(`http://localhost:3000/kamar/${id}`,{
+                            headers: {
+                                "x-access-token": localStorage.getItem('token')
+                            }})
+                        .then(res => {
+                            console.log(res.data);
+                            getKamar();
+                        })
+                        .catch(err => {
+                            console.log(err);
+                        })
+                      }
+                },
+                {
+                    label: 'No'
+                }
+            ]});
     }
 
     if (role === 'pasien'){
         return <Redirect to='/' />
     }
     else {
+        if (localStorage.getItem('token') === null){
+            history.push('/');
+        }
         return(
             <div>
                 <Navbar />

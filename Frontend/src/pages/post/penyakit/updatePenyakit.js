@@ -88,6 +88,9 @@ function U_penyakit() {
         return <Redirect to='/pasien'/>
     }
     else {
+        if (localStorage.getItem('token') === null){
+            history.push('/');
+        }
          // form edit data penyakit
         return(
             <div className="container">

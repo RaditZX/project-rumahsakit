@@ -80,6 +80,10 @@ function Profile(){
         autorization();
     },[])
 
+    if (localStorage.getItem('token') === null){
+        history.push('/');
+    }
+
     return(
         <div className="home">
             <Navbar />

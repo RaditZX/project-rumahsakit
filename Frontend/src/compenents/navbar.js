@@ -3,6 +3,9 @@ import React, { useState,useEffect } from 'react';
 import {useHistory} from 'react-router-dom';
 import {NavLink,Link} from 'react-router-dom';
 import axios from 'axios';
+import { confirmAlert } from 'react-confirm-alert';
+import "react-confirm-alert/src/react-confirm-alert.css";
+
 
 //import icons
 import * as IoIcons from 'react-icons/io';
@@ -40,12 +43,24 @@ function Navbar() {
     },[])
 
     const Logout = () => {
-        if(window.confirm('Apakah anda yakin ingin keluar?')){
-        localStorage.removeItem('token');
-        localStorage.removeItem('id');
-        localStorage.removeItem('name');
-        history.push('/');
-        }
+        confirmAlert({
+            title: 'Logout',
+            message: 'Apakah anda yakin akan keluar?',
+            buttons: [
+              {
+                label: 'Ya',
+                onClick: () => {
+                    localStorage.removeItem('token');
+                    localStorage.removeItem('id');
+                    localStorage.removeItem('name');
+                    history.push('/');
+                    }
+              },
+              {
+                label: 'Tidak'
+              }
+            ]
+          });
     }
     return(
     <div>
@@ -67,19 +82,7 @@ function Navbar() {
                         )
                     })}
 
-                     {role === 'pasien' ? 
-                        <div className='nav-items'>
-                            <li className='nav-text'>
-                                <div className='icon'>
-                                    <NavLink to={`/pasien/Editdata/${nama}`} activeClassName='is-active'>
-                                        <AiIcons.AiFillEdit/><p>ㅤ</p>
-                                        Edit data
-                                    </NavLink>
-                                </div>
-                            </li>
-                        </div>
-                        
-                    : null} 
+                    
 
                     {role === 'admin'|| role === 'perawat' ? SidebarAdmin.map((item, index) => {
                         return(

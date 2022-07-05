@@ -92,6 +92,9 @@ function U_kamar() {
         return <Redirect to='/pasien'/>
     }
     else{
+        if (localStorage.getItem('token') === null){
+            history.push('/');
+        }
         //Edit Data kamar
         return(
             <div className="container">

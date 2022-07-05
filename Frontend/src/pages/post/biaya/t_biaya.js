@@ -69,6 +69,10 @@ function T_biaya() {
         return <Redirect to='/pasien' />
     }
     else {
+
+        if (localStorage.getItem('token') === null){
+            history.push('/');
+        }
         //tambah biaya
         return(
             <div className="container">

@@ -121,6 +121,9 @@ function UpdateProfile(){
         autorization();
     },[])
 
+    if (localStorage.getItem('token') === null){
+        history.push('/');
+    }
     //profile
     return(
         <div>

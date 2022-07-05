@@ -13,7 +13,6 @@ import '../App.css';
 import {Card} from "react-bootstrap";
 import {ListGroup} from "react-bootstrap"; 
 import {Form} from "react-bootstrap"
-import lambang from "../image/icon.png";
 
 function Login() {
     const [email,setEmail] = useState('');

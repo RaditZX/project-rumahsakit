@@ -83,6 +83,9 @@ function U_biaya() {
         return <Redirect to='/pasien' />
     }
     else {
+        if (localStorage.getItem('token') === null){
+            history.push('/');
+        }
          // form edit data biaya
         return(
             <div className="container">

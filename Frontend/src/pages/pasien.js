@@ -20,6 +20,8 @@ import 'jspdf-autotable';
 import * as BsIcons from 'react-icons/bs';
 import * as MdIcons from 'react-icons/md';
 
+import {confirmAlert} from 'react-confirm-alert';
+
 function Pasien(){
     const [pasien,setPasien] = useState([]);
     const [search,setSearch] = useState('');
@@ -79,18 +81,30 @@ function Pasien(){
             console.log(err);
         })
     }
+
     const deletePasien = (id) => {
-        if (window.confirm('Are you sure you want to delete this item?')) {
-            axios.delete(`http://localhost:3000/pasien/${id}`)
-            .then(res => {
-                console.log(res.data);
-                getPasien();
-            })
-            .catch(err => {
-                console.log(err);
-            })
-        }      
-    }
+        confirmAlert({
+            title: 'Delete',
+            message: 'Are you sure you want to delete this item?',
+            buttons: [
+                {
+                    label: 'Yes',
+                    onClick: () => {
+                        axios.delete(`http://localhost:3000/pasien/${id}`)
+                        .then(res => {
+                            console.log(res.data);
+                            getPasien();
+                        })
+                        .catch(err => {
+                            console.log(err);
+                        })
+                    }      
+                },
+                {
+                    label: 'No'
+                }
+            ]});
+         }
 
     //file pdf
     const pdfDownload = (nama,jenis_kelamin,biaya,penyakit,kamar,biaya_perawatan,biayaTotal) => {
@@ -106,6 +120,11 @@ function Pasien(){
         doc.save('Pasien.pdf');
 
     }
+
+    if (localStorage.getItem('token') === null){
+        history.push('/');
+    }
+    
     return(
         <>
             <Navbar />

@@ -17,6 +17,9 @@ import * as BsIcons from 'react-icons/bs';
 import * as MdIcons from 'react-icons/md';
 import CurrencyFormat from 'react-currency-format';
 
+//import alert
+import {confirmAlert} from 'react-confirm-alert';
+
 function Penyakit(){
     const [penyakit,setPenyakit] = useState([]);
     const [search,setSearch] = useState('');
@@ -59,19 +62,30 @@ function Penyakit(){
     }
 
     const deletePenyakit = (id) => {
-        if(window.confirm('Are you sure?')){
-            axios.delete(`http://localhost:3000/penyakit/${id}`,{
-                headers: {
-                    "x-access-token": localStorage.getItem('token')
-                }})
-            .then(res => {
-                console.log(res.data);
-                getPenyakit();
-            })
-            .catch(err => {
-                console.log(err);
-            })
-        }
+        confirmAlert({
+            title: 'Delete',
+            message: 'Are you sure you want to delete this item?',
+            buttons: [
+                {
+                    label: 'Yes',
+                    onClick: () => {
+                        axios.delete(`http://localhost:3000/penyakit/${id}`,{
+                            headers: {
+                                "x-access-token": localStorage.getItem('token')
+                            }})
+                        .then(res => {
+                            console.log(res.data);
+                            getPenyakit();
+                        })
+                        .catch(err => {
+                            console.log(err);
+                        })
+                    }
+                },
+                {
+                    label: 'No'
+                }
+            ]});
     }
     const autorization = () => {
         axios.get(`http://localhost:3000/authenticated`,{
@@ -93,6 +107,9 @@ function Penyakit(){
         return <Redirect to='/pasien'/>
     }
     else {
+        if (localStorage.getItem('token') === null){
+            history.push('/');
+        }
         return(
             <div>
                 <Navbar />

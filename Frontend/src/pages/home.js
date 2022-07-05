@@ -25,6 +25,7 @@ function Home(){
                 "x-access-token": localStorage.getItem('token')
             }})
         .then(res => {
+            console.log(res.data.auth);
             if(res.data.auth === false){
                 history.push('/');
             }
@@ -61,6 +62,10 @@ function Home(){
         return date;
     }
 
+    if (localStorage.getItem('token') === null){
+        history.push('/');
+    }
+
     return(
         <div className="home">
             <Navbar /> 
@@ -69,7 +74,7 @@ function Home(){
                 <div className="header">
                     <h1>Welcome {name}</h1>
                     <h3 id="date">{showDate()}</h3>
-                <br/>
+                <br/><br/>
                 <div className="d-flex justify-content-between">
                     <div className="flex-div">
                         <div className="p-2 col-example text-left">
@@ -98,7 +103,7 @@ function Home(){
                     <div className="flex-div">
                         <div className="p-2 col-example text-left">
                             {/* Card header kamar terisi */}
-                            <Card.Header style={{'border-radius':'1rem','text-align':'center','background-color':'#33333'}}  >
+                            <Card.Header style={{'border-radius':'1rem','text-align':'center','background-color':'#33333'}}   >
                                 <h4 style={{color:'#008080'}}>Kamar Terisi</h4>
                                 <div className="d-flex justify-content-center">
                                     <div className="p-1 col-example text-left"><IoIcons.IoIosBed style={{color:'#008080'}} className="iconsDs" /></div>
@@ -108,7 +113,7 @@ function Home(){
                         </div>
                     </div>
                 </div>
-                <br/>
+                <br/><br/>
                 <div className="d-flex justify-content-between">
                     <div className="flex-div">
                         <div className="d-flex flex-column">
